@@ -1,0 +1,5 @@
+<%= form_for([ @post, Response.new ], remote: true) do |form| %>
+  Your response:<br>
+  <%= form.text_area :body, size: '50x20' %><br>
+  <%= form.submit %>
+<% end %>
