@@ -1,5 +1,8 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+
+
+
+  before_action :set_post, :require_user, only: [:show, :edit, :update, :destroy]
 
   # GET /posts
   # GET /posts.json
@@ -14,7 +17,9 @@ class PostsController < ApplicationController
 
   # GET /posts/new
   def new
+
     @post = Post.new
+
   end
 
   # GET /posts/1/edit
@@ -24,12 +29,16 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
+
+
     @post = Post.new(post_params)
 
     respond_to do |format|
       if @post.save
-        format.html { redirect_to @post, notice: 'Post was successfully created.' }
+
+        format.html { redirect_to @post, notice: 'Post was successfully created.'}
         format.json { render :show, status: :created, location: @post }
+
       else
         format.html { render :new }
         format.json { render json: @post.errors, status: :unprocessable_entity }
@@ -44,6 +53,7 @@ class PostsController < ApplicationController
       if @post.update(post_params)
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
         format.json { render :show, status: :ok, location: @post }
+
       else
         format.html { render :edit }
         format.json { render json: @post.errors, status: :unprocessable_entity }
@@ -69,6 +79,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :offering, :body)
+      params.require(:post).permit(:title, :offering, :body, :whos_traveling, :budget, :travel_dates, :destination, :booking_links, :user_id)
     end
 end

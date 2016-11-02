@@ -3,6 +3,7 @@ class CreatePosts < ActiveRecord::Migration
     create_table :posts do |t|
       t.string :title
       t.string :offering
+      t.string :who_is_traveling
       t.text :body
 
       t.timestamps null: false

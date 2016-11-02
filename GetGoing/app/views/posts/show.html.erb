@@ -10,9 +10,41 @@
   <%= @post.offering %>
 </p>
 
+
+
 <p>
   <strong>Body:</strong>
   <%= @post.body %>
+</p>
+
+<p>
+  <strong>Who Is Traveling:</strong>
+  <%= @post.whos_traveling %>
+</p>
+
+<p>
+  <strong>Budget:</strong>
+  <%= @post.budget %>
+</p>
+
+<p>
+  <strong>Travel Dates:</strong>
+  <%= @post.travel_dates %>
+</p>
+
+<p>
+  <strong>Destination:</strong>
+  <%= @post.destination %>
+</p>
+
+<p>
+  <strong>Booking Links?:</strong>
+  <%= @post.booking_links %>
+</p>
+
+<p>
+  <strong>Posted By</strong>
+<li><%=  @post.user_id %></li>
 </p>
 
 <%= link_to 'Edit', edit_post_path(@post) %> |

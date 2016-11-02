@@ -11,15 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160829000820) do
+ActiveRecord::Schema.define(version: 20161101002138) do
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
     t.string   "offering"
+    t.string   "who_is_traveling"
     t.text     "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "whos_traveling"
+    t.string   "budget"
+    t.string   "travel_dates"
+    t.string   "destination"
+    t.string   "booking_links"
+    t.integer  "user_id"
   end
+
+  add_index "posts", ["user_id"], name: "index_posts_on_user_id"
 
   create_table "responses", force: :cascade do |t|
     t.integer  "post_id"
@@ -29,5 +38,23 @@ ActiveRecord::Schema.define(version: 20160829000820) do
   end
 
   add_index "responses", ["post_id"], name: "index_responses_on_post_id"
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "post_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "tags", ["post_id"], name: "index_tags_on_post_id"
+
+  create_table "users", force: :cascade do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.string   "password_digest"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
 
 end

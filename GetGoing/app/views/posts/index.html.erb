@@ -1,6 +1,12 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Posts</h1>
+
+
+<center><h2>Planning a vacation? Get a custom itinerary for $25</h2></center>
+
+<center>Post your travel idea/requirements/budget, and for $25 get quality, custom advice and itineraries from others.</center>
+<center>Your $25 will be split among the top 3 responses that you receive.</center>
+
 
 <table>
   <thead>
@@ -8,6 +14,11 @@
       <th>Title</th>
       <th>Offering</th>
       <th>Body</th>
+      <th>Who's Traveling?</th>
+      <th>Budget</th>
+      <th>Travel Dates</th>
+      <th>Destination</th>
+      <th>Booking Links?</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -18,6 +29,11 @@
         <td><%= post.title %></td>
         <td><%= post.offering %></td>
         <td><%= post.body %></td>
+        <td><%= post.whos_traveling %></td>
+        <td><%= post.budget %></td>
+        <td><%= post.travel_dates %></td>
+        <td><%= post.destination %></td>
+        <td><%= post.booking_links %></td>
         <td><%= link_to 'Show', post %></td>
         <td><%= link_to 'Edit', edit_post_path(post) %></td>
         <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -28,4 +44,14 @@
 
 <br>
 
-<%= link_to 'New Post', new_post_path %>
+<% if current_user %>
+    <ul>
+      <%= link_to 'Post a Request', new_post_path %>
+    </ul>
+<% else %>
+    <ul>
+      <li><%= "Sign Up or Log In to Post a Request" %></a></li>
+
+    </ul>
+<% end %>
+
