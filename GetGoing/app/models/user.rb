@@ -3,5 +3,5 @@ class User < ActiveRecord::Base
   has_secure_password
 
   has_many :posts
-  has_many :response
+  has_many :responses
 end

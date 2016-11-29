@@ -44,7 +44,7 @@
 
 <p>
   <strong>Posted By</strong>
-<li><%=  @post.user_id %></li>
+<li><%=  @post.user.first_name %></li>
 </p>
 
 <%= link_to 'Edit', edit_post_path(@post) %> |

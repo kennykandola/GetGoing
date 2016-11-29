@@ -14,3 +14,9 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+$( "button#jQueryColorChange" ).click(function() {
+    $(this).toggleClass( "selected" );
+});
+
+

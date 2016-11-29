@@ -1,1 +1,18 @@
-<p><%= response.body %> -- <%= response.created_at.to_s(:long) %></p>
+<head>
+  <script>
+  $(document).ready(function (){
+
+    $( "button#jQueryColorChange" ).click(function() {     $(this).toggleClass( "selected" ); });
+  })
+</script>
+</head>
+
+
+<p><%= response.body %> -- <%= response.user.first_name %> -- <%= response.created_at.to_s(:long) %></p>
+<% if @post.user == current_user %>
+<button class="Button" id="jQueryColorChange">Make Top Response</button>
+<% else %>
+<li> </li>
+<% end %>
+
+

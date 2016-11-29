@@ -19,6 +19,7 @@
       <th>Travel Dates</th>
       <th>Destination</th>
       <th>Booking Links?</th>
+      <th>Posted By</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -34,6 +35,7 @@
         <td><%= post.travel_dates %></td>
         <td><%= post.destination %></td>
         <td><%= post.booking_links %></td>
+        <td><%= post.user.first_name  %></td>
         <td><%= link_to 'Show', post %></td>
         <td><%= link_to 'Edit', edit_post_path(post) %></td>
         <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>

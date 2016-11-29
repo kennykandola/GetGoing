@@ -2,6 +2,24 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.Button {
+  font-family: Calibri, sans-serif;
+  font-size:13px;
+  font-weight: bold;
+  width: 160px;
+  height: 25px;
+  background:grey;
+  color: white
+}
+.selected {
+  color: white;
+  background:green;
+}
+button#cssColorChange:active{
+  color: white;
+  background:red;
+}
+
 
 textarea {
   background-color: white;
