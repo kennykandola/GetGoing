@@ -4,6 +4,15 @@
 
     $( "button#jQueryColorChange" ).click(function() {     $(this).toggleClass( "selected" ); });
   })
+
+  $(document).ready(function(){
+    $(window).scroll(function(){
+      btnBottom = $(".btt").offset().top + $(".btt").outerHeight();
+      ftrTop = $(".footer").offset().top;
+      if (btnBottom > ftrTop)
+        $(".btt").css("bottom", btnBottom - ftrTop + $(".btt").outerHeight());
+    });
+  });
 </script>
 </head>
 
@@ -11,8 +20,10 @@
 <p><%= response.body %> -- <%= response.user.first_name %> -- <%= response.created_at.to_s(:long) %></p>
 <% if @post.user == current_user %>
 <button class="Button" id="jQueryColorChange">Make Top Response</button>
+<a href="#" class="btt">Submit Top Responses</a>
 <% else %>
 <li> </li>
 <% end %>
+
 
 
