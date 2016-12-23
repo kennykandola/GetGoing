@@ -6,29 +6,26 @@ class ResponsesController < ApplicationController
     @response = @post.responses.build(responses_params)
     @response.user = current_user
 
+    :top_response = false
+
     if @response.save
       redirect_to :back
     else
       render root_path
     end
 
-def top_responses
-  @response = Post.find(params[:response_id])
 
-  respond_to do |format|
-    if @top_responses.save
-
-      format.html { redirect_to @post, notice: 'Top 3 Responses were selected :)'}
     end
-
-
-  end
-end
 
 
     Responses.submitted(response).deliver_later
     redirect_to @post
   end
+
+def update
+
+##???
+end
 
   private
     def set_post
@@ -36,6 +33,6 @@ end
     end
 
   def responses_params
-    params.required(:response).permit(:body, :user_id)
+    params.required(:response).permit(:body, :user_id, :top_response)
   end
 end

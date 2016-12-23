@@ -19,4 +19,19 @@ $( "button#jQueryColorChange" ).click(function() {
     $(this).toggleClass( "selected" );
 });
 
+$(document).ready(function (){
+
+    $( "button#jQueryColorChange" ).click(function() {     $(this).toggleClass( "selected" ); });
+})
+
+$(document).ready(function(){
+    $(window).scroll(function(){
+        btnBottom = $(".btt").offset().top + $(".btt").outerHeight();
+        ftrTop = $(".footer").offset().top;
+        if (btnBottom > ftrTop)
+            $(".btt").css("bottom", btnBottom - ftrTop + $(".btt").outerHeight());
+    });
+});
+</script>
+
 

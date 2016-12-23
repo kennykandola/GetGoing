@@ -19,8 +19,11 @@
 
 <p><%= response.body %> -- <%= response.user.first_name %> -- <%= response.created_at.to_s(:long) %></p>
 <% if @post.user == current_user %>
-<button class="Button" id="jQueryColorChange">Make Top Response</button>
+<br>Make a Top Response?</br>
+<%= select_tag(:top_response, options_for_select([["No", 1],["Yes", 2]])) %>
+
 <a href="#" class="btt">Submit Top Responses</a>
+
 <% else %>
 <li> </li>
 <% end %>
