@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161222040457) do
+ActiveRecord::Schema.define(version: 20161226224940) do
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
@@ -32,24 +32,15 @@ ActiveRecord::Schema.define(version: 20161222040457) do
 
   create_table "responses", force: :cascade do |t|
     t.integer  "post_id"
-    t.text     "body"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
     t.integer  "user_id"
-    t.boolean  "top_responses"
+    t.text     "body"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "top",        default: false
   end
 
   add_index "responses", ["post_id"], name: "index_responses_on_post_id"
   add_index "responses", ["user_id"], name: "index_responses_on_user_id"
-
-  create_table "tags", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "post_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "tags", ["post_id"], name: "index_tags_on_post_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name"

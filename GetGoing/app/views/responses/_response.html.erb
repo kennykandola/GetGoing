@@ -1,32 +1,10 @@
-<head>
-  <script>
-  $(document).ready(function (){
-
-    $( "button#jQueryColorChange" ).click(function() {     $(this).toggleClass( "selected" ); });
-  })
-
-  $(document).ready(function(){
-    $(window).scroll(function(){
-      btnBottom = $(".btt").offset().top + $(".btt").outerHeight();
-      ftrTop = $(".footer").offset().top;
-      if (btnBottom > ftrTop)
-        $(".btt").css("bottom", btnBottom - ftrTop + $(".btt").outerHeight());
-    });
-  });
-</script>
-</head>
-
-
 <p><%= response.body %> -- <%= response.user.first_name %> -- <%= response.created_at.to_s(:long) %></p>
 <% if @post.user == current_user %>
-<br>Make a Top Response?</br>
-<%= select_tag(:top_response, options_for_select([["No", 1],["Yes", 2]])) %>
-
-<a href="#" class="btt">Submit Top Responses</a>
+  <br>Make a Top Response?</br>
+  <%= form_for([ @post, response], remote: true) do |f| %>
+    <%= f.select(:top, options_for_select([["No", false],["Yes", true]],response.top)) %>
+<% end %>
 
 <% else %>
 <li> </li>
 <% end %>
-
-
-

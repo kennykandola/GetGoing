@@ -2,30 +2,23 @@ class ResponsesController < ApplicationController
   before_action :set_post, :require_user
 
   def create
-
     @response = @post.responses.build(responses_params)
-    @response.user = current_user
-
-    :top_response = false
+    @response.user_id = current_user.id
 
     if @response.save
+      Responses.submitted(response).deliver_later
       redirect_to :back
     else
       render root_path
     end
-
-
-    end
-
-
-    Responses.submitted(response).deliver_later
-    redirect_to @post
   end
 
-def update
-
-##???
-end
+  def update
+    @response = Response.find(params[:id])
+    puts params
+    @response.update_attribute(:top, params[:response][:top])
+    render :nothing => true, :status => 200
+  end
 
   private
     def set_post
