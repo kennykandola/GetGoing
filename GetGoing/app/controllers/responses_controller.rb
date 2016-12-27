@@ -6,8 +6,8 @@ class ResponsesController < ApplicationController
     @response.user_id = current_user.id
 
     if @response.save
-      Responses.submitted(response).deliver_later
-      redirect_to :back
+      #Responses.submitted(@response).deliver_later need to change view for this
+      redirect_to @post, notice: 'Response was successfully created.'
     else
       render root_path
     end
@@ -15,9 +15,12 @@ class ResponsesController < ApplicationController
 
   def update
     @response = Response.find(params[:id])
-    puts params
-    @response.update_attribute(:top, params[:response][:top])
-    render :nothing => true, :status => 200
+
+    if @response.update_attribute(:top, params[:response][:top])
+      redirect_to :back, notice: 'Top responses have been saved.'
+    else
+      redirect_to :back, notice: 'Something wrong'
+    end
   end
 
   private
