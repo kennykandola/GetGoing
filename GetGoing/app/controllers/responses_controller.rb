@@ -15,8 +15,20 @@ class ResponsesController < ApplicationController
 
   def update
     @response = Response.find(params[:id])
-    puts params
-    @response.update_attribute(:top, params[:response][:top])
+    post = Post.find(@response.post_id)
+
+    if @response.user_id == current_user.id && post.user_id == current_user.id
+      #TODO Can or not update own post's own responses
+
+    elsif post.user_id == current_user.id # update own post's responses
+      # maybe this is better
+      @response.update(set_top_responses_params)
+
+      #TODO how to deal with error message 
+    else
+      raise "permissions is wrong"
+    end
+
     render :nothing => true, :status => 200
   end
 
@@ -26,6 +38,10 @@ class ResponsesController < ApplicationController
     end
 
   def responses_params
-    params.required(:response).permit(:body, :user_id, :top_response)
+    params.required(:response).permit(:body, :top)
+  end
+
+  def set_top_responses_params
+    params.required(:response).permit(:top) 
   end
 end
