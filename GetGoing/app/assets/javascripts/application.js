@@ -32,6 +32,3 @@ $(document).ready(function(){
             $(".btt").css("bottom", btnBottom - ftrTop + $(".btt").outerHeight());
     });
 });
-</script>
-
-
