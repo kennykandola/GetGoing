@@ -15,11 +15,20 @@ class ResponsesController < ApplicationController
 
   def update
     @response = Response.find(params[:id])
+    post = Post.find(@response.post_id)
 
-    if @response.update_attribute(:top, params[:response][:top])
-      redirect_to :back, notice: 'Top responses have been saved.'
+    if @response.user_id == current_user.id && post.user_id == current_user.id
+      #TODO Can or not update own post's own responses
+      redirect_to :back, notice: 'TODO'
+    elsif post.user_id == current_user.id # update own post's responses
+      # maybe use set_top_responses_params is better
+      if @response.update(set_top_responses_params)
+        redirect_to :back, notice: 'Top responses have been saved.'
+      else
+        redirect_to :back, notice: 'Something wrong'
+      end 
     else
-      redirect_to :back, notice: 'Something wrong'
+      redirect_to :back, notice: 'permissions wrong'
     end
   end
 
@@ -29,6 +38,10 @@ class ResponsesController < ApplicationController
     end
 
   def responses_params
-    params.required(:response).permit(:body, :user_id, :top_response)
+    params.required(:response).permit(:body, :top)
+  end
+
+  def set_top_responses_params
+    params.required(:response).permit(:top) 
   end
 end
