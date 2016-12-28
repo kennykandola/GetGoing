@@ -1,7 +1,7 @@
 <p><%= response.body %> -- <%= response.user.first_name %> -- <%= response.created_at.to_s(:long) %></p>
 <% if @post.user == current_user %>
   <br>Make a Top Response?</br>
-  <%= form_for([ @post, response], remote: true) do |f| %>
+  <%= form_for([ @post, response]) do |f| %>
     <%= f.select(:top, options_for_select([["No", false],["Yes", true]],response.top)) %>
 <% end %>
 

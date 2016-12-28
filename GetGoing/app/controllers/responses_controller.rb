@@ -6,8 +6,8 @@ class ResponsesController < ApplicationController
     @response.user_id = current_user.id
 
     if @response.save
-      Responses.submitted(response).deliver_later
-      redirect_to :back
+      #Responses.submitted(@response).deliver_later need to change view for this
+      redirect_to @post, notice: 'Response was successfully created.'
     else
       render root_path
     end
@@ -19,17 +19,17 @@ class ResponsesController < ApplicationController
 
     if @response.user_id == current_user.id && post.user_id == current_user.id
       #TODO Can or not update own post's own responses
-
+      redirect_to :back, notice: 'TODO'
     elsif post.user_id == current_user.id # update own post's responses
-      # maybe this is better
-      @response.update(set_top_responses_params)
-
-      #TODO how to deal with error message 
+      # maybe use set_top_responses_params is better
+      if @response.update(set_top_responses_params)
+        redirect_to :back, notice: 'Top responses have been saved.'
+      else
+        redirect_to :back, notice: 'Something wrong'
+      end 
     else
-      raise "permissions is wrong"
+      redirect_to :back, notice: 'permissions wrong'
     end
-
-    render :nothing => true, :status => 200
   end
 
   private
