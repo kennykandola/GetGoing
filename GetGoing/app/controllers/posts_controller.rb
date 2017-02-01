@@ -10,6 +10,8 @@ class PostsController < ApplicationController
     @posts = Post.all
   end
 
+
+
   # GET /posts/1
   # GET /posts/1.json
   def show
@@ -17,9 +19,7 @@ class PostsController < ApplicationController
 
   # GET /posts/new
   def new
-
     @post = Post.new
-
   end
 
   # GET /posts/1/edit
@@ -83,4 +83,5 @@ class PostsController < ApplicationController
     def post_params
       params.require(:post).permit(:title, :offering, :body, :whos_traveling, :budget, :travel_dates, :destination, :booking_links, :user_id)
     end
+
 end

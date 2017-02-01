@@ -17,6 +17,7 @@
 
 $( "button#jQueryColorChange" ).click(function() {
     $(this).toggleClass( "selected" );
+
 });
 
 $(document).ready(function (){
@@ -32,3 +33,5 @@ $(document).ready(function(){
             $(".btt").css("bottom", btnBottom - ftrTop + $(".btt").outerHeight());
     });
 });
+$('#ranger').on 'input', ->
+$('#target').text($('#ranger').val())

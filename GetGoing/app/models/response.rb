@@ -3,4 +3,5 @@ class Response < ActiveRecord::Base
   belongs_to :user
 
   has_many :top_responses
+
 end

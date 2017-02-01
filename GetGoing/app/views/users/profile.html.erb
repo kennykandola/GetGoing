@@ -1,0 +1,40 @@
+<h1><br><%= current_user.first_name %>'s profile</br></h1>
+<h2><br>Your Posts</br></h2>
+<br></br>
+<table>
+  <thead>
+  <tr>
+    <th>Title</th>
+    <th>Offering</th>
+    <th>Body</th>
+    <th>Who's Traveling?</th>
+    <th>Budget</th>
+    <th>Travel Dates</th>
+    <th>Destination</th>
+    <th>Booking Links?</th>
+    <th>Posted By</th>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% current_user.posts.each do |post| %>
+      <tr>
+        <td><%= post.title %></td>
+        <td><%= post.offering %></td>
+        <td><%= post.body %></td>
+        <td><%= post.whos_traveling %></td>
+        <td><%= post.budget %></td>
+        <td><%= post.travel_dates %></td>
+        <td><%= post.destination %></td>
+        <td><%= post.booking_links %></td>
+        <td><%= post.user.first_name  %></td>
+        <td><%= link_to 'Show', post %></td>
+        <td><%= link_to 'Edit', edit_post_path(post) %></td>
+        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+<br></br>
+<%= link_to 'Back', posts_path %>

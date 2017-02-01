@@ -5,6 +5,8 @@ class Post < ActiveRecord::Base
 
   has_many :responses
   
+  has_many :top_responses
+
 
 
 

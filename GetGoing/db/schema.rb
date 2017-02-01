@@ -11,21 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161226224940) do
+ActiveRecord::Schema.define(version: 20170112021352) do
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
     t.string   "offering"
     t.string   "who_is_traveling"
     t.text     "body"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.string   "whos_traveling"
     t.string   "budget"
     t.string   "travel_dates"
     t.string   "destination"
-    t.string   "booking_links"
     t.integer  "user_id"
+    t.string   "booking_links"
+    t.integer  "top_responses_count"
   end
 
   add_index "posts", ["user_id"], name: "index_posts_on_user_id"

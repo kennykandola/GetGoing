@@ -1,5 +1,5 @@
 <%= form_for([ @post, Response.new ]) do |form| %>
   Your response:<br>
   <%= form.text_area :body, size: '50x20' %><br>
-  <%= form.submit %>
+  <%= form.submit  id: @post.id  %>
 <% end %>

@@ -54,6 +54,14 @@
       <%= f.label :user %><br>
     </div>
 
+    <div class="field">
+      <%= f.label :structured %><br>
+      <%= range_field_tag 'ranger', in: 1..10, step: 1 %>
+      <div id='target'></div>
+    </div>
+
+
+
 
   <div class="actions">
     <%= f.submit %>

@@ -1,0 +1,15 @@
+<h1>Press Submit to confirm and finalize top responses</h1>
+<p>The top responders will each receive an equal portion of your reward</p>
+
+<%= render @post.responses.where(top: true) %>
+
+<%= link_to "confirm top", { controller: :responses, action: :top_email, post_id: @post.id },{ class: 'btn btn-default'} %>
+
+<%= link_to 'Back', @post %>
+
+
+
+
+
+
+
