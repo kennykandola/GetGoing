@@ -22,9 +22,13 @@ button#cssColorChange:active{
 
 
 textarea {
-  background-color: white;
-  color: black;
-  border: 1px solid #c8ccd0;
+  color: #666666;
+  width: 60%;
+  border: 1px solid #E6E6E6;
+  border-radius: 0px;
+  height: 60px;
+  margin: 6px auto;
+  text-indent: 10px;
 }
 
 .btt {background: #f00; text-align: center; color: #fff; padding: 5px; text-decoration: none; position: fixed; bottom: 20px; right: 20px; border-radius: 5px;}

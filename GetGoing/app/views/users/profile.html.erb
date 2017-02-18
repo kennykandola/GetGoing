@@ -1,4 +1,10 @@
 <h1><br><%= current_user.first_name %>'s profile</br></h1>
+<br></br>
+<% if current_user.tippa == false %>
+<%= link_to "I'd like to start earning money providing travel advice", { controller: :users, action: :tippa, user_id: current_user.id },{ class: 'btn btn-default'} %>
+<% else %>
+
+<% end %>
 <h2><br>Your Posts</br></h2>
 <br></br>
 <table>

@@ -4,4 +4,7 @@ class User < ActiveRecord::Base
 
   has_many :posts
   has_many :responses
+  has_many :claims, through: :posts
+
+
 end

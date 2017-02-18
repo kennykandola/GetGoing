@@ -53,6 +53,15 @@
 
 <br><br>
 
+
+<% if @post.claimed_users.include?(current_user.email) %>
+    <br>You've claimed this post</br>
+    <%= link_to "Click Here to Remove Your Claim", { controller: :posts, action: :claim_remove, post_id: @post.id, user_id: current_user.id },{ class: 'btn btn-default'} %>
+<% else %>
+    <%= link_to "Claim This Post", { controller: :posts, action: :claim, post_id: @post.id, user_id: current_user.id },{ class: 'btn btn-default'} %>
+<% end %>
+
+
 <h2>Responses</h2>
 
 <div id="responses">
@@ -64,6 +73,7 @@
 <div id="responses">
 
 
+
   <% if @post.user == current_user && @post.responses.where(top: true).size >= 1 %>
       <%= link_to "finalize top", { controller: :responses, action: :top, post_id: @post.id },{ class: 'btn btn-default'} %>
 
@@ -73,5 +83,5 @@
   <% end %>
 </div>
 
-  <%= render 'responses/new', post: @post %>
+<%= render 'responses/new', post: @post %>
 

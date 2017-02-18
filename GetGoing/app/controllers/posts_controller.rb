@@ -30,16 +30,21 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
 
-
     @post = Post.new(post_params)
 
     @post.user = current_user
 
+
+
     respond_to do |format|
       if @post.save
-
+        User.all.each do |user|
+          if user.tippa == true
+          PostsMailer.send_diffusion(@message, user).deliver_later
+end
         format.html { redirect_to @post, notice: 'Post was successfully created.'}
         format.json { render :show, status: :created, location: @post }
+end
 
       else
         format.html { render :new }
@@ -63,6 +68,36 @@ class PostsController < ApplicationController
     end
   end
 
+def claim
+  @post = Post.find(params[:post_id])
+  @user = User.find(params[:user_id])
+
+  @post.claimed_users.compact!
+
+
+  @post.increment!(:claim)
+
+  if @post.claim < 200
+    @post.claimed_users.push(@user.email)
+    @post.save
+    redirect_to @post, notice: 'You have successfully claimed this post. You have 8 hours to post a response'
+  else
+    redirect_to @post, notice: 'Sorry, this post already has enough claims'
+  end
+
+end
+
+  def claim_remove
+    @post = Post.find(params[:post_id])
+    @user = User.find(params[:user_id])
+
+    @post.decrement!(:claim)
+    @post.claimed_users.delete(@user.email)
+    @post.save
+    redirect_to @post, notice: 'Your claim has been removed.'
+
+  end
+
   # DELETE /posts/1
   # DELETE /posts/1.json
   def destroy
@@ -79,9 +114,13 @@ class PostsController < ApplicationController
       @post = Post.find(params[:id])
     end
 
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :offering, :body, :whos_traveling, :budget, :travel_dates, :destination, :booking_links, :user_id)
+      params.require(:post).permit(:title, :offering, :body, :whos_traveling, :budget, :travel_dates, :destination, :booking_links, :user_id, :claim, :claimed_users)
     end
 
 end
+
+
+

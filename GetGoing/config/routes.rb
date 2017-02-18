@@ -29,7 +29,11 @@ Rails.application.routes.draw do
 
   get '/top_email' => 'responses#top_email'
 
+  get '/claim' => 'posts#claim'
 
+  get '/claim_remove' => 'posts#claim_remove'
+
+  get '/tippa' => 'users#tippa'
 
 
   # The priority is based upon order of creation: first created -> highest priority.

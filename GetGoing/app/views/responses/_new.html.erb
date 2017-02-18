@@ -1,5 +1,11 @@
+<% if  @post.created_at > 10.days.ago %>
+
 <%= form_for([ @post, Response.new ]) do |form| %>
   Your response:<br>
   <%= form.text_area :body, size: '50x20' %><br>
   <%= form.submit  id: @post.id  %>
+<% end %>
+
+<% else %>
+<li> This post is closed for responses </li>
 <% end %>

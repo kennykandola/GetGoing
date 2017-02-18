@@ -7,6 +7,11 @@ class Post < ActiveRecord::Base
   
   has_many :top_responses
 
+  has_many :claims
+
+
+  serialize :claimed_users, Array
+
 
 
 

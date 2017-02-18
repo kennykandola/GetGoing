@@ -15,13 +15,20 @@ class UsersController < ApplicationController
     end
   end
 
+  def tippa
+    @user = User.find(params[:user_id])
+    @user.tippa = true
+    @user.save
+    redirect_to '/profile', notice: 'You will start receiving email notifications for new posts.'
+  end
+
   def show
 
   end
 
   private
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :password)
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :tippa)
   end
 
 end

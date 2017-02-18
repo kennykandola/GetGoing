@@ -24,7 +24,7 @@ class ResponsesController < ApplicationController
 
   def top_email
     @post = Post.find(params[:post_id])
-    ResponsesMailer.submitted_top(@response).deliver_later
+    ResponsesMailer.submitted_top(@post).deliver_later
     redirect_to @post, notice: 'Top Responses Have Been Finalized, Thank You!'
 
 
@@ -38,10 +38,10 @@ class ResponsesController < ApplicationController
 
 
 
-    if @response.update_attribute(:top, params[:response][:top]) && @response.post.responses.where(top: true).size <= 3
+    if @response.post.responses.where(top: true).size <= 3 && @response.update_attribute(:top, params[:response][:top])
       redirect_to :back, notice: 'Top responses have been saved.'
     else
-      if @response.post.responses.where(top: true).size > 3
+      if @response.post.responses.where(top: true).size >= 4 && @response.update_attribute(:top, params[:response][:top])
         redirect_to :back, notice:'Please select no more than 3 top responses'
       else
       redirect_to :back, notice: 'Something wrong'

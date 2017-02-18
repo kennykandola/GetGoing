@@ -35,3 +35,4 @@ $(document).ready(function(){
 });
 $('#ranger').on 'input', ->
 $('#target').text($('#ranger').val())
+

@@ -12,43 +12,60 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <span class="field-tip">
     <%= f.label :title %><br>
     <%= f.text_field :title %>
-  </div>
-  <div class="field">
-    <%= f.label :offering %><br>
-    <%= f.text_field :offering %>
-  </div>
-  <div class="field">
+    <span class="tip-content">Give your post a short yet descriptive title that describes what you’re looking for.
+</span>
+    </span>
+    <br> </br>
+    <span class="field-tip">
     <%= f.label :body %><br>
-    <%= f.text_area :body %>
-  </div>
+    <%= f.text_area :body %><span class="tip-content">We get it, you’re tired of searching the internet, reading blogs, analyzing reviews, asking strangers, asking friends, for advice on your vacation.
 
-    <div class="field">
+Tell us about yourself, who you’re traveling with, and where you are with your travel plans and what you already have booked so far so others can help guide you.
+
+Describe in detail what you are looking to gain from this post, so that responders to your post can help plan your ideal travel experience.
+    </span>
+    </span>
+    <br> </br>
+    <span class="field-tip">
+
       <%= f.label :whos_traveling %><br>
       <%= f.text_area :whos_traveling %>
-    </div>
-
-    <div class="field">
+      <span class="tip-content">Traveling solo? With a friend? With your spouse? Tell us who is traveling for better responses.
+</span>
+      </span>
+<br></br>
+      <span class="field-tip">
       <%= f.label :budget %><br>
-      <%= f.text_area :budget %>
-    </div>
-
-    <div class="field">
+      <%= f.text_area :budget %><span class="tip-content">Let us know what your budget is to ensure suggestions fit within your budget.
+</span>
+    </span>
+    <br></br>
+    <span class="field-tip">
       <%= f.label :travel_dates %><br>
-      <%= f.text_area :travel_dates %>
-    </div>
-
-    <div class="field">
+      <%= f.text_area :travel_dates %><span class="tip-content"> If you don’t have anything booked yet or not sure when you will be traveling, you can skip this part.
+</span>
+    </span>
+    <br></br>
+    <span class="field-tip">
       <%= f.label :destination %><br>
-      <%= f.text_area :destination %>
-    </div>
+      <%= f.text_area :destination %><span class="tip-content">If you’re still undecided on a destination you can leave this part blank.
 
-    <div class="field">
-      <%= f.label :booking_links %><br>
-      <%= f.text_area :booking_links %>
-    </div>
+</span>
+    </span>
+    <br></br>
+
+    </span>
+    <br></br>
+    <span class="field-tip">
+      <%= f.label :offering %><br>
+      <%= f.text_area :offering %><span class="tip-content">If you’re still undecided on a destination you can leave this part blank.
+
+</span>
+    </span>
+    <br></br>
 
     <div class="field">
       <%= f.label :user %><br>
