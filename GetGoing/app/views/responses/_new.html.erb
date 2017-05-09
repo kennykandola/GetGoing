@@ -1,4 +1,6 @@
-<% if  @post.created_at > 10.days.ago %>
+<% if  @post.claimed_users.include?(current_user.email) %>
+
+    <a href="/tippa_guide" target = "_blank" >Read this guide before responding</a>
 
 <%= form_for([ @post, Response.new ]) do |form| %>
   Your response:<br>
@@ -7,5 +9,5 @@
 <% end %>
 
 <% else %>
-<li> This post is closed for responses </li>
+
 <% end %>

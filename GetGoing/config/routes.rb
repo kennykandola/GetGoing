@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :subscribers
   get 'sessions/create'
 
   get 'sessions/destroy'
@@ -8,6 +9,7 @@ Rails.application.routes.draw do
 
   resources :posts do
     resources :responses
+
 
 
   end
@@ -20,7 +22,7 @@ Rails.application.routes.draw do
 
   post 'login' => 'sessions#create'
 
-  delete 'logout' => 'sessions#destroy'
+  get 'logout' => 'sessions#destroy'
 
 
   get 'profile', to: 'users#profile'
@@ -34,6 +36,16 @@ Rails.application.routes.draw do
   get '/claim_remove' => 'posts#claim_remove'
 
   get '/tippa' => 'users#tippa'
+
+  get '/all_posts' => 'posts#all_posts'
+
+  get 'edit', to: 'users#edit'
+
+  get '/tippa_guide' => 'posts#tippa_guide'
+
+  get '/show' => 'posts#show'
+
+
 
 
   # The priority is based upon order of creation: first created -> highest priority.

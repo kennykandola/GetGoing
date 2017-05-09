@@ -1,0 +1,11 @@
+development:
+  port: 5432
+  morphology: stem_en
+
+test:
+  port: 5432
+  morphology: stem_en
+
+production:
+  port: 5432
+  morphology: stem_en

@@ -3,7 +3,7 @@
 
 <%= render @post.responses.where(top: true) %>
 
-<%= link_to "confirm top", { controller: :responses, action: :top_email, post_id: @post.id },{ class: 'btn btn-default'} %>
+<%= link_to "Submit Top Responses", { controller: :responses, action: :top_email, post_id: @post.id },{ class: 'btn btn-default'} %>
 
 <%= link_to 'Back', @post %>
 

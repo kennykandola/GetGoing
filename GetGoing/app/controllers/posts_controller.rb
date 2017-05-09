@@ -4,10 +4,22 @@ class PostsController < ApplicationController
 
   before_action :set_post, :require_user, only: [:show, :edit, :update, :destroy]
 
+  helper_method :sort_column, :sort_direction
+
+
+
   # GET /posts
   # GET /posts.json
-  def index
-    @posts = Post.all
+  def all_posts
+
+# Could not get Post.search(params[:search]) to work...kept getting an error in the server when running "rake ts:index":
+# "ERROR: index 'post_core': sql_connect: could not connect to server: Connection refused  Is the server running on host "127.0.0.1" and accepting TCP/IP connections on port 5432?"
+#  This resulted in a error in the browser "no enabled local indexes to search"
+
+
+    @posts = Post.order(sort_column + ' ' + sort_direction).paginate(:per_page =>   10, :page => params[:page])
+
+    @subscriber = Subscriber.new
   end
 
 
@@ -15,6 +27,7 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
+
   end
 
   # GET /posts/new
@@ -77,7 +90,7 @@ def claim
 
   @post.increment!(:claim)
 
-  if @post.claim < 200
+  if @post.claim < 7
     @post.claimed_users.push(@user.email)
     @post.save
     redirect_to @post, notice: 'You have successfully claimed this post. You have 8 hours to post a response'
@@ -117,8 +130,16 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :offering, :body, :whos_traveling, :budget, :travel_dates, :destination, :booking_links, :user_id, :claim, :claimed_users)
+      params.require(:post).permit(:title, :body, :whos_traveling, :structured, :already_booked, :budget, :travel_dates, :destination, :booking_links, :user_id, :claim, :claimed_users)
     end
+
+  def sort_column
+    Post.column_names.include?(params[:sort]) ? params[:sort] : "title"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
+  end
 
 end
 

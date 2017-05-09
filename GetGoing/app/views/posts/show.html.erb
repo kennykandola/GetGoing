@@ -1,68 +1,56 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @post.title %>
-</p>
+<!DOCTYPE html>
+<!--  This site was created in Webflow. http://www.webflow.com -->
+<!--  Last Published: Thu Mar 30 2017 23:21:02 GMT+0000 (UTC)  -->
 
-<p>
-  <strong>Offering:</strong>
-  <%= @post.offering %>
-</p>
+<div>
+  <div class="w-container">
+    <div class="post-div">
+      <h1 class="posts-heading"><%= @post.title %></h1><img class="post-author-image" src="/assets/Photo-on-8-5-16-at-6.26-PM-3.jpg" width="102">
+      <div class="quote-author"><%= @post.user.first_name %></div>
+      <h3>Traveling To:</h3>
+      <%= @post.destination %>
+      <h3>Traveling With:</h3>
+      <%= @post.whos_traveling %>
+      <h3>Already Booked:</h3>
+      <h3>Structured:</h3>
+      <%= @post.structured %>
+      <h3>Brief:</h3>
+      <%= @post.body %>
+    </div>
+    <div class="post-links-div">
+      <h1 class="posts-heading">Booking Links</h1>
+      <h3 class="post-link-headings">Hotels/Vacation Rentals</h3><a href="#">http://www.airbnb.com/45891</a>
+      <h3 class="post-link-headings">Flights</h3>
+      <h3 class="post-link-headings">Restaurants</h3>
+      <h3 class="post-link-headings">Things To Do</h3>
+    </div>
+  </div>
 
+</div>
 
-
-<p>
-  <strong>Body:</strong>
-  <%= @post.body %>
-</p>
-
-<p>
-  <strong>Who Is Traveling:</strong>
-  <%= @post.whos_traveling %>
-</p>
-
-<p>
-  <strong>Budget:</strong>
-  <%= @post.budget %>
-</p>
-
-<p>
-  <strong>Travel Dates:</strong>
-  <%= @post.travel_dates %>
-</p>
-
-<p>
-  <strong>Destination:</strong>
-  <%= @post.destination %>
-</p>
-
-<p>
-  <strong>Booking Links?:</strong>
-  <%= @post.booking_links %>
-</p>
-
-<p>
-  <strong>Posted By</strong>
-<li><%=  @post.user.first_name %></li>
-</p>
-
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', posts_path %>
+<br></br>
+<% if  @post. user == current_user %>
+<%= link_to 'Edit', edit_post_path(@post), class: "app_nav" %> |
+<% else %>
+<% end %>
+<%= link_to 'Back', posts_path, class: "app_nav" %>
 
 
 <br><br>
 
 
 <% if @post.claimed_users.include?(current_user.email) %>
-    <br>You've claimed this post</br>
-    <%= link_to "Click Here to Remove Your Claim", { controller: :posts, action: :claim_remove, post_id: @post.id, user_id: current_user.id },{ class: 'btn btn-default'} %>
-<% else %>
-    <%= link_to "Claim This Post", { controller: :posts, action: :claim, post_id: @post.id, user_id: current_user.id },{ class: 'btn btn-default'} %>
+    <div class="app_nav"><br>You've claimed this post</br></div>
+    <%= link_to "Click Here to Remove Your Claim", { controller: :posts, action: :claim_remove, post_id: @post.id, user_id: current_user.id },{ class: 'btn btn-default app_nav'} %>
+<% else  current_user.tippa == true %>
+    <%= link_to "Respond to this Post", { controller: :posts, action: :claim, post_id: @post.id, user_id: current_user.id },{ class: 'btn btn-default app_nav'} %>
+
+    <br></br>
 <% end %>
 
 
-<h2>Responses</h2>
+<div class="w-container"><h3>Responses</h3>
 
 <div id="responses">
 
@@ -70,12 +58,13 @@
 
 </div>
 
+
 <div id="responses">
 
 
 
   <% if @post.user == current_user && @post.responses.where(top: true).size >= 1 %>
-      <%= link_to "finalize top", { controller: :responses, action: :top, post_id: @post.id },{ class: 'btn btn-default'} %>
+      <%= link_to "Finalize Top Responses", { controller: :responses, action: :top, post_id: @post.id },{ class: 'btn btn-default'} %>
 
 
   <% else %>
@@ -83,5 +72,7 @@
   <% end %>
 </div>
 
+
 <%= render 'responses/new', post: @post %>
 
+</div>

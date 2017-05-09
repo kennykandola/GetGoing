@@ -1,60 +1,178 @@
-<p id="notice"><%= notice %></p>
+<!DOCTYPE html>
+<!--  This site was created in Webflow. http://www.webflow.com -->
+<!--  Last Published: Wed Mar 01 2017 01:21:39 GMT+0000 (UTC)  -->
+<html data-wf-page="54f7c015f0efceff375edfa9" data-wf-site="54f7bd5e04a195de6e5adf0f">
+<head>
+  <meta charset="utf-8">
+  <title>Trivana - Kenny&#39;s Playground</title>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta content="Webflow" name="generator">
+  <link href="/assets/normalize.css" rel="stylesheet" type="text/css">
+  <link href="/assets/webflow.css" rel="stylesheet" type="text/css">
+  <link href="/assets/kennykandola89.webflow.css" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
+  <script type="text/javascript">
+    WebFont.load({
+      google: {
+        families: ["Lato:100,100italic,300,300italic,400,400italic,700,700italic,900,900italic","Montserrat:400,700","Exo:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic","Oswald:300,400,700","Great Vibes:400","Bitter:400,700,400italic","PT Serif:400,400italic,700,700italic","Roboto:300,regular,500,700","Roboto Condensed:regular,700","Roboto Slab:300,regular"]
+      }
+    });
+  </script>
+  <script src="/assets/modernizr.js" type="text/javascript"></script>
+  <link href="https://daks2k3a4ib2z.cloudfront.net/placeholder/favicon.ico" rel="shortcut icon" type="image/x-icon">
+  <link href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png" rel="apple-touch-icon">
+</head>
+<body data-ix="new-interaction">
+<div class="navbar w-nav" data-animation="over-right" data-collapse="medium" data-duration="400">
+  <div class="w-container">
+    <a class="w-nav-brand" href="#"><img class="logo-navbar" height="70" src="/assets/white_logo_transparent_background.png" width="70">
+    </a>
+    <nav class="nav-menu w-nav-menu" role="navigation"><a class="nav-link w-nav-link" href="#How-It-Works">How It Works</a><a class="nav-link w-nav-link" href="#Pricing-Secion">Pricing</a><a class="nav-link w-nav-link" href="#Reviews">Reviews</a><a class="nav-link w-nav-link" href="#">FAQ</a><a class="nav-link w-nav-link"><% if current_user %> <%= link_to "Your Profile", 'profile', class:"nav-link w-nav-link" %> <%= link_to "Log Out", 'logout', class:"nav-link w-nav-link" %><% else %>
+          <%= link_to "Log In", 'login', class:"w-nav-link" %>
+          <%= link_to  "Sign Up", 'signup', class:"w-nav-link" %>
+
+      <% end %></a>
 
 
+    <div class="w-nav-button">
+      <div class="nav-menu nav-menu-icon w-icon-nav-menu"></div>
+    </div>
+  </div>
+</div>
+<div class="hero-section">
+  <div class="heading-container w-container" data-ix="new-interaction">
+    <h1 class="h1">Planning a vacation?</h1>
+    <div class="hero-subheading">Launch a travel contest and let others compete to build you the perfect itinerary.</div><center><div class="div-block-10"><a class="button w-button" href="/posts/new">Get Started</a><a class="button w-button" href="/all_posts">Browse Posts</a></center></div>
+  </div>
+</div>
+<section class="main-section" id="How-It-Works">
+  <div class="w-container">
+    <h2 class="black">How It Works</h2>
+    <div class="w-row">
+      <div class="w-col w-col-4 w-col-medium-4">
+        <div class="about-block" data-ix="new-interaction-2"><img class="about-image" data-ix="new-interaction-2" src="/assets/149307.svg">
+          <h3>Build a Travel Brief</h3>
+          <p class="about-paragraph">Tell us about yourself and where you're traveling. You can make a travel brief no matter where you are with your travel plans. Launch your contest and 6 travel advisors will compete to give you quality guidance and insights.</p>
+        </div>
+      </div>
+      <div class="w-col w-col-4 w-col-medium-4">
+        <div class="about-block" data-ix="new-interaction-3"><img class="about-image" src="/assets/179672.svg">
+          <h3>Get Travel Advice From 6 People</h3>
+          <p class="about-paragraph-2">Once you've made a brief and launched your contest, you will receive responses as well as a list of links to help make booking your trip a breeze.</p>
+        </div>
+      </div>
+      <div class="w-col w-col-4 w-col-medium-4">
+        <div class="about-block" data-ix="new-interaction-4"><img class="about-image" src="/assets/263056.svg">
+          <h3>Select Top Responses&nbsp;</h3>
+          <p class="about-paragraph-3">Out of the 6 responses you receive, choose up to 3 to receive a reward. If you're not satisfied with your experience, you will receive a full refund, no questions asked.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="main-section pink">
+  <div class="w-container">
+    <h2 class="white">Save Time &amp; Travel Better</h2>
+  </div>
+  <ul class="list w-list-unstyled"></ul>
+  <div class="w-row">
+    <div class="w-col w-col-4">
+      <div class="save-time-block" data-ix="new-interaction-5"><strong>Spend less time researching</strong>. No more reading and analyzing posts, blogs, and reviews trying to plan the perfect trip.
+        <br>
+        <br>Get links to book the best flights, hotels/airbnb's, restaurants, and things to do so all you have to do is click and pay.</div>
+    </div>
+    <div class="column-2-mobile w-col w-col-4"><img class="travel-image" data-ix="new-interaction-5" height="200" src="/assets/160132.svg" width="200">
+    </div>
+    <div class="w-col w-col-4">
+      <div class="quality-block" data-ix="new-interaction-5"><strong>Take the guess work out of traveling</strong>. Get quality insights tailored to your desire.
+        <br>
+        <br>
+        <br>Receive advice from a diverse group of people, instead of relying on one or two sources to plan your trip.</div>
+    </div>
+  </div>
+</div>
+<div class="pricing-section" id="Pricing-Secion">
+  <div class="w-container">
+    <h2 class="white">Pricing</h2>
+  </div>
+  <ul class="list w-list-unstyled"></ul>
+  <div class="w-container">
+    <div class="pricing-block">
+      <h1 class="pricing-header">Free</h1>
+      <ul class="pricing-list w-list-unstyled">
+        <li data-ix="new-interaction-6">6 responses amounting to a full itinerary</li>
+        <li data-ix="new-interaction-6">Travel booking links for easy booking</li>
+        <li data-ix="new-interaction-8">Money back guarantee</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="reviews-section" id="Reviews">
+  <div class="w-container">
+    <h2 class="black">Reviews</h2>
+    <div class="testimonials-slider w-slider" data-animation="slide" data-duration="500" data-infinite="1">
+      <div class="w-slider-mask">
+        <div class="w-slide">
+          <div class="testimonial-block"><img class="testimonial-image" height="70" src="/assets/Photo-on-8-5-16-at-6.26-PM-3.jpg" width="90">
+            <div class="testimonial">TripTippa saved me a lot of time when I booked my trip to Spain, and I had a wonderful time thanks to some great advice.</div>
+            <div class="author testimonial">- Kenny</div>
+          </div>
+        </div>
+        <div class="w-slide">
+          <div class="testimonial-block"><img class="testimonial-image" height="70" src="/assets/Photo-on-8-5-16-at-6.26-PM-3.jpg" width="100">
+            <div class="testimonial">TripTippa saved me a lot of time when I booked my trip to Spain, and I had a wonderful time thanks to some great advice.</div>
+            <div class="author testimonial">- Kenny</div>
+          </div>
+        </div>
+        <div class="w-slide">
+          <div class="testimonial-block"><img class="testimonial-image" height="70" src="/assets/Photo-on-8-5-16-at-6.26-PM-3.jpg" width="100">
+            <div class="testimonial">TripTippa saved me a lot of time when I booked my trip to Spain, and I had a wonderful time thanks to some great advice.</div>
+            <div class="author testimonial">- Kenny</div>
+          </div>
+        </div>
+        <div class="w-slide"></div>
+      </div>
+      <div class="left-arrow w-slider-arrow-left">
+        <div class="w-icon-slider-left"></div>
+      </div>
+      <div class="right-arrow w-slider-arrow-right">
+        <div class="w-icon-slider-right"></div>
+      </div>
+      <div class="slide-nav w-round w-slider-nav"></div>
+    </div>
+  </div>
+</div>
+<div class="blue reviews-section" id="Sign-Up-Now">
+  <div class="w-container">
+    <h2 class="white">Sign Up Now</h2>
+    <div class="subheading-text">Drop your email address below and get notified when we launch.</div>
+    <div class="form-wrapper w-form">
+      <form class="form-wrapper w-clearfix" data-name="Email Form" id="email-form" name="email-form">
+        <input class="text-field w-input" data-name="Email" id="email" maxlength="256" name="email" placeholder="Enter your email address" required="required" type="email">
+        <input class="submit-button w-button" data-wait="Please wait..." type="submit" value="Submit">
+      </form>
 
-<center><h2>Planning a vacation? Get a custom itinerary for $25</h2></center>
+      <div class="w-form-done">
+        <div>Thank you! Your submission has been received!</div>
+      </div>
+      <div class="w-form-fail">
+        <div>Oops! Something went wrong while submitting the form</div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<center>Post your travel idea/requirements/budget, and for $25 get quality, custom advice and itineraries from others.</center>
-<center>Your $25 will be split among the top 3 responses that you receive.</center>
-
-
-
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Offering</th>
-      <th>Body</th>
-      <th>Who's Traveling?</th>
-      <th>Budget</th>
-      <th>Travel Dates</th>
-      <th>Destination</th>
-      <th>Booking Links?</th>
-      <th>Posted By</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @posts.each do |post| %>
-      <tr>
-        <td><%= post.title %></td>
-        <td><%= post.offering %></td>
-        <td><%= post.body %></td>
-        <td><%= post.whos_traveling %></td>
-        <td><%= post.budget %></td>
-        <td><%= post.travel_dates %></td>
-        <td><%= post.destination %></td>
-        <td><%= post.booking_links %></td>
-        <td><%= post.user.first_name  %></td>
-        <td><%= link_to 'Show', post %></td>
-        <td><%= link_to 'Edit', edit_post_path(post) %></td>
-        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<% if current_user %>
-    <ul>
-      <%= link_to 'Post a Request', new_post_path %>
-    </ul>
-<% else %>
-    <ul>
-      <li><%= "Sign Up or Log In to Post a Request" %></a></li>
-
-    </ul>
-<% end %>
-
+<div class="footer reviews-section">
+  <div class="w-container">
+    <div class="w-row">
+      <div class="w-col w-col-6"></div>
+      <div class="w-clearfix w-col w-col-6"><a class="footer-link" href="#">Sign Up</a><a class="footer-link" href="#">FAQ</a><a class="footer-link" href="#">Reviews</a><a class="footer-link" href="#">Pricing</a><a class="footer-link" href="#">How It Works</a>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
+<script src="/assets/webflow.js" type="text/javascript"></script>
+<!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
+</body>
+</html>

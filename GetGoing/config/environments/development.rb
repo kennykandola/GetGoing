@@ -18,7 +18,9 @@ Rails.application.configure do
       :openssl_verify_mode  => 'none'
   }
 
+  config.serve_static_assets = true
 
+  Paperclip.options[:command_path] = "/usr/local/bin/"
 
 # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development

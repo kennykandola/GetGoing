@@ -8,10 +8,17 @@ default: &default
   adapter: sqlite3
   pool: 5
   timeout: 5000
+  host: 127.0.0.1
+  port: 5432
+
 
 development:
   <<: *default
   database: db/development.sqlite3
+  host: 127.0.0.1
+  port: 5432
+  username: kennykandola
+  password: Vettepassby89!
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -19,7 +26,11 @@ development:
 test:
   <<: *default
   database: db/test.sqlite3
+  host: 127.0.0.1
+  port: 5432
 
 production:
   <<: *default
   database: db/production.sqlite3
+  host: 127.0.0.1
+  port: 5432

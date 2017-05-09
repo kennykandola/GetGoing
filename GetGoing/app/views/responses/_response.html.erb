@@ -1,14 +1,20 @@
-<% if response.top == true %>
+
+
+<% if response.top == true && @post.user == current_user %>
     <br>You've marked this as a Top Response</br>
 <% else %>
-    <li></li>
+
 <% end %>
 
 
-
-<p><%= response.body %> -- <%= response.user.first_name %> -- <%= response.created_at.to_s(:long) %></p>
+<div class="response-div w-clearfix"><img class="response-author-image" width="57"><%= image_tag response.user.photo.url, class: "response-author-image" %>
+  <div class="response-author"><%= response.user.first_name %></div>
+</div>
+<div><%= response.body %></div>
+<p> <%= response.created_at.to_s(:long) %></p>
 <% if @post.user == current_user %>
-  <br>Make a Top Response?</br>
+  <span class="field-tip"><br>Make a Top Response?</br> <span class="tip-content"> Select "Yes" to mark this as a top response. When you've selected 3 top responses, click "finalize top responses" so that the responders can be rewarded</span>
+    </span>
   <%= form_for([ @post, response]) do |f| %>
     <%= f.select(:top, options_for_select([["No", false],["Yes", true]],response.top)) %>
 
@@ -16,6 +22,6 @@
 <% end %>
 
 <% else %>
-<li> </li>
+
 <% end %>
 

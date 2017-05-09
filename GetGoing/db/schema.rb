@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170218210309) do
+ActiveRecord::Schema.define(version: 20170429172913) do
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 20170218210309) do
     t.integer  "top_responses_count"
     t.integer  "claim",               default: 0
     t.string   "claimed_users",       default: "--- []\n"
+    t.string  "structured"
+    t.string   "already_booked"
   end
 
   add_index "posts", ["user_id"], name: "index_posts_on_user_id"
@@ -45,14 +47,25 @@ ActiveRecord::Schema.define(version: 20170218210309) do
   add_index "responses", ["post_id"], name: "index_responses_on_post_id"
   add_index "responses", ["user_id"], name: "index_responses_on_user_id"
 
+  create_table "subscribers", force: :cascade do |t|
+    t.string   "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
     t.string   "password_digest"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.boolean  "tippa", default: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.boolean  "tippa"
+    t.integer  "score"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
   end
 
 end
