@@ -42,7 +42,11 @@
 <div class="hero-section">
   <div class="heading-container w-container" data-ix="new-interaction">
     <h1 class="h1">Planning a vacation?</h1>
-    <div class="hero-subheading">Launch a travel contest and let others compete to build you the perfect itinerary.</div><center><div class="div-block-10"><a class="button w-button" href="/posts/new">Get Started</a><a class="button w-button" href="/all_posts">Browse Posts</a></center></div>
+    <div class="hero-subheading">Launch a travel contest and let others compete to build you the perfect itinerary.</div><center><div class="div-block-10"><%=
+    link_to_if(current_user.nil?, "Get Started", { :controller => "users", :action => "new" },  :class => "button w-button")  do
+      link_to("Get Started", { :controller => "posts", :action => "new" },  :class => "button w-button")
+    end
+  %><a class="button w-button" href="/all_posts">Browse Posts</a></center></div>
   </div>
 </div>
 <section class="main-section" id="How-It-Works">

@@ -12,6 +12,8 @@ class PostsController < ApplicationController
   # GET /posts.json
   def all_posts
 
+
+
 # Could not get Post.search(params[:search]) to work...kept getting an error in the server when running "rake ts:index":
 # "ERROR: index 'post_core': sql_connect: could not connect to server: Connection refused  Is the server running on host "127.0.0.1" and accepting TCP/IP connections on port 5432?"
 #  This resulted in a error in the browser "no enabled local indexes to search"
