@@ -1,8 +1,6 @@
 class PostsController < ApplicationController
-
-
-
-  before_action :set_post, :require_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:show, :edit, :update, :destroy]
 
   helper_method :sort_column, :sort_direction
 
@@ -142,6 +140,3 @@ end
   end
 
 end
-
-
-

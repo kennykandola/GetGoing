@@ -1,23 +1,8 @@
 class UsersController < ApplicationController
 
-  def new
-    @user = User.new
+  def edit
+    @user = current_user
   end
-
-  def create
-    @user = User.new(user_params)
-    if @user.save
-      ExampleMailer.sample_email(@user).deliver_later
-      session[:user_id] = @user.id
-      redirect_to '/posts'
-    else
-      redirect_to '/signup'
-    end
-  end
-
-def edit
-  @user = current_user
-end
 
   def update
     @user = current_user

@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
 
-  resources :subscribers
-  get 'sessions/create'
+  root 'posts#index' # root page
 
-  get 'sessions/destroy'
+  devise_for :users # contains Authentication routes
+
+  resources :subscribers
 
   get 'home/show'
 
@@ -14,15 +15,18 @@ Rails.application.routes.draw do
 
   end
 
-
-  get 'signup'  => 'users#new'
+  # From old authentication
+  # get 'sessions/create'
+  #
+  # get 'sessions/destroy'
+  # get 'signup'  => 'users#new'
   resources :users
-
-  get '/login' => 'sessions#new'
-
-  post 'login' => 'sessions#create'
-
-  get 'logout' => 'sessions#destroy'
+  #
+  # get '/login' => 'sessions#new'
+  #
+  # post 'login' => 'sessions#create'
+  #
+  # get 'logout' => 'sessions#destroy'
 
 
   get 'profile', to: 'users#profile'

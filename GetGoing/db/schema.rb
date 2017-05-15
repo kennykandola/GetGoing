@@ -11,26 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170429172913) do
+ActiveRecord::Schema.define(version: 20170513123207) do
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
     t.string   "offering"
     t.string   "who_is_traveling"
     t.text     "body"
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
     t.string   "whos_traveling"
     t.string   "budget"
     t.string   "travel_dates"
     t.string   "destination"
     t.integer  "user_id"
-    t.string   "booking_links"
     t.integer  "top_responses_count"
     t.integer  "claim",               default: 0
     t.string   "claimed_users",       default: "--- []\n"
-    t.string  "structured"
+    t.string   "structured"
     t.string   "already_booked"
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
   end
 
   add_index "posts", ["user_id"], name: "index_posts_on_user_id"
@@ -39,9 +38,9 @@ ActiveRecord::Schema.define(version: 20170429172913) do
     t.integer  "post_id"
     t.integer  "user_id"
     t.text     "body"
+    t.boolean  "top",        default: false
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
-    t.boolean  "top",        default: false
   end
 
   add_index "responses", ["post_id"], name: "index_responses_on_post_id"
@@ -54,18 +53,29 @@ ActiveRecord::Schema.define(version: 20170429172913) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.string   "email",               default: "", null: false
+    t.string   "encrypted_password",  default: "", null: false
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "email"
-    t.string   "password_digest"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
     t.boolean  "tippa"
     t.integer  "score"
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
+    t.string   "profile_picture_url"
+    t.date     "birthday"
+    t.string   "hometown"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",       default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
   end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
 
 end
