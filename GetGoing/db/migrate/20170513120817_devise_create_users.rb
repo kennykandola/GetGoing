@@ -15,8 +15,9 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.integer  :photo_file_size
       t.datetime :photo_updated_at
       t.string   :profile_picture_url
-      t.date     :birthday
+      t.integer  :age
       t.string   :hometown
+      t.string   :location
 
       ## Rememberable
       t.datetime :remember_created_at

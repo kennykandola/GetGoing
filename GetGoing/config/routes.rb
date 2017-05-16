@@ -2,7 +2,9 @@ Rails.application.routes.draw do
 
   root 'posts#index' # root page
 
-  devise_for :users # contains Authentication routes
+  # Authentication routes
+  devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks',
+                                    registrations: 'registrations' }
 
   resources :subscribers
 

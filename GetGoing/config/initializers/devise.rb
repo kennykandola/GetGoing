@@ -7,6 +7,7 @@ Devise.setup do |config|
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
   # config.secret_key = '6911a342b3c710329ba57a1d40c6518e8870b5bbf12d9b303a6d69b6aac3d0e87edbc3aa31e066cee0057179d9758498042d4e48e34825c543fd123a6a65fb81'
+  config.secret_key = ENV['DEVISE_SECRET_KEY'] if Rails.env.production?
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -251,6 +252,16 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
+
+  config.omniauth :google_oauth2, ENV['GOOGLE_OAUTH2_APP_ID'],
+                                  ENV['GOOGLE_OAUTH2_APP_SECRET'],
+                                  scope: "email,profile,plus.login,plus.me",
+                                  prompt: "consent"
+  config.omniauth :facebook, ENV['FACEBOOK_APP_ID'],
+                             ENV['FACEBOOK_APP_SECRET'],
+                             scope: "email,user_hometown,user_birthday,user_location",
+                             info_fields: 'email,first_name,last_name,age_range,hometown,location,birthday',
+                             image_size: 'large'
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

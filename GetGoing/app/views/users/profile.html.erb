@@ -15,8 +15,24 @@
     </div>
   </div>
   <div class="w-container">
-    <div class="user-profile-card"><img class="profile-picture" width="200"> <%= image_tag current_user.photo.url %></img>
-      <div class="text-block-3">Kenny</div>
+    <div class="user-profile-card">
+      <img class="profile-picture" width="200">
+        <%= image_tag current_user.photo.url %>
+      </img>
+      <% if current_user.profile_picture_url.present? %>
+        <%= image_tag current_user.profile_picture_url %>
+      <% end%>
+      <div class="text-block-3">First Name: <%=current_user.first_name%></div>
+      <div class="text-block-3">Last Name: <%=current_user.last_name%></div>
+      <% if current_user.age.present? %>
+        <div class="text-block-3">Age: <%=current_user.age%></div>
+      <% end%>
+      <% if current_user.hometown.present? %>
+        <div class="text-block-3">Hometown: <%=current_user.hometown%></div>
+      <% end%>
+      <% if current_user.location.present? %>
+        <div class="text-block-3">Current location: <%=current_user.location%></div>
+      <% end%>
       <center><%= link_to 'Edit Profile Picture', edit_user_path(current_user) %></center>
       <div class="text-block-4"><%= current_user.posts.count %> Posts</div>
       <div class="text-block-5"><%= current_user.score %> Points</div>

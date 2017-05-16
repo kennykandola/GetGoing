@@ -11,7 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170513123207) do
+ActiveRecord::Schema.define(version: 20170515114839) do
+
+  create_table "identities", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "provider"
+    t.string   "accesstoken"
+    t.string   "refreshtoken"
+    t.string   "uid"
+    t.string   "email"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "image"
+    t.string   "urls"
+    t.date     "birthday"
+    t.integer  "age_min"
+    t.integer  "age_max"
+    t.string   "hometown"
+    t.string   "location"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "identities", ["user_id"], name: "index_identities_on_user_id"
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
@@ -64,8 +86,9 @@ ActiveRecord::Schema.define(version: 20170513123207) do
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
     t.string   "profile_picture_url"
-    t.date     "birthday"
+    t.integer  "age"
     t.string   "hometown"
+    t.string   "location"
     t.datetime "remember_created_at"
     t.integer  "sign_in_count",       default: 0,  null: false
     t.datetime "current_sign_in_at"
