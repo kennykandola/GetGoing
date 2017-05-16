@@ -2263,7 +2263,8 @@ html.w-mod-js *[data-ix="new-interaction-8"] {
 }
 
 .posts-table-profile-image {
-  border-radius: 100px;
+  border-radius: 120px;
+  height: 60px;
 }
 
 .text-block-14 {

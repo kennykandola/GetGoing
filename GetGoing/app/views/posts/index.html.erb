@@ -28,7 +28,11 @@
 <div class="hero-section">
   <div class="heading-container w-container" data-ix="new-interaction">
     <h1 class="h1">Planning a vacation?</h1>
-    <div class="hero-subheading">Launch a travel contest and let others compete to build you the perfect itinerary.</div><center><div class="div-block-10"><a class="button w-button" href="/posts/new">Get Started</a><a class="button w-button" href="/all_posts">Browse Posts</a></center></div>
+    <div class="hero-subheading">Launch a travel contest and let others compete to build you the perfect itinerary.</div><center><div class="div-block-10"><%=
+    link_to_if(current_user.nil?, "Get Started", { :controller => "users", :action => "new" },  :class => "button w-button")  do
+      link_to("Get Started", { :controller => "posts", :action => "new" },  :class => "button w-button")
+    end
+  %><a class="button w-button" href="/all_posts">Browse Posts</a></center></div>
   </div>
 </div>
 <section class="main-section" id="How-It-Works">
@@ -105,7 +109,7 @@
         <div class="w-slide">
           <div class="testimonial-block">
             <%= image_tag "Photo-on-8-5-16-at-6.26-PM-3.jpg", class: "testimonial-image", height: "70", width: "90" %>
-            <div class="testimonial">TripTippa saved me a lot of time when I booked my trip to Spain, and I had a wonderful time thanks to some great advice.</div>
+            <div class="testimonial">TripTippa saved me a lot of time when I booked my trip to Italy, and I had a wonderful time thanks to some great advice.</div>
             <div class="author testimonial">- Kenny</div>
           </div>
         </div>
