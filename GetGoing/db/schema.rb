@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170515114839) do
+ActiveRecord::Schema.define(version: 20170516133301) do
+
+  create_table "booking_links", force: :cascade do |t|
+    t.string   "url"
+    t.integer  "url_type"
+    t.integer  "post_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "booking_links", ["post_id"], name: "index_booking_links_on_post_id"
 
   create_table "identities", force: :cascade do |t|
     t.integer  "user_id"
