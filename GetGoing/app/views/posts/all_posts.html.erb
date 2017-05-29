@@ -38,7 +38,7 @@
 <div>
   <div class="w-container">
     <div class="div-block-8 w-clearfix">
-      <h1 class="open-posts">68</h1>
+      <h1 class="open-posts"><%= @posts.count(:status => "Open") %></h1>
       <h1 class="total-posts"><%= @posts.count %></h1>
       <div class="text-block-11">Total Posts</div>
       <div class="text-block-10">Open Posts</div>
@@ -85,7 +85,7 @@
           <h4 class="posts-column-header"><%= sortable "responses" %></h4>
         </div>
         <div class="w-col w-col-2">
-          <h4 class="posts-column-header"><%= sortable "time Left" %></h4>
+          <h4 class="posts-column-header"><%= sortable "created_at" %></h4>
         </div>
         <div class="w-col w-col-1">
           <h4 class="posts-column-header"><%= sortable "status" %></h4>
@@ -101,7 +101,7 @@
     <div>
       <div class="w-row">
         <div class="w-clearfix w-col w-col-6">
-          <div class="user-profile-all-posts"><%= image_tag post.user.photo.url, class: "posts-table-profile-image" %></img>
+          <div class="user-profile-all-posts"><%= image_tag post.user.profile_picture_url, class: "posts-table-profile-image" %></img>
             <div class="text-block-14"><%= post.user.first_name  %></div>
           </div>
           <div class="div-block-9 w-clearfix">
@@ -116,11 +116,11 @@
           <h4 class="posts-table-all-other-columns"><%= post.responses.count %></h4>
         </div>
         <div class="w-col w-col-2">
-          <h4 class="posts-table-all-other-columns">3 Days</h4>
+          <h4 class="posts-table-all-other-columns"><%= post.created_at %></h4>
 
         </div>
         <div class="w-col w-col-1">
-          <h4 class="posts-table-all-other-columns">Open</h4>
+          <h4 class="posts-table-all-other-columns"><%= post.status %></h4>
         </div>
         <%= link_to "View Post", { controller: :posts, action: :show, id: post.id },{ class: 'view-post'} %>
       </div>

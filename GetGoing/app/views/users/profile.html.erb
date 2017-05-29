@@ -16,12 +16,12 @@
   </div>
   <div class="w-container">
     <div class="user-profile-card">
-      <img class="profile-picture" width="200">
-        <%= image_tag current_user.photo.url %>
-      </img>
+
       <% if current_user.profile_picture_url.present? %>
-        <%= image_tag current_user.profile_picture_url %>
+         <center><img class="profile-picture" width="200"><%= image_tag current_user.profile_picture_url %>
+          </img></center>
       <% end%>
+
       <div class="text-block-3">First Name: <%=current_user.first_name%></div>
       <div class="text-block-3">Last Name: <%=current_user.last_name%></div>
       <% if current_user.age.present? %>

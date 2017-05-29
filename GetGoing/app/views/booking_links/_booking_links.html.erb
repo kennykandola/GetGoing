@@ -7,7 +7,8 @@
   <%end%>
   <h3 class="post-link-headings">Hotels</h3>
   <% booking_links.hotel.each do |booking_link| %>
-    <%= link_to booking_link.url, booking_link.url, target: :_blank %>
+    <%= link_to booking_link.url, booking_link.url, target: :_blank, :class => 'booking_links_post' %>
+
   <%end%>
   <h3 class="post-link-headings">Airbnb</h3>
   <% booking_links.airbnb.each do |booking_link| %>

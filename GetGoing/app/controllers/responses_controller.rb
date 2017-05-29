@@ -12,6 +12,7 @@ class ResponsesController < ApplicationController
     if @response.save
       @response.user.increment!(:score, by = 10)
       @post = Post.find(params[:post_id])
+      ResponsesMailer.submitted(@response).deliver_later
       # ResponsesMailer.submitted(@response).deliver_later # Gives errors, because ResponsesMailer is not implemented yet
       redirect_to @post, notice: 'Response was successfully created.'
     else
@@ -28,6 +29,7 @@ class ResponsesController < ApplicationController
     @post = Post.find(params[:post_id])
     @response = Response.find(params[:id])
     @response.post.responses.where(top: true).score.increment!(:score, by = 20)
+    ResponsesMailer.submitted_top(@post).deliver_later
     # ResponsesMailer.submitted_top(@post).deliver_later # Gives errors, because ResponsesMailer is not implemented yet
     redirect_to @post, notice: 'Top Responses Have Been Finalized, Thank You!'
 

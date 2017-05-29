@@ -141,4 +141,9 @@ end
     %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
   end
 
+  def upvote_link
+    @post = Post.find(params[:id])
+
+  end
+
 end

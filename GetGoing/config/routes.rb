@@ -51,7 +51,7 @@ Rails.application.routes.draw do
 
   get '/show' => 'posts#show'
 
-
+  get 'upvote_link' => 'posts#show'
 
 
   # The priority is based upon order of creation: first created -> highest priority.
