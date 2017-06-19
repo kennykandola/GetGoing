@@ -1,5 +1,6 @@
 class ResponsesController < ApplicationController
-  before_action :set_post, :require_user
+  before_action :set_post
+  before_action :authenticate_user!
 
   def create
 
@@ -12,6 +13,7 @@ class ResponsesController < ApplicationController
       @response.user.increment!(:score, by = 10)
       @post = Post.find(params[:post_id])
       ResponsesMailer.submitted(@response).deliver_later
+      # ResponsesMailer.submitted(@response).deliver_later # Gives errors, because ResponsesMailer is not implemented yet
       redirect_to @post, notice: 'Response was successfully created.'
     else
       render root_path
@@ -28,6 +30,7 @@ class ResponsesController < ApplicationController
     @response = Response.find(params[:id])
     @response.post.responses.where(top: true).score.increment!(:score, by = 20)
     ResponsesMailer.submitted_top(@post).deliver_later
+    # ResponsesMailer.submitted_top(@post).deliver_later # Gives errors, because ResponsesMailer is not implemented yet
     redirect_to @post, notice: 'Top Responses Have Been Finalized, Thank You!'
 
 
@@ -63,5 +66,3 @@ class ResponsesController < ApplicationController
   end
 
   end
-
-

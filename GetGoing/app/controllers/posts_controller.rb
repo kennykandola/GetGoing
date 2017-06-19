@@ -1,8 +1,6 @@
 class PostsController < ApplicationController
-
-
-
-  before_action :set_post, :require_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:show, :edit, :update, :destroy]
 
   helper_method :sort_column, :sort_direction
 
@@ -143,7 +141,9 @@ end
     %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
   end
 
+  def upvote_link
+    @post = Post.find(params[:id])
+
+  end
+
 end
-
-
-
