@@ -2394,26 +2394,3 @@ html.w-mod-js *[data-ix="new-interaction-8"] {
   padding-right: 25px;
   padding-left: 0px;
 }
-
-.booking_links_post {
-  display: inline-block;
-  white-space: nowrap;
-  width: 350px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  -o-text-overflow: ellipsis;
-
-
-}
-
-.booking_links_post_upvoted {
-  font: green;
-  display: inline-block;
-  white-space: nowrap;
-  width: 350px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  -o-text-overflow: ellipsis;
-
-
-}

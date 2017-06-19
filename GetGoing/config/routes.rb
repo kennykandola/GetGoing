@@ -1,12 +1,9 @@
 Rails.application.routes.draw do
 
-  root 'posts#index' # root page
-
-  # Authentication routes
-  devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks',
-                                    registrations: 'registrations' }
-
   resources :subscribers
+  get 'sessions/create'
+
+  get 'sessions/destroy'
 
   get 'home/show'
 
@@ -17,18 +14,15 @@ Rails.application.routes.draw do
 
   end
 
-  # From old authentication
-  # get 'sessions/create'
-  #
-  # get 'sessions/destroy'
-  # get 'signup'  => 'users#new'
+
+  get 'signup'  => 'users#new'
   resources :users
-  #
-  # get '/login' => 'sessions#new'
-  #
-  # post 'login' => 'sessions#create'
-  #
-  # get 'logout' => 'sessions#destroy'
+
+  get '/login' => 'sessions#new'
+
+  post 'login' => 'sessions#create'
+
+  get 'logout' => 'sessions#destroy'
 
 
   get 'profile', to: 'users#profile'
@@ -51,7 +45,7 @@ Rails.application.routes.draw do
 
   get '/show' => 'posts#show'
 
-  get 'upvote_link' => 'posts#show'
+
 
 
   # The priority is based upon order of creation: first created -> highest priority.

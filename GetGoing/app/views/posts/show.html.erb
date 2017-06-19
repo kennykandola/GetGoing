@@ -6,13 +6,7 @@
 <div>
   <div class="w-container">
     <div class="post-div">
-      <h1 class="posts-heading"><%= @post.title %></h1>
-      <!-- <img class="post-author-image" src="/assets/Photo-on-8-5-16-at-6.26-PM-3.jpg" width="102"> -->
-      <% if @post.user.profile_picture_url.present? %>
-        <%= image_tag @post.user.profile_picture_url, width: "102", class: 'post-author-image'%>
-      <% else %>
-        <%= image_tag @post.user.photo.url, width: "102", class: 'post-author-image' %>
-      <% end %>
+      <h1 class="posts-heading"><%= @post.title %></h1><img class="post-author-image" src="/assets/Photo-on-8-5-16-at-6.26-PM-3.jpg" width="102">
       <div class="quote-author"><%= @post.user.first_name %></div>
       <h3>Traveling To:</h3>
       <%= @post.destination %>
@@ -24,9 +18,14 @@
       <h3>Brief:</h3>
       <%= @post.body %>
     </div>
-    <div id="booking_links">
-      <%= render partial: 'booking_links/booking_links', locals: { booking_links: @post.booking_links } %>
+    <div class="post-links-div">
+      <h1 class="posts-heading">Booking Links</h1>
+      <h3 class="post-link-headings">Hotels/Vacation Rentals</h3><a href="#">http://www.airbnb.com/45891</a>
+      <h3 class="post-link-headings">Flights</h3>
+      <h3 class="post-link-headings">Restaurants</h3>
+      <h3 class="post-link-headings">Things To Do</h3>
     </div>
+  </div>
 
 </div>
 

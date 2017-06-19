@@ -12,8 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require webflow.js
-//= require modernizr.js
+//= require turbolinks
 //= require_tree .
 
 $( "button#jQueryColorChange" ).click(function() {
@@ -36,3 +35,4 @@ $(document).ready(function(){
 });
 $('#ranger').on 'input', ->
 $('#target').text($('#ranger').val())
+

@@ -7,7 +7,7 @@
 <% end %>
 
 
-<div class="response-div w-clearfix"><%= image_tag response.user.profile_picture_url, class: "response-author-image" %>
+<div class="response-div w-clearfix"><img class="response-author-image" width="57"><%= image_tag response.user.photo.url, class: "response-author-image" %>
   <div class="response-author"><%= response.user.first_name %></div>
 </div>
 <div><%= response.body %></div>
