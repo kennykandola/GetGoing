@@ -30,7 +30,7 @@
     <h1 class="h1">Planning a vacation?</h1>
     <div class="hero-subheading">Launch a travel contest and let others compete to build you the perfect itinerary.</div><center><div class="div-block-10"><%=
     link_to_if(current_user.nil?, "Get Started", { :controller => "users", :action => "new" },  :class => "button w-button")  do
-      link_to("Get Started", { :controller => "posts", :action => "new" },  :class => "button w-button")
+      link_to("New Post", { :controller => "posts", :action => "new" },  :class => "button w-button")
     end
   %><a class="button w-button" href="/all_posts">Browse Posts</a></center></div>
   </div>
@@ -105,44 +105,20 @@
   <div class="w-container">
     <h2 class="black">Reviews</h2>
     <div class="testimonials-slider w-slider" data-animation="slide" data-duration="500" data-infinite="1">
-      <div class="w-slider-mask">
-        <div class="w-slide">
-          <div class="testimonial-block">
-            <%= image_tag "Photo-on-8-5-16-at-6.26-PM-3.jpg", class: "testimonial-image", height: "70", width: "90" %>
-            <div class="testimonial">TripTippa saved me a lot of time when I booked my trip to Italy, and I had a wonderful time thanks to some great advice.</div>
-            <div class="author testimonial">- Kenny</div>
-          </div>
-        </div>
-        <div class="w-slide">
-          <div class="testimonial-block">
-            <%= image_tag "Photo-on-8-5-16-at-6.26-PM-3.jpg", class: "testimonial-image", height: "70", width: "100" %>
-            <div class="testimonial">TripTippa saved me a lot of time when I booked my trip to Spain, and I had a wonderful time thanks to some great advice.</div>
-            <div class="author testimonial">- Kenny</div>
-          </div>
-        </div>
-        <div class="w-slide">
-          <div class="testimonial-block">
-            <%= image_tag "Photo-on-8-5-16-at-6.26-PM-3.jpg", class: "testimonial-image", height: "70", width: "100" %>
-            <div class="testimonial">TripTippa saved me a lot of time when I booked my trip to Spain, and I had a wonderful time thanks to some great advice.</div>
-            <div class="author testimonial">- Kenny</div>
-          </div>
-        </div>
-        <div class="w-slide"></div>
+
+      <br></br>
+      <br></br>
+        No Reviews Yet.
+
       </div>
-      <div class="left-arrow w-slider-arrow-left">
-        <div class="w-icon-slider-left"></div>
-      </div>
-      <div class="right-arrow w-slider-arrow-right">
-        <div class="w-icon-slider-right"></div>
-      </div>
-      <div class="slide-nav w-round w-slider-nav"></div>
+      
     </div>
   </div>
 </div>
 <div class="blue reviews-section" id="Sign-Up-Now">
   <div class="w-container">
     <h2 class="white">Sign Up Now</h2>
-    <div class="subheading-text">Drop your email address below and get notified when we launch.</div>
+    <div class="subheading-text">We're just getting started. Drop your email address to get updates from us.</div>
     <div class="form-wrapper w-form">
       <form class="form-wrapper w-clearfix" data-name="Email Form" id="email-form" name="email-form">
         <input class="text-field w-input" data-name="Email" id="email" maxlength="256" name="email" placeholder="Enter your email address" required="required" type="email">

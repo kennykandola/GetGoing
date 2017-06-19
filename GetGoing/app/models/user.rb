@@ -26,6 +26,12 @@ class User < ActiveRecord::Base
   validates :first_name, length: { minimum: 3, maximum: 100 }
   validates :last_name, length: { minimum: 3, maximum: 100 }
 
+  after_create :send_welcome_email
+
+  def send_welcome_email
+    ExampleMailer.sample_email(self).deliver_later
+  end
+
   def password_required?
     return false if email.blank?
     # return false if identities.count > 0
@@ -55,4 +61,6 @@ class User < ActiveRecord::Base
     end
     @google_oauth2_client
   end
+
+
 end

@@ -32,10 +32,10 @@
 
 <br></br>
 <% if  @post. user == current_user %>
-<%= link_to 'Edit', edit_post_path(@post), class: "app_nav" %> |
+<%= link_to 'Edit This Post', edit_post_path(@post), class: "app_nav" %>
 <% else %>
 <% end %>
-<%= link_to 'Back', posts_path, class: "app_nav" %>
+
 
 
 <br><br>
