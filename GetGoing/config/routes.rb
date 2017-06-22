@@ -53,6 +53,8 @@ Rails.application.routes.draw do
 
   get 'upvote_link' => 'posts#show'
 
+  devise_scope :user do get "/new_tippa" => "registrations#new_tippa"
+end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
