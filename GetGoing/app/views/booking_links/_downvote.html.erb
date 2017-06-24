@@ -1,0 +1,15 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <center>
+        <h3>Would you like to remove the link?</h3>
+      </center>
+    </div>
+    <!-- <div class="modal-body">
+    </div> -->
+    <div class="modal-footer">
+      <%= link_to "Remove the link", booking_link_path(booking_link), remote: true, method: :delete, class: "btn btn-danger btn-ok" %>
+      <button type="button" class="btn btn-default" data-dismiss="modal">Just downvote</button>
+    </div>
+  </div>
+</div>

@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :responses
   has_many :claims, through: :posts
   has_many :identities, dependent: :destroy
+  has_many :votes
 
   has_attached_file :photo
 
