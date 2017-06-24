@@ -37,23 +37,17 @@ class ResponsesController < ApplicationController
   end
 
   def update
-
-
-
     @response = Response.find(params[:id])
-
-
-
     if @response.post.responses.where(top: true).size <= 3 && @response.update_attribute(:top, params[:response][:top])
-      redirect_to :back, notice: 'Top responses have been saved.'
+      redirect_back fallback_location: @post, notice: 'Top responses have been saved.'
     else
       if @response.post.responses.where(top: true).size >= 4 && @response.update_attribute(:top, params[:response][:top])
-        redirect_to :back, notice:'Please select no more than 3 top responses'
+        redirect_back fallback_location: @post, notice:'Please select no more than 3 top responses'
       else
-      redirect_to :back, notice: 'Something wrong'
+        redirect_back fallback_location: @post, notice: 'Something wrong'
+      end
     end
-    end
-    end
+  end
 
 
   private

@@ -1,5 +1,5 @@
 # Model represents user's identity from Google/Facebook
-class Identity < ActiveRecord::Base
+class Identity < ApplicationRecord
   belongs_to :user
 
   validates :uid, presence: true
@@ -11,7 +11,7 @@ class Identity < ActiveRecord::Base
     identity = create(uid: auth.uid, provider: auth.provider) if identity.nil?
     identity.accesstoken = auth.credentials.token
     identity.refreshtoken = auth.credentials.refreshtoken
-    
+
     # Pulling data from Google/Facebook
     identity.email = auth.info.email
     identity.first_name = auth.extra.raw_info.given_name || auth.extra.raw_info.first_name

@@ -1,4 +1,4 @@
-class Claim < ActiveRecord::Base
+class Claim < ApplicationRecord
   belongs_to :post
   belongs_to :user
 
