@@ -12,12 +12,16 @@
   <%= link_to booking_link.shortened_url, booking_link.url, target: :_blank%>
 
   <% if booking_link.upvoted_by?(current_user) %>
-    <%= booking_link.upvotes.count %>
-    <%= fa_icon "thumbs-up" %>
-  <% else %>
-    <%= booking_link.upvotes.count %>
-    <%= link_to upvote_booking_link_path(booking_link), remote: true, method: 'put', class: 'clear_link' do %>
+    <div class='right-block'>
+      <%= booking_link.upvotes.count %>
       <%= fa_icon "thumbs-up" %>
-    <% end %>
+    </div>
+  <% else %>
+    <div class='right-block'>
+      <%= booking_link.upvotes.count %>
+      <%= link_to upvote_booking_link_path(booking_link), remote: true, method: 'put', class: 'clear_link' do %>
+        <%= fa_icon "thumbs-up" %>
+      <% end %>
+    </div>
   <% end %>
 </div>

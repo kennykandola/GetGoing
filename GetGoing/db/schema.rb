@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170623092601) do
+ActiveRecord::Schema.define(version: 20170625145334) do
 
   create_table "booking_links", force: :cascade do |t|
     t.string "url"
@@ -18,6 +18,8 @@ ActiveRecord::Schema.define(version: 20170623092601) do
     t.integer "post_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "cached_votes_up", default: 0
+    t.integer "cached_votes_down", default: 0
     t.index ["post_id"], name: "index_booking_links_on_post_id"
   end
 
