@@ -1,8 +1,7 @@
-/*
- *= require font-awesome
- *= require posts
- *= require modal-bootstrap
- */
+@import "font-awesome-sprockets";
+@import "font-awesome";
+@import "posts";
+@import "modal-bootstrap";
 
 // html, body {
 //     background: #fff;
