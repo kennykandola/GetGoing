@@ -1,3 +1,30 @@
 // Place all the styles related to the posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.fa-thumbs-up, .fa-thumbs-down {
+  color: #1695a3;
+  text-decoration: none;
+}
+
+.clear_link {
+  text-decoration: none;
+}
+
+.booking_links_post {
+  white-space: normal;
+  line-height: 24px;
+  width: 100%;
+  .right-block {
+    float: right;
+    line-height: 24px;
+  }
+}
+
+.modal-dialog {
+  padding-top: 5%;
+}
+
+.btn {
+  text-decoration: none;
+}
