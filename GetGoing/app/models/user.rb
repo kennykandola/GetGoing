@@ -12,6 +12,8 @@ class User < ApplicationRecord
   has_many :identities, dependent: :destroy
   has_many :votes
 
+  enum role: [:simple_user, :moderator, :admin]
+
   has_attached_file :photo
 
   validates_attachment_content_type :photo, content_type: /\Aimage\/.*\z/
@@ -61,6 +63,10 @@ class User < ApplicationRecord
       @google_oauth2_client.authorization.update_token!({:access_token => google_oauth2.accesstoken, :refresh_token => google_oauth2.refreshtoken})
     end
     @google_oauth2_client
+  end
+
+  def owns_post?(post)
+    post.user_id == self.id
   end
 
 

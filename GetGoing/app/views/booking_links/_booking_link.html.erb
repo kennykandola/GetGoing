@@ -1,27 +1,25 @@
 <div class="booking_links_post">
-  <% if booking_link.downvoted_by?(current_user) %>
-    <%= booking_link.downvotes.count %>
-    <%= icon "thumbs-down" %>
-  <% else %>
+  <% if policy(booking_link).downvote? %>
     <%= booking_link.downvotes.count %>
     <%= link_to downvote_booking_link_path(booking_link), remote: true, method: 'put', class: 'clear_link' do %>
       <%= icon "thumbs-down" %>
     <% end %>
+  <% else %>
+    <%= booking_link.downvotes.count %>
+    <%= icon "thumbs-down" %>
   <% end %>
 
   <%= link_to booking_link.shortened_url, booking_link.url, target: :_blank%>
 
-  <% if booking_link.upvoted_by?(current_user) %>
-    <div class='right-block'>
-      <%= booking_link.upvotes.count %>
-      <%= icon "thumbs-up" %>
-    </div>
-  <% else %>
-    <div class='right-block'>
+  <div class='right-block'>
+    <% if policy(booking_link).upvote? %>
       <%= booking_link.upvotes.count %>
       <%= link_to upvote_booking_link_path(booking_link), remote: true, method: 'put', class: 'clear_link' do %>
         <%= icon "thumbs-up" %>
       <% end %>
-    </div>
+  <% else %>
+      <%= booking_link.upvotes.count %>
+      <%= icon "thumbs-up" %>
   <% end %>
+</div>
 </div>
