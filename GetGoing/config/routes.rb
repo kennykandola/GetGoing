@@ -19,7 +19,13 @@ Rails.application.routes.draw do
     member { put :downvote }
   end
 
-  resources :users
+  scope '/manage' do
+    resources :users do
+      member { put :assign_as_admin }
+      member { put :assign_as_moderator }
+      member { put :assign_as_simple_user }
+    end
+  end
 
   get 'profile', to: 'users#profile'
 

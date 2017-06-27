@@ -7,14 +7,14 @@ class BookingLinkPolicy < ApplicationPolicy
   end
 
   def upvote?
-    (@user.owns_post?(@booking_link.post) || @user.admin?) && !@booking_link.upvoted_by?(@user)
+    @user && (@user.owns_post?(@booking_link.post) || @user.admin?) && !@booking_link.upvoted_by?(@user)
   end
 
   def downvote?
-    @user.owns_post?(@booking_link.post) || @user.moderator? || @user.admin?
+    @user && (@user.owns_post?(@booking_link.post) || @user.moderator? || @user.admin?)
   end
 
   def destroy?
-    @user.owns_post?(@booking_link.post) || @user.moderator? || @user.admin?
+    @user && (@user.owns_post?(@booking_link.post) || @user.moderator? || @user.admin?)
   end
 end
