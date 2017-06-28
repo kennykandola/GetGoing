@@ -8,11 +8,7 @@
     <div class="post-div">
       <h1 class="posts-heading"><%= @post.title %></h1>
       <!-- <img class="post-author-image" src="/assets/Photo-on-8-5-16-at-6.26-PM-3.jpg" width="102"> -->
-      <% if @post.user.profile_picture_url.present? %>
-        <%= image_tag @post.user.profile_picture_url, width: "102", class: 'post-author-image'%>
-      <% else %>
-        <%= image_tag @post.user.photo.url, width: "102", class: 'post-author-image' %>
-      <% end %>
+      <%= image_tag @post.user.picture_url, width: "102", class: 'post-author-image'%>
       <div class="quote-author"><%= @post.user.first_name %></div>
       <h3>Traveling To:</h3>
       <%= @post.destination %>
@@ -32,7 +28,7 @@
 </div>
 
 <br></br>
-<% if  @post. user == current_user %>
+<% if policy(@post).update? %>
 <%= link_to 'Edit This Post', edit_post_path(@post), class: "app_nav" %>
 <% else %>
 <% end %>

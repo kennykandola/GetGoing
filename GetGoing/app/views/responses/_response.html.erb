@@ -6,15 +6,9 @@
 
 <% end %>
 
-<% if response.user.profile_picture_url.present? %>
-  <div class="response-div w-clearfix"><%= image_tag response.user.profile_picture_url, class: "response-author-image" %>
+  <div class="response-div w-clearfix"><%= image_tag response.user.picture_url, class: "response-author-image" %>
     <div class="response-author"><%= response.user.first_name %></div>
   </div>
-<% elsif response.user.photo.present? %>
-  <div class="response-div w-clearfix"><%= image_tag response.user.photo.url, class: "response-author-image" %>
-    <div class="response-author"><%= response.user.first_name %></div>
-  </div>
-<% end %>
 <div><%= response.body %></div>
 <p> <%= response.created_at.to_s(:long) %></p>
 <% if @post.user == current_user %>
