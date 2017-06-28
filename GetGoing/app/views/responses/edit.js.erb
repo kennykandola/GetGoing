@@ -1,0 +1,2 @@
+$("#modal-component").html("<%= escape_javascript(render( partial: 'responses/edit', locals: { :response => @response })).html_safe %>");
+$("#modal-component").modal("show");

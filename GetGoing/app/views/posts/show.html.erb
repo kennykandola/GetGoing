@@ -10,6 +10,9 @@
       <!-- <img class="post-author-image" src="/assets/Photo-on-8-5-16-at-6.26-PM-3.jpg" width="102"> -->
       <%= image_tag @post.user.picture_url, width: "102", class: 'post-author-image'%>
       <div class="quote-author"><%= @post.user.first_name %></div>
+      <% if current_user.moderator? || current_user.admin? %>
+        <div><%= @post.user.email %></div>
+      <% end %>
       <h3>Traveling To:</h3>
       <%= @post.destination %>
       <h3>Traveling With:</h3>
@@ -51,24 +54,11 @@
 <div class="w-container"><h3>Responses</h3>
 
 <div id="responses">
-
-  <%= render @post.responses %>
-
+  <%= render 'responses/index' %>
+  <!-- <%= render @post.responses %> -->
+  
 </div>
 
-
-<div id="responses">
-
-
-
-  <% if @post.user == current_user && @post.responses.where(top: true).size >= 1 %>
-      <%= link_to "Finalize Top Responses", { controller: :responses, action: :top, post_id: @post.id },{ class: 'btn btn-default'} %>
-
-
-  <% else %>
-
-  <% end %>
-</div>
 
 
 <%= render 'responses/new', post: @post %>

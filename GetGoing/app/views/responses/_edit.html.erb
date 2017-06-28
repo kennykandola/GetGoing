@@ -1,0 +1,19 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <%= form_for [ response.post, response ], remote: true do |f| %>
+      <div class="modal-header">
+        <center>
+          <h3>Edit response</h3>
+        </center>
+      </div>
+      <div class="modal-body">
+        <%= f.text_area :body, size: '50x20' %><br>
+
+      </div>
+      <div class="modal-footer">
+        <%= f.submit 'Save', class: "btn btn-info" %>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+    <% end %>
+  </div>
+</div>

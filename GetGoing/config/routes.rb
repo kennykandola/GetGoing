@@ -11,19 +11,21 @@ Rails.application.routes.draw do
   get 'home/show'
 
   resources :posts do
-    resources :responses
+    resources :responses do
+      member { patch :set_top }
+    end
   end
 
   resources :booking_links, only: [:destroy] do
-    member { put :upvote }
-    member { put :downvote }
+    member { patch :upvote }
+    member { patch :downvote }
   end
 
   scope '/manage' do
     resources :users do
-      member { put :assign_as_admin }
-      member { put :assign_as_moderator }
-      member { put :assign_as_simple_user }
+      member { patch :assign_as_admin }
+      member { patch :assign_as_moderator }
+      member { patch :assign_as_simple_user }
     end
   end
 

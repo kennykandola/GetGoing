@@ -1,0 +1,1 @@
+$("#responses").html("<%= escape_javascript(render(partial: 'responses/index', locals: { post: @post })).html_safe %>");

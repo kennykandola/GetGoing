@@ -1,0 +1,6 @@
+<%= render @post.responses %>
+<br>
+<div id='notices'></div>
+<% if @post.user == current_user && @post.responses.where(top: true).size >= 1 %>
+    <%= link_to "Finalize Top Responses", { controller: :responses, action: :top, post_id: @post.id },{ class: 'btn btn-default'} %>
+<% end %>

@@ -1,0 +1,3 @@
+<% if flash.now[:notice] %>
+  $('#notices').html("<%= j flash.now[:notice] %>")
+<% end %>
