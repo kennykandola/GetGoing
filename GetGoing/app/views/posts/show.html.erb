@@ -13,6 +13,8 @@
       <% if current_user.moderator? || current_user.admin? %>
         <div><%= @post.user.email %></div>
       <% end %>
+      <h3>Post status:</h3>
+      <%= current_status(@post) %>
       <h3>Traveling To:</h3>
       <%= @post.destination %>
       <h3>Traveling With:</h3>
@@ -56,7 +58,7 @@
 <div id="responses">
   <%= render 'responses/index' %>
   <!-- <%= render @post.responses %> -->
-  
+
 </div>
 
 

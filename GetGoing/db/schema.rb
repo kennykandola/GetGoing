@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170628200419) do
+ActiveRecord::Schema.define(version: 20170629154921) do
 
   create_table "booking_links", force: :cascade do |t|
     t.string "url"
@@ -63,7 +63,8 @@ ActiveRecord::Schema.define(version: 20170628200419) do
     t.string "already_booked"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "status", default: "Open"
+    t.date "expired_at"
+    t.boolean "status", default: true, null: false
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 

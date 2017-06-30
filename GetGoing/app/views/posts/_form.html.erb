@@ -116,6 +116,16 @@
     <br>
       <%= f.text_area :body,class: "post_body"  %>
 
+    <h1 class="h1-design">Deadline</h1>
+    <div class="design-brief-subheading">Choose the date when the post will be closed</div>
+    <br>
+    <%= f.date_field :expired_at, min: Date.today, max: (Date.today + 1.year), class: "whos_traveling" %>
+
+    <h1 class="h1-design">Post status</h1>
+    <div class="design-brief-subheading">
+      <%= f.label "Open" %>
+      <%= f.check_box :status%>
+    </div>
 
 <br></br>
   <div class="actions submit_post">
