@@ -6,8 +6,9 @@ class PostsMailer < ActionMailer::Base
     mail(to: user.email, subject: "New Post")
   end
 
-
-
+  def inactivity_email(post, user)
+    @post = post
+    mail(to: user.email, subject: "Your post '#{post.title}' has been
+                                   inactive for the last week")
+  end
 end
-
-

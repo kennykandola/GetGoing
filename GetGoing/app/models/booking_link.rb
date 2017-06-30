@@ -1,5 +1,5 @@
 class BookingLink < ApplicationRecord
-  belongs_to :post
+  belongs_to :post, touch: true # touch allows to track the latest activity on the post with updated_at
   belongs_to :response
   has_many :votes, dependent: :destroy
 
