@@ -46,7 +46,7 @@
 <% if @post.claimed_users.include?(current_user.email) %>
     <div class="app_nav"><br>You've claimed this post</br></div>
     <%= link_to "Click Here to Remove Your Claim", { controller: :posts, action: :claim_remove, post_id: @post.id, user_id: current_user.id },{ class: 'btn btn-default app_nav'} %>
-<% else  current_user.tippa == true %>
+<% elsif policy(@post).create_response? %>
     <%= link_to "Respond to this Post", { controller: :posts, action: :claim, post_id: @post.id, user_id: current_user.id },{ class: 'btn btn-default app_nav'} %>
 
     <br></br>
@@ -62,7 +62,8 @@
 </div>
 
 
-
-<%= render 'responses/new', post: @post %>
+<% if policy(@post).create_response? %>
+  <%= render 'responses/new', post: @post %>
+<% end %>
 
 </div>

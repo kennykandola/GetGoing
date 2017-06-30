@@ -10,4 +10,7 @@ class Post < ApplicationRecord
 
   validates_presence_of :title
 
+  def open?
+    status
+  end
 end
