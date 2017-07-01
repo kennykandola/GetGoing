@@ -13,7 +13,7 @@ class ResponsesController < ApplicationController
       @response.user.increment!(:score, by = 10)
       @post = Post.find(params[:post_id])
       ResponsesMailer.submitted(@response).deliver_later
-      # ResponsesMailer.submitted(@response).deliver_later # Gives errors, because ResponsesMailer is not implemented yet
+      NotificationService.new(actor: current_user, notifiable: @response, post: @post).new_response
       redirect_to @post, notice: 'Response was successfully created.'
     else
       render root_path

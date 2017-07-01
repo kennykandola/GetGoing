@@ -6,6 +6,9 @@ class BookingLinksController < ApplicationController
   def upvote
     authorize @booking_link
     @booking_link.upvote(current_user)
+    NotificationService.new(actor: current_user,
+                            notifiable: @booking_link,
+                            recipient: @booking_link.response.user).recommended_link_upvoted
     respond_to :js
   end
 
