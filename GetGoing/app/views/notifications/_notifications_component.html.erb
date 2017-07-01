@@ -1,5 +1,5 @@
 <div class="dropdown">
-  <a type="button" id="dropdownButton" data-toggle="dropdown" aria-haspopup="true" class="dropdown-toggle nav-link fa-stack has-badge" data-counter="<%= current_user.unread_notifications.count %>">
+  <a type="button" id="dropdownButton" data-toggle="dropdown" aria-haspopup="true" class="dropdown-toggle nav-link fa-stack has-badge" data-counter="<%= current_user.unread_notifications.count if current_user.unread_notifications.count!=0%>">
     <i class="fa fa-circle fa-stack-2x"></i>
     <i class="fa fa-bell fa-stack-1x fa-inverse"></i>
   </a>
