@@ -15,6 +15,7 @@
 //= require webflow.js
 //= require modernizr.js
 //= require modal-bootstrap.min.js
+//= require cable.js
 //= require_tree .
 
 // $( "button#jQueryColorChange" ).click(function() {

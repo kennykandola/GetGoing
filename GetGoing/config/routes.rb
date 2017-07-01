@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   root 'posts#index' # root page
 
+  mount ActionCable.server => '/cable'
+
   # Authentication routes
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks',
                                     registrations: 'registrations' }

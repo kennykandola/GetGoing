@@ -22,6 +22,7 @@
   <%= stylesheet_link_tag "application"%>
   <%= javascript_include_tag "application"%>
   <%= csrf_meta_tags %>
+  <%= action_cable_meta_tag if user_signed_in? %>
 </head>
 <body>
 <div class="navbar-logged-in w-nav" data-animation="default" data-collapse="medium" data-duration="400">
@@ -40,7 +41,9 @@
         <%= link_to "All users", users_path, :class => "nav-link w-nav-link" %>
       <% end %>
       <% if user_signed_in? %>
-        <%= render partial: 'notifications/notifications_component' %>
+        <div id='notifications-component' class="dropdown">
+          <%= render partial: 'notifications/notifications_component' %>
+        </div>
         <%= link_to "Your Profile", { controller: :users, action: :profile, id: current_user.id }, class:"nav-link w-nav-link" %>
         <%= link_to "Log Out", destroy_user_session_path, :method => :delete, class:"nav-link w-nav-link" %>
       <% else %>

@@ -44,6 +44,7 @@ a.fa-stack:active {
   margin-left: -110px !important;
   width: 300px;
   padding-left: 10px !important;
+  padding-right: 10px !important;
   a {
     text-decoration: none;
   }
@@ -63,4 +64,8 @@ img.actor-image{
 
 .w-nav {
   z-index: auto; // in order to make notifications dropdown display correctly
+}
+
+h4.dropdown-header {
+  font-size: 1em;
 }
