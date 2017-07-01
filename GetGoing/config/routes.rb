@@ -23,6 +23,12 @@ Rails.application.routes.draw do
     end
   end
 
+resources :notifications do
+  collection do
+    patch :mark_as_read
+  end
+end
+
   resources :booking_links, only: [:destroy] do
     member { patch :upvote }
     member { patch :downvote }

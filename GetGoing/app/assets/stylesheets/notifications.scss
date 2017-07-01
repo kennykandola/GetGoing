@@ -1,8 +1,8 @@
-.fa-stack[data-count]:after{
+.fa-stack[data-counter]:after{
   position:absolute;
   right:-10%;
   top:-10%;
-  content: attr(data-count);
+  content: attr(data-counter);
   font-size:50%;
   padding:.6em;
   border-radius:999px;
@@ -40,7 +40,6 @@ a.fa-stack:active {
   margin-left: -110px !important;
   width: 300px;
   padding-left: 10px !important;
-  z-index: 10000 !important;
   a {
     text-decoration: none;
   }

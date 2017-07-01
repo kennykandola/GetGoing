@@ -84,7 +84,7 @@ class User < ApplicationRecord
     Notification.where(recipient: self).unread
   end
 
-  def mark_as_read
+  def mark_as_read_all_notifications
     self.unread_notifications.update_all(read_at: Time.zone.now)
   end
 end
