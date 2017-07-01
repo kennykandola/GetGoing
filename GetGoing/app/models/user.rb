@@ -11,6 +11,7 @@ class User < ApplicationRecord
   has_many :claims, through: :posts
   has_many :identities, dependent: :destroy
   has_many :votes
+  has_many :notifications, foreign_key: :recipient_id
 
   enum role: [:simple_user, :moderator, :admin]
 
@@ -79,5 +80,7 @@ class User < ApplicationRecord
     end
   end
 
-
+  def unread_notifications
+    Notification.where(recipient: self).unread
+  end
 end
