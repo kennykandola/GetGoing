@@ -40,6 +40,7 @@
         <%= link_to "All users", users_path, :class => "nav-link w-nav-link" %>
       <% end %>
       <% if user_signed_in? %>
+        <%= render partial: 'notifications/notifications_component' %>
         <%= link_to "Your Profile", { controller: :users, action: :profile, id: current_user.id }, class:"nav-link w-nav-link" %>
         <%= link_to "Log Out", destroy_user_session_path, :method => :delete, class:"nav-link w-nav-link" %>
       <% else %>

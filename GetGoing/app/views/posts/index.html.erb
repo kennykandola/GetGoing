@@ -14,6 +14,7 @@
       <% if user_signed_in? %>
         <%= link_to "Your Profile", 'profile', class:"nav-link w-nav-link" %>
         <%= link_to "Log Out", destroy_user_session_path, :method => :delete, class:"nav-link w-nav-link" %>
+        <%= render partial: 'notifications/notifications_component' %>
       <% else %>
         <%= link_to "Log In", new_user_session_path, class:"w-nav-link" %>
         <%= link_to "Sign Up", new_user_registration_path, class:"w-nav-link" %>
@@ -111,7 +112,7 @@
         No Reviews Yet.
 
       </div>
-      
+
     </div>
   </div>
 </div>
