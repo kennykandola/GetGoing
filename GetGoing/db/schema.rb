@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170625145334) do
+ActiveRecord::Schema.define(version: 20170628200419) do
 
   create_table "booking_links", force: :cascade do |t|
     t.string "url"
@@ -20,7 +20,9 @@ ActiveRecord::Schema.define(version: 20170625145334) do
     t.datetime "updated_at", null: false
     t.integer "cached_votes_up", default: 0
     t.integer "cached_votes_down", default: 0
+    t.integer "response_id"
     t.index ["post_id"], name: "index_booking_links_on_post_id"
+    t.index ["response_id"], name: "index_booking_links_on_response_id"
   end
 
   create_table "identities", force: :cascade do |t|
@@ -105,6 +107,7 @@ ActiveRecord::Schema.define(version: 20170625145334) do
     t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "role", default: 0, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

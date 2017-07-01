@@ -6,26 +6,27 @@
 
 <% end %>
 
-<% if response.user.profile_picture_url.present? %>
-  <div class="response-div w-clearfix"><%= image_tag response.user.profile_picture_url, class: "response-author-image" %>
+  <div class="response-div w-clearfix"><%= image_tag response.user.picture_url, class: "response-author-image" %>
     <div class="response-author"><%= response.user.first_name %></div>
+    <% if current_user.moderator? || current_user.admin? %>
+      <div><%= response.user.email %></div>
+    <% end %>
   </div>
-<% elsif response.user.photo.present? %>
-  <div class="response-div w-clearfix"><%= image_tag response.user.photo.url, class: "response-author-image" %>
-    <div class="response-author"><%= response.user.first_name %></div>
-  </div>
-<% end %>
 <div><%= response.body %></div>
 <p> <%= response.created_at.to_s(:long) %></p>
 <% if @post.user == current_user %>
   <span class="field-tip"><br>Make a Top Response?</br> <span class="tip-content"> Select "Yes" to mark this as a top response. When you've selected 3 top responses, click "finalize top responses" so that the responders can be rewarded</span>
     </span>
-  <%= form_for([ @post, response]) do |f| %>
-    <%= f.select(:top, options_for_select([["No", false],["Yes", true]],response.top)) %>
 
-        <%= f.submit %>
+  <%= form_tag set_top_post_response_path(@post, response), method: :patch, remote: true do %>
+    <%= select_tag :top, options_for_select([["No", false],["Yes", true]],response.top), onchange: '$(this.form).submit();' %>
+  <% end %>
+<% end %>
+<% if policy(response).update? %>
+  <%= link_to 'Edit Response', edit_post_response_path(response.post, response), remote: true %>
+  <div id='modal-component' class="modal fade"> </div>
 <% end %>
 
-<% else %>
-
+<% if policy(response).destroy? %>
+  <%= link_to 'Remove Response', post_response_path(response.post, response), remote: true, method: :delete %>
 <% end %>

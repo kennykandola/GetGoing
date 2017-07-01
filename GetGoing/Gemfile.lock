@@ -161,6 +161,8 @@ GEM
       mime-types
       mimemagic (~> 0.3.0)
     public_suffix (2.0.5)
+    pundit (1.1.0)
+      activesupport (>= 3.0.0)
     rack (2.0.3)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -300,6 +302,7 @@ DEPENDENCIES
   omniauth-facebook
   omniauth-google-oauth2
   paperclip
+  pundit
   rails (= 5.1.1)
   riddle
   rspec (= 3.5)

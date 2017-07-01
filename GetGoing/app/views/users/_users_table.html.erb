@@ -1,0 +1,34 @@
+<table class='table table-striped table-bordered table-hover'
+  <thead>
+    <tr>
+      <th> User </th>
+      <th> Current role </th>
+      <th> Action </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td>
+          <%= "#{user.first_name} #{user.last_name}" %>
+        </td>
+        <td>
+          <%= user.role %>
+        </td>
+        <td>
+          <% if policy(user).assign_as_simple_user? %>
+            <%= link_to 'Assign as simple user', assign_as_simple_user_user_path(user), remote: true, method: :patch %>
+            <br>
+          <% end %>
+          <% if policy(user).assign_as_moderator? %>
+            <%= link_to 'Assign as moderator', assign_as_moderator_user_path(user), remote: true, method: :patch %>
+            <br>
+          <% end %>
+          <% if policy(user).assign_as_admin? %>
+            <%= link_to 'Assign as admin', assign_as_admin_user_path(user), remote: true, method: :patch %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

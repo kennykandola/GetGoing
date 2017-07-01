@@ -1,5 +1,6 @@
 class BookingLink < ApplicationRecord
   belongs_to :post
+  belongs_to :response
   has_many :votes, dependent: :destroy
 
   enum url_type: [:restaurant, :hotel, :airbnb, :rental, :activity, :flight, :tour, :attraction]
