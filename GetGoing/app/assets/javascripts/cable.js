@@ -5,10 +5,10 @@
 //= require_self
 //= require_tree ./channels
 
-  (function() {
-
-
+(function() {
+  if ($('meta[name=action-cable-url]').length){
       this.App || (this.App = {});
 
       App.cable = ActionCable.createConsumer();
-  }).call(this);
+    }
+}).call(this);

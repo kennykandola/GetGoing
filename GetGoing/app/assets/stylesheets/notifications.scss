@@ -69,3 +69,15 @@ img.actor-image{
 h4.dropdown-header {
   font-size: 1em;
 }
+
+.scrollable-menu {
+    height: auto;
+    max-height: 300px;
+    overflow-x: hidden;
+}
+
+.unread-notification {
+  a{
+    font-weight:bold;
+  }
+}

@@ -2,12 +2,19 @@
   <i class="fa fa-circle fa-stack-2x"></i>
   <i class="fa fa-bell fa-stack-1x fa-inverse"></i>
 </a>
-<div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+<div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenu1">
   <center>
     <h4 class="dropdown-header">Notifications</h4>
-  <center>
+  </center>
   <br>
-  <% current_user.notifications.last(5).reverse.each do |notification| %>
+  <% current_user.unread_notifications.reverse.each do |notification| %>
+    <div class="unread-notification">
+      <%=link_to image_tag(notification.actor.picture_url, height: "35px", class: 'actor-image'), "#" %>
+      <%= notifiable_link(notification)%>
+      <div class="dropdown-divider"></div>
+    </div>
+  <% end %>
+  <% current_user.last_read_notifications.reverse.each do |notification| %>
     <%=link_to image_tag(notification.actor.picture_url, height: "35px", class: 'actor-image'), "#" %>
     <%= notifiable_link(notification)%>
     <div class="dropdown-divider"></div>

@@ -84,6 +84,10 @@ class User < ApplicationRecord
     Notification.where(recipient: self).unread
   end
 
+  def last_read_notifications
+    Notification.where(recipient: self).read.last(5)
+  end
+
   def mark_as_read_all_notifications
     self.unread_notifications.update_all(read_at: Time.zone.now)
   end
