@@ -25,40 +25,40 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<div class="navbar-logged-in w-nav" data-animation="default" data-collapse="medium" data-duration="400">
-  <div class="w-container">
-    <a class="w-nav-brand" href="/posts">
-      <%= image_tag "white_logo_transparent_background.png", class: "logo-navbar", width: "91" %>
-    </a>
-    <nav class="w-nav-menu" role="navigation">
-      <%= link_to 'Home', root_path, class: "nav-link w-nav-link" %>
-      <a class="nav-link w-nav-link" href="#">About</a>
-      <a class="nav-link w-nav-link" href="#">Contact</a>
-      <% if user_signed_in? %>
-        <%= link_to("New Post", { :controller => "posts", :action => "new" },  :class => "nav-link w-nav-link") %>
-      <% end %>
-      <% if user_signed_in? && policy(:user).index? %>
-        <%= link_to "All users", users_path, :class => "nav-link w-nav-link" %>
-      <% end %>
-      <% if user_signed_in? %>
-        <div id='notifications-component' class="dropdown">
-          <%= render partial: 'notifications/notifications_component' %>
+  <% unless (current_page?(posts_path) || current_page?(root_path))%>
+    <div class="navbar-logged-in w-nav" data-animation="default" data-collapse="medium" data-duration="400">
+      <div class="w-container">
+        <a class="w-nav-brand" href="/posts">
+          <%= image_tag "white_logo_transparent_background.png", class: "logo-navbar", width: "91" %>
+        </a>
+        <nav class="w-nav-menu" role="navigation">
+          <%= link_to 'Home', root_path, class: "nav-link w-nav-link" %>
+          <a class="nav-link w-nav-link" href="#">About</a>
+          <a class="nav-link w-nav-link" href="#">Contact</a>
+          <% if user_signed_in? %>
+            <%= link_to("New Post", { :controller => "posts", :action => "new" },  :class => "nav-link w-nav-link") %>
+          <% end %>
+          <% if user_signed_in? && policy(:user).index? %>
+            <%= link_to "All users", users_path, :class => "nav-link w-nav-link" %>
+          <% end %>
+          <% if user_signed_in? %>
+            <div id='notifications-component' class="dropdown">
+              <%= render partial: 'notifications/notifications_component' %>
+            </div>
+            <%= link_to "Your Profile", { controller: :users, action: :profile, id: current_user.id }, class:"nav-link w-nav-link" %>
+            <%= link_to "Log Out", destroy_user_session_path, :method => :delete, class:"nav-link w-nav-link" %>
+          <% else %>
+            <%= link_to "Log In", new_user_session_path, class:"w-nav-link" %>
+            <%= link_to "Sign Up", new_user_registration_path, class:"w-nav-link" %>
+          <% end %>
+          </a>
+        </nav>
+        <div class="w-nav-button">
+          <div class="w-icon-nav-menu"></div>
         </div>
-        <%= link_to "Your Profile", { controller: :users, action: :profile, id: current_user.id }, class:"nav-link w-nav-link" %>
-        <%= link_to "Log Out", destroy_user_session_path, :method => :delete, class:"nav-link w-nav-link" %>
-      <% else %>
-        <%= link_to "Log In", new_user_session_path, class:"w-nav-link" %>
-        <%= link_to "Sign Up", new_user_registration_path, class:"w-nav-link" %>
-      <% end %>
-      </a>
-    </nav>
-    <div class="w-nav-button">
-      <div class="w-icon-nav-menu"></div>
+      </div>
     </div>
-  </div>
-</div>
+  <% end %>
   <%= yield %>
-
-
 </body>
 </html>
