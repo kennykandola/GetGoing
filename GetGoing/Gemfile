@@ -39,6 +39,8 @@ gem "sidekiq-cron", "~> 0.4.0"
 
 gem 'puma', '~> 3.0'
 
+gem 'local_time' # for displaying times and dates to users in their local time
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
