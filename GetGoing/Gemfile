@@ -33,7 +33,9 @@ gem 'thinking-sphinx', '~> 3.3.0'
 
 gem 'riddle'
 
-
+gem 'redis', '~> 3.2'
+gem 'sidekiq' # background processing for Ruby
+gem "sidekiq-cron", "~> 0.4.0"
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

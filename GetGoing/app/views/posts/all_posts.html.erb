@@ -120,7 +120,7 @@
 
         </div>
         <div class="w-col w-col-1">
-          <h4 class="posts-table-all-other-columns"><%= post.status %></h4>
+          <h4 class="posts-table-all-other-columns"><%= current_status(post) %></h4>
         </div>
         <div class="control-post">
           <%= link_to "View Post", { controller: :posts, action: :show, id: post.id },{ class: 'view-post'} %>

@@ -6,6 +6,10 @@ class ResponsePolicy < ApplicationPolicy
     @post = response
   end
 
+  def create?
+    @user && @response.post.open?
+  end
+
   def update?
     @user && (@user.admin? || @user.moderator?)
   end

@@ -1,0 +1,4 @@
+inactive_posts_job:
+  cron: "0 3 * * *" # the job will be executed every day at 3:00 am
+  class: "InactivePostsJob"
+  queue: default

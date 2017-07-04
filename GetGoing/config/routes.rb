@@ -1,3 +1,6 @@
+require 'sidekiq/web'
+require 'sidekiq/cron/web'
+
 Rails.application.routes.draw do
 
   root 'posts#index' # root page
@@ -5,6 +8,10 @@ Rails.application.routes.draw do
   # Authentication routes
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks',
                                     registrations: 'registrations' }
+
+  authenticate :user, lambda { |u| u.admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 
   resources :subscribers
 

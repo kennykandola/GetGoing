@@ -13,4 +13,8 @@ class PostPolicy < ApplicationPolicy
   def destroy?
     @user && (@user.admin? || @user.moderator? || @user.owns_post?(post))
   end
+
+  def create_response?
+    @user && @post.open?
+  end
 end

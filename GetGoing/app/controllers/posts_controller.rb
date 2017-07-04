@@ -130,7 +130,7 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :body, :whos_traveling, :structured, :already_booked, :budget, :travel_dates, :destination, :booking_links, :user_id, :claim, :claimed_users)
+      params.require(:post).permit(:title, :body, :whos_traveling, :structured, :already_booked, :budget, :travel_dates, :destination, :booking_links, :user_id, :claim, :claimed_users, :expired_at, :status)
     end
 
   def sort_column
