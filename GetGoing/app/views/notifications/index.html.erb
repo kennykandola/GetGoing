@@ -16,6 +16,10 @@
             </td>
             <td>
               <%= notifiable_link(notification)%>
+              <br>
+              <small class="timestamp">
+                <%= local_time_ago(notification.created_at) %>
+              </small>
             </td>
           </tr>
         <% end %>
