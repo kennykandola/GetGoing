@@ -1,151 +1,150 @@
 
-<body data-ix="new-interaction">
-<div class="navbar w-nav" data-animation="over-right" data-collapse="medium" data-duration="400">
-  <div class="w-container">
-    <a class="w-nav-brand" href="#">
-      <%= image_tag "white_logo_transparent_background.png",  class: "logo-navbar", height: "70", width: "70" %>
-    </a>
-    <nav class="nav-menu w-nav-menu" role="navigation">
-      <a class="nav-link w-nav-link" href="#How-It-Works">How It Works</a>
-      <a class="nav-link w-nav-link" href="#Pricing-Secion">Pricing</a>
-      <a class="nav-link w-nav-link" href="#Reviews">Reviews</a>
-      <a class="nav-link w-nav-link" href="#">FAQ</a>
-      <a class="nav-link w-nav-link">
-      <% if user_signed_in? %>
-        <%= link_to "Your Profile", 'profile', class:"nav-link w-nav-link" %>
-        <%= link_to "Log Out", destroy_user_session_path, :method => :delete, class:"nav-link w-nav-link" %>
-      <% else %>
-        <%= link_to "Log In", new_user_session_path, class:"w-nav-link" %>
-        <%= link_to "Sign Up", new_user_registration_path, class:"w-nav-link" %>
-      <% end %></a>
+<div data-ix="new-interaction">
+  <div class="navbar w-nav" data-animation="over-right" data-collapse="medium" data-duration="400">
+    <div class="w-container">
+      <a class="w-nav-brand" href="#">
+        <%= image_tag "white_logo_transparent_background.png",  class: "logo-navbar", height: "70", width: "70" %>
+      </a>
+      <nav class="nav-menu w-nav-menu" role="navigation">
+        <a class="nav-link w-nav-link" href="#How-It-Works">How It Works</a>
+        <a class="nav-link w-nav-link" href="#Pricing-Secion">Pricing</a>
+        <a class="nav-link w-nav-link" href="#Reviews">Reviews</a>
+        <a class="nav-link w-nav-link" href="#">FAQ</a>
+        <a class="nav-link w-nav-link">
+        <% if user_signed_in? %>
+          <%= link_to "Your Profile", 'profile', class:"nav-link w-nav-link" %>
+          <%= link_to "Log Out", destroy_user_session_path, :method => :delete, class:"nav-link w-nav-link" %>
+          <div id='notifications-component' class="dropdown">
+            <%= render partial: 'notifications/notifications_component' %>
+          </div>
+        <% else %>
+          <%= link_to "Log In", new_user_session_path, class:"w-nav-link" %>
+          <%= link_to "Sign Up", new_user_registration_path, class:"w-nav-link" %>
+        <% end %></a>
 
 
-    <div class="w-nav-button">
-      <div class="nav-menu nav-menu-icon w-icon-nav-menu"></div>
+      <div class="w-nav-button">
+        <div class="nav-menu nav-menu-icon w-icon-nav-menu"></div>
+      </div>
     </div>
   </div>
-</div>
-<div class="hero-section">
-  <div class="heading-container w-container" data-ix="new-interaction">
-    <h1 class="h1">Planning a vacation?</h1>
-    <div class="hero-subheading">Launch a travel contest and let others compete to build you the perfect itinerary.</div><center><div class="div-block-10"><%=
-    link_to_if(current_user.nil?, "Get Started", { :controller => "users", :action => "new" },  :class => "button w-button")  do
-      link_to("New Post", { :controller => "posts", :action => "new" },  :class => "button w-button")
-    end
-  %><a class="button w-button" href="/all_posts">Browse Posts</a></center></div>
+  <div class="hero-section">
+    <div class="heading-container w-container" data-ix="new-interaction">
+      <h1 class="h1">Planning a vacation?</h1>
+      <div class="hero-subheading">Launch a travel contest and let others compete to build you the perfect itinerary.</div><center><div class="div-block-10"><%=
+      link_to_if(current_user.nil?, "Get Started", { :controller => "users", :action => "new" },  :class => "button w-button")  do
+        link_to("New Post", { :controller => "posts", :action => "new" },  :class => "button w-button")
+      end
+    %><a class="button w-button" href="/all_posts">Browse Posts</a></center></div>
+    </div>
   </div>
-</div>
-<section class="main-section" id="How-It-Works">
-  <div class="w-container">
-    <h2 class="black">How It Works</h2>
+  <section class="main-section" id="How-It-Works">
+    <div class="w-container">
+      <h2 class="black">How It Works</h2>
+      <div class="w-row">
+        <div class="w-col w-col-4 w-col-medium-4">
+          <div class="about-block" data-ix="new-interaction-2">
+            <%= image_tag "149307.svg", class: "about-image", "data-ix" => "new-interaction-2" %>
+            <h3>Build a Travel Brief</h3>
+            <p class="about-paragraph">Tell us about yourself and where you're traveling. You can make a travel brief no matter where you are with your travel plans. Launch your contest and 6 travel advisors will compete to give you quality guidance and insights.</p>
+          </div>
+        </div>
+        <div class="w-col w-col-4 w-col-medium-4">
+          <div class="about-block" data-ix="new-interaction-3">
+            <%= image_tag "179672.svg", class: "about-image" %>
+            <h3>Get Travel Advice From 6 People</h3>
+            <p class="about-paragraph-2">Once you've made a brief and launched your contest, you will receive insightful responses as well as a list of links to help make booking your trip a breeze.</p>
+          </div>
+        </div>
+        <div class="w-col w-col-4 w-col-medium-4">
+          <div class="about-block" data-ix="new-interaction-4">
+            <%= image_tag "263056.svg", class: "about-image" %>
+            <h3>Select Top Responses&nbsp;</h3>
+            <p class="about-paragraph-3">Out of the 6 responses you receive, choose up to 3 to receive a reward. If you're not satisfied with your experience, you will receive a full refund, no questions asked.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="main-section pink">
+    <div class="w-container">
+      <h2 class="white">Save Time &amp; Travel Better</h2>
+    </div>
+    <ul class="list w-list-unstyled"></ul>
     <div class="w-row">
-      <div class="w-col w-col-4 w-col-medium-4">
-        <div class="about-block" data-ix="new-interaction-2">
-          <%= image_tag "149307.svg", class: "about-image", "data-ix" => "new-interaction-2" %>
-          <h3>Build a Travel Brief</h3>
-          <p class="about-paragraph">Tell us about yourself and where you're traveling. You can make a travel brief no matter where you are with your travel plans. Launch your contest and 6 travel advisors will compete to give you quality guidance and insights.</p>
+      <div class="w-col w-col-4">
+        <div class="save-time-block" data-ix="new-interaction-5"><strong>Spend less time researching</strong>. No more reading and analyzing posts, blogs, and reviews trying to plan the perfect trip.
+          <br>
+          <br>Get links to book the best flights, hotels/airbnb's, restaurants, and things to do so all you have to do is click and pay.</div>
+      </div>
+      <div class="column-2-mobile w-col w-col-4">
+        <%= image_tag "160132.svg", class: "travel-image", "data-ix" => "new-interaction-5", height: "200", width: "200" %>
+      </div>
+      <div class="w-col w-col-4">
+        <div class="quality-block" data-ix="new-interaction-5"><strong>Take the guess work out of traveling</strong>. Get quality insights tailored to your desire.
+          <br>
+          <br>
+          <br>Receive advice from a diverse group of people, instead of relying on one or two sources to plan your trip.</div>
+      </div>
+    </div>
+  </div>
+  <div class="pricing-section" id="Pricing-Secion">
+    <div class="w-container">
+      <h2 class="white">Pricing</h2>
+    </div>
+    <ul class="list w-list-unstyled"></ul>
+    <div class="w-container">
+      <div class="pricing-block">
+        <h1 class="pricing-header">Free</h1>
+        <ul class="pricing-list w-list-unstyled">
+          <li data-ix="new-interaction-6">6 responses amounting to a full itinerary</li>
+          <li data-ix="new-interaction-6">Travel booking links for easy booking</li>
+          <li data-ix="new-interaction-8">Save on flights and hotels</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="reviews-section" id="Reviews">
+    <div class="w-container">
+      <h2 class="black">Reviews</h2>
+      <div class="testimonials-slider w-slider" data-animation="slide" data-duration="500" data-infinite="1">
+
+        <br></br>
+        <br></br>
+          No Reviews Yet.
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="blue reviews-section" id="Sign-Up-Now">
+    <div class="w-container">
+      <h2 class="white">Sign Up Now</h2>
+      <div class="subheading-text">We're just getting started. Drop your email address to get updates from us.</div>
+      <div class="form-wrapper w-form">
+        <form class="form-wrapper w-clearfix" data-name="Email Form" id="email-form" name="email-form">
+          <input class="text-field w-input" data-name="Email" id="email" maxlength="256" name="email" placeholder="Enter your email address" required="required" type="email">
+          <input class="submit-button w-button" data-wait="Please wait..." type="submit" value="Submit">
+        </form>
+
+        <div class="w-form-done">
+          <div>Thank you! Your submission has been received!</div>
+        </div>
+        <div class="w-form-fail">
+          <div>Oops! Something went wrong while submitting the form</div>
         </div>
       </div>
-      <div class="w-col w-col-4 w-col-medium-4">
-        <div class="about-block" data-ix="new-interaction-3">
-          <%= image_tag "179672.svg", class: "about-image" %>
-          <h3>Get Travel Advice From 6 People</h3>
-          <p class="about-paragraph-2">Once you've made a brief and launched your contest, you will receive insightful responses as well as a list of links to help make booking your trip a breeze.</p>
-        </div>
-      </div>
-      <div class="w-col w-col-4 w-col-medium-4">
-        <div class="about-block" data-ix="new-interaction-4">
-          <%= image_tag "263056.svg", class: "about-image" %>
-          <h3>Select Top Responses&nbsp;</h3>
-          <p class="about-paragraph-3">Out of the 6 responses you receive, choose up to 3 to receive a reward. If you're not satisfied with your experience, you will receive a full refund, no questions asked.</p>
+    </div>
+  </div>
+
+  <div class="footer reviews-section">
+    <div class="w-container">
+      <div class="w-row">
+        <div class="w-col w-col-6"></div>
+        <div class="w-clearfix w-col w-col-6"><a class="footer-link" href="#">Sign Up</a><a class="footer-link" href="#">FAQ</a><a class="footer-link" href="#">Reviews</a><a class="footer-link" href="#">Pricing</a><a class="footer-link" href="#">How It Works</a>
         </div>
       </div>
     </div>
   </div>
-</section>
-<div class="main-section pink">
-  <div class="w-container">
-    <h2 class="white">Save Time &amp; Travel Better</h2>
-  </div>
-  <ul class="list w-list-unstyled"></ul>
-  <div class="w-row">
-    <div class="w-col w-col-4">
-      <div class="save-time-block" data-ix="new-interaction-5"><strong>Spend less time researching</strong>. No more reading and analyzing posts, blogs, and reviews trying to plan the perfect trip.
-        <br>
-        <br>Get links to book the best flights, hotels/airbnb's, restaurants, and things to do so all you have to do is click and pay.</div>
-    </div>
-    <div class="column-2-mobile w-col w-col-4">
-      <%= image_tag "160132.svg", class: "travel-image", "data-ix" => "new-interaction-5", height: "200", width: "200" %>
-    </div>
-    <div class="w-col w-col-4">
-      <div class="quality-block" data-ix="new-interaction-5"><strong>Take the guess work out of traveling</strong>. Get quality insights tailored to your desire.
-        <br>
-        <br>
-        <br>Receive advice from a diverse group of people, instead of relying on one or two sources to plan your trip.</div>
-    </div>
-  </div>
 </div>
-<div class="pricing-section" id="Pricing-Secion">
-  <div class="w-container">
-    <h2 class="white">Pricing</h2>
-  </div>
-  <ul class="list w-list-unstyled"></ul>
-  <div class="w-container">
-    <div class="pricing-block">
-      <h1 class="pricing-header">Free</h1>
-      <ul class="pricing-list w-list-unstyled">
-        <li data-ix="new-interaction-6">6 responses amounting to a full itinerary</li>
-        <li data-ix="new-interaction-6">Travel booking links for easy booking</li>
-        <li data-ix="new-interaction-8">Save on flights and hotels</li>
-      </ul>
-    </div>
-  </div>
-</div>
-<div class="reviews-section" id="Reviews">
-  <div class="w-container">
-    <h2 class="black">Reviews</h2>
-    <div class="testimonials-slider w-slider" data-animation="slide" data-duration="500" data-infinite="1">
-
-      <br></br>
-      <br></br>
-        No Reviews Yet.
-
-      </div>
-      
-    </div>
-  </div>
-</div>
-<div class="blue reviews-section" id="Sign-Up-Now">
-  <div class="w-container">
-    <h2 class="white">Sign Up Now</h2>
-    <div class="subheading-text">We're just getting started. Drop your email address to get updates from us.</div>
-    <div class="form-wrapper w-form">
-      <form class="form-wrapper w-clearfix" data-name="Email Form" id="email-form" name="email-form">
-        <input class="text-field w-input" data-name="Email" id="email" maxlength="256" name="email" placeholder="Enter your email address" required="required" type="email">
-        <input class="submit-button w-button" data-wait="Please wait..." type="submit" value="Submit">
-      </form>
-
-      <div class="w-form-done">
-        <div>Thank you! Your submission has been received!</div>
-      </div>
-      <div class="w-form-fail">
-        <div>Oops! Something went wrong while submitting the form</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="footer reviews-section">
-  <div class="w-container">
-    <div class="w-row">
-      <div class="w-col w-col-6"></div>
-      <div class="w-clearfix w-col w-col-6"><a class="footer-link" href="#">Sign Up</a><a class="footer-link" href="#">FAQ</a><a class="footer-link" href="#">Reviews</a><a class="footer-link" href="#">Pricing</a><a class="footer-link" href="#">How It Works</a>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script> -->
-<!-- <script src="/assets/webflow.js" type="text/javascript"></script> -->
-<!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
-</body>
-</html>

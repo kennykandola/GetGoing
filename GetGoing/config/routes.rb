@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   root 'posts#index' # root page
 
+  mount ActionCable.server => '/cable'
+
   # Authentication routes
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks',
                                     registrations: 'registrations' }
@@ -22,6 +24,12 @@ Rails.application.routes.draw do
       member { patch :set_top }
     end
   end
+
+resources :notifications do
+  collection do
+    patch :mark_as_read
+  end
+end
 
   resources :booking_links, only: [:destroy] do
     member { patch :upvote }

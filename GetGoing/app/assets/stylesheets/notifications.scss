@@ -1,0 +1,88 @@
+.fa-stack[data-counter]:after{
+  position:absolute;
+  right:-10%;
+  top:-10%;
+  content: attr(data-counter);
+  font-size:50%;
+  padding:.6em;
+  border-radius:999px;
+  line-height:.75em;
+  color: white;
+  background:rgba(255,0,0,.85);
+  text-align:center;
+  min-width:0.9em;
+  font-weight:bold;
+  margin-top: 14px;
+}
+
+.fa-stack[data-counter='']:after{
+  display: none;
+}
+
+.fa-stack.has-badge {
+  font-size: 1.2em;
+  padding-top: 14px;
+
+}
+
+.fa-circle {
+  color: #333;
+}
+
+a.fa-stack:active {
+  .fa-circle {
+    color: #1695a3;
+  }
+}
+
+.dropdown {
+  width: 50px;
+}
+
+.dropdown-menu {
+  margin-top: 20px !important;
+  margin-left: -110px !important;
+  width: 300px;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+  a {
+    text-decoration: none;
+  }
+}
+
+img.actor-image{
+    margin-right: 2px;
+    border-radius: 80px;
+}
+
+.dropdown-divider {
+  height: 1px;
+  margin: .5rem 0;
+  overflow: hidden;
+  background-color: #eceeef;
+}
+
+.w-nav {
+  z-index: auto; // in order to make notifications dropdown display correctly
+}
+
+h4.dropdown-header {
+  font-size: 1em;
+}
+
+.scrollable-menu {
+    height: auto;
+    max-height: 300px;
+    overflow-x: hidden;
+}
+
+.unread-notification {
+  a{
+    font-weight:bold;
+  }
+}
+
+
+.notifications-component{
+  z-index: 10000;
+}
