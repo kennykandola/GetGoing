@@ -72,7 +72,6 @@ class ResponsesController < ApplicationController
     respond_to :js
   end
 
-
   private
     def set_post
       @post = Post.find(params[:post_id])

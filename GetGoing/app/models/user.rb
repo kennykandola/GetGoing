@@ -71,6 +71,10 @@ class User < ApplicationRecord
     post.user_id == self.id
   end
 
+  def owns_response?(response)
+    response.user_id == self.id
+  end
+
   def picture_url
     if profile_picture_url.present?
       profile_picture_url
