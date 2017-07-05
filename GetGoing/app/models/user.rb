@@ -6,12 +6,13 @@ class User < ApplicationRecord
 
   attr_accessor :current_password
 
-  has_many :posts
-  has_many :responses
+  has_many :posts, dependent: :destroy
+  has_many :responses, dependent: :destroy
   has_many :claims, through: :posts
   has_many :identities, dependent: :destroy
-  has_many :votes
-  has_many :notifications, foreign_key: :recipient_id
+  has_many :votes, dependent: :destroy
+  has_many :notifications, foreign_key: :recipient_id, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   enum role: [:simple_user, :moderator, :admin]
 

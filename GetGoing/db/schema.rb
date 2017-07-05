@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170701073757) do
+ActiveRecord::Schema.define(version: 20170705061659) do
 
   create_table "booking_links", force: :cascade do |t|
     t.string "url"
@@ -23,6 +23,16 @@ ActiveRecord::Schema.define(version: 20170701073757) do
     t.integer "response_id"
     t.index ["post_id"], name: "index_booking_links_on_post_id"
     t.index ["response_id"], name: "index_booking_links_on_response_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "response_id"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["response_id"], name: "index_comments_on_response_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "identities", force: :cascade do |t|
@@ -86,6 +96,7 @@ ActiveRecord::Schema.define(version: 20170701073757) do
     t.boolean "top", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "discussion_privacy", default: 0, null: false
     t.index ["post_id"], name: "index_responses_on_post_id"
     t.index ["user_id"], name: "index_responses_on_user_id"
   end

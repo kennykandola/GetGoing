@@ -5,6 +5,7 @@ class Response < ApplicationRecord
   has_many :top_responses
   has_many :booking_links, dependent: :destroy
   has_many :notifications, as: :notifiable, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   after_save :build_booking_links
 
