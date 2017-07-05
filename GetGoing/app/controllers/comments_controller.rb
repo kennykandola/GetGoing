@@ -10,7 +10,10 @@ class CommentsController < ApplicationController
   def create
     @comment = @response.comments.build(comments_params)
     @comment.user_id = current_user.id
-    respond_to :js if @comment.save
+    if @comment.save
+      NotificationService.new(actor: current_user, notifiable: @comment, post: @response.post).new_comment_on_response
+      respond_to :js
+    end
   end
 
   def destroy
