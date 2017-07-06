@@ -4,7 +4,7 @@ class Comment < ApplicationRecord
 
   has_many :notifications, as: :notifiable, dependent: :destroy
 
-  enum discussion_privacy: [:public_type, :private_type]
-
   validates :body, presence: true
+
+  attr_accessor :discussion_privacy
 end

@@ -26,10 +26,10 @@ class NotificationService
   end
 
   def new_comment_on_response
-    if @notifiable.user == @actor # @notifiable in this case is the comment object
+    if @actor == @notifiable.response.user # @notifiable in this case is the comment object
       @recipient = @post.user
-    elsif @post.user == @actor
-      @recipient = @notifiable.user
+    elsif @actor == @post.user
+      @recipient = @notifiable.response.user
     end
     notify('new_comment_on_response')
     ResponsesMailer.new_comment_email(@notifiable.response, @recipient).deliver_later

@@ -96,4 +96,8 @@ class User < ApplicationRecord
   def mark_as_read_all_notifications
     self.unread_notifications.update_all(read_at: Time.zone.now)
   end
+
+  def member_of_discussion?(response)
+    self == response.user || self == response.post.user
+  end
 end

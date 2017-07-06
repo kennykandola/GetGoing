@@ -61,7 +61,8 @@ class ResponsesController < ApplicationController
     @response = Response.find(params[:id])
     @post = @response.post
     authorize @response
-    @response.update(body: params[:response][:body])
+    @response.update(body: params[:response][:body],
+                     discussion_privacy: params[:response][:discussion_privacy])
     respond_to :js
   end
 

@@ -23,4 +23,8 @@ class ResponsePolicy < ApplicationPolicy
       (@user.owns_post?(@response.post) || # creator of post
       (@response.comments.present? && @user.owns_response?(@response))) # creator of response
   end
+
+  def show_comments?
+    @response.public_type? || (@response.private_type? && @user.member_of_discussion?(@response)) || (@user.admin? || @user.moderator?)
+  end
 end

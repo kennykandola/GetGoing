@@ -32,7 +32,7 @@
 <% end %>
 
 <div id="comments-<%=response.id%>">
-  <% if response.comments.present? %>
+  <% if response.comments.present? && policy(response).show_comments?%>
     <%= render partial: 'comments/comments', locals: { comments: response.comments, post_response: response } %>
   <% elsif policy(response).comment? %>
     <%= link_to 'Add comment', new_response_comment_path(response), remote: true %>

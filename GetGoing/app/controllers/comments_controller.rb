@@ -12,6 +12,8 @@ class CommentsController < ApplicationController
     @comment.user_id = current_user.id
     if @comment.save
       NotificationService.new(actor: current_user, notifiable: @comment, post: @response.post).new_comment_on_response
+      discussion_privacy = params[:comment][:discussion_privacy]
+      @response.update(discussion_privacy: discussion_privacy) if discussion_privacy == 'private_type'
       respond_to :js
     end
   end
@@ -30,6 +32,6 @@ class CommentsController < ApplicationController
   end
 
   def comments_params
-    params.required(:comment).permit(:body, :response_id)
+    params.required(:comment).permit(:body, :response_id, :discussion_privacy)
   end
 end
