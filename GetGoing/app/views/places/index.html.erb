@@ -1,0 +1,17 @@
+<script src="http://maps.googleapis.com/maps/api/js?v=3.28&libraries=places"></script>
+
+<div class="w-container">
+  <br>
+  <%= form_tag new_place_path, method: :get, remote: true do %>
+    <br>
+    <br>
+    <br>
+    <%= text_field_tag(
+        :search,
+        params[:search],
+        placeholder: "Place name",
+        class: "form-control",
+        id: 'place-input'
+    ) %>
+  <% end %>
+</div>

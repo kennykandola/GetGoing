@@ -75,6 +75,9 @@ gem 'omniauth-google-oauth2'
 # Authorization
 gem "pundit"
 
+# Gems for Google Places and Geocoder
+gem 'geocoder'
+
 # Simplify Rails app configuration
 gem 'figaro'
 

@@ -48,6 +48,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :places, only: [:index, :new, :create, :destroy]
+
   get 'profile', to: 'users#profile'
 
   get '/top' => 'responses#top'
