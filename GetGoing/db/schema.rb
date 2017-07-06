@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170705061659) do
+ActiveRecord::Schema.define(version: 20170706160344) do
 
   create_table "booking_links", force: :cascade do |t|
     t.string "url"
@@ -63,6 +63,26 @@ ActiveRecord::Schema.define(version: 20170705061659) do
     t.string "notifiable_type"
     t.datetime "read_at"
     t.integer "action", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "place_user_relations", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "place_id"
+    t.integer "relation", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["place_id"], name: "index_place_user_relations_on_place_id"
+    t.index ["relation"], name: "index_place_user_relations_on_relation"
+    t.index ["user_id", "place_id"], name: "index_place_user_relations_on_user_id_and_place_id", unique: true
+    t.index ["user_id"], name: "index_place_user_relations_on_user_id"
+  end
+
+  create_table "places", force: :cascade do |t|
+    t.string "name"
+    t.string "country"
+    t.string "google_place_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

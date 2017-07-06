@@ -1,0 +1,24 @@
+<table class='table table-striped table-bordered table-hover'
+  <thead>
+    <tr>
+      <th> Place name </th>
+      <th> Place country</th>
+      <th> Action </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% places.each do |place| %>
+      <tr>
+        <td>
+          <%= place.name %>
+        </td>
+        <td>
+          <%= place.country %>
+        </td>
+        <td>
+
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -48,7 +48,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :places, only: [:index, :new, :create, :destroy]
+  resources :places, only: [:index, :destroy] do
+    collection { post :add_place_to_user }
+  end
 
   get 'profile', to: 'users#profile'
 

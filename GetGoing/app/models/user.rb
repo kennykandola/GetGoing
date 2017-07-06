@@ -14,6 +14,9 @@ class User < ApplicationRecord
   has_many :notifications, foreign_key: :recipient_id, dependent: :destroy
   has_many :comments, dependent: :destroy
 
+  has_many :place_user_relations
+  has_many :places, through: :place_user_relations
+
   enum role: [:simple_user, :moderator, :admin]
 
   has_attached_file :photo
