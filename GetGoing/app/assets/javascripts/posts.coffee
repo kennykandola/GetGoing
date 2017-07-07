@@ -29,6 +29,11 @@ googlePlaceAutocomplete = ->
     # Create the autocomplete object, restricting the search to geographical
     # location types.
     autocomplete = new (google.maps.places.Autocomplete)(input, types: [ 'geocode' ])
+    # Disable form submit on enter (prevent unexpected sumbit on place autocomplete)
+    google.maps.event.addDomListener input, 'keydown', (event) ->
+      if event.keyCode == 13
+        event.preventDefault()
+      return
     # When the user selects an address from the dropdown, populate the address
     # fields in the form.
     autocomplete.addListener 'place_changed', fillInAddress

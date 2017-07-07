@@ -42,23 +42,18 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
-
     @post = Post.new(post_params)
-
     @post.user = current_user
-
-
-
     respond_to do |format|
       if @post.save
+        post_params
         User.all.each do |user|
           if user.tippa == true
-          PostsMailer.send_diffusion(@message, user).deliver_later
-end
-        format.html { redirect_to @post, notice: 'Post was successfully created.'}
-        format.json { render :show, status: :created, location: @post }
-end
-
+            PostsMailer.send_diffusion(@message, user).deliver_later
+          end
+          format.html { redirect_to @post, notice: 'Post was successfully created.'}
+          format.json { render :show, status: :created, location: @post }
+        end
       else
         format.html { render :new }
         format.json { render json: @post.errors, status: :unprocessable_entity }
@@ -134,7 +129,8 @@ end
                                    :already_booked, :budget, :travel_dates,
                                    :destination, :booking_links, :user_id,
                                    :claim, :claimed_users, :expired_at, :status,
-                                   places_attributes: [:name, :google_place_id, :country])
+                                   places_attributes: [:name, :google_place_id,
+                                   :country, :_destroy])
     end
 
   def sort_column
