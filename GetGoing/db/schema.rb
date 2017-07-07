@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170706160344) do
+ActiveRecord::Schema.define(version: 20170707131109) do
 
   create_table "booking_links", force: :cascade do |t|
     t.string "url"
@@ -65,6 +65,14 @@ ActiveRecord::Schema.define(version: 20170706160344) do
     t.integer "action", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "place_post_relations", force: :cascade do |t|
+    t.integer "place_id"
+    t.integer "post_id"
+    t.index ["place_id", "post_id"], name: "index_place_post_relations_on_place_id_and_post_id", unique: true
+    t.index ["place_id"], name: "index_place_post_relations_on_place_id"
+    t.index ["post_id"], name: "index_place_post_relations_on_post_id"
   end
 
   create_table "place_user_relations", force: :cascade do |t|

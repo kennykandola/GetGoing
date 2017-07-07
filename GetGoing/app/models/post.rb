@@ -6,6 +6,10 @@ class Post < ApplicationRecord
   has_many :top_responses
   has_many :claims
 
+  has_many :place_post_relations
+  has_many :places, through: :place_post_relations
+  accepts_nested_attributes_for :places
+
   after_save :set_closing_job
 
   serialize :claimed_users, Array

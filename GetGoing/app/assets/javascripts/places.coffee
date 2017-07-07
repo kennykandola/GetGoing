@@ -1,22 +1,10 @@
-$(".places.index").ready ->
-
+googlePlaceAutocomplete = ->
   input = document.getElementById('place-input')
   placeSearch = undefined
   autocomplete = undefined
   componentForm =
-    # street_number: 'short_name'
-    # route: 'long_name'
-    # locality: 'long_name'
-    # administrative_area_level_1: 'short_name'
     country: 'long_name'
-    # postal_code: 'short_name'
     place_id: 'place_id'
-
-  $('#place-input').change ->
-    if input.value == ''
-      document.getElementById('country').value = ''
-      document.getElementById('place_id').value = ''
-      document.getElementById('add-place').disabled = true
 
   initAutocomplete = ->
     # Create the autocomplete object, restricting the search to geographical
@@ -30,7 +18,6 @@ $(".places.index").ready ->
   fillInAddress = ->
     # Get the place details from the autocomplete object.
     place = autocomplete.getPlace()
-    console.log(place)
     for component of componentForm
       document.getElementById(component).value = ''
       document.getElementById('add-place').disabled = false
@@ -46,3 +33,11 @@ $(".places.index").ready ->
     document.getElementById('place_id').value = place.place_id
 
   initAutocomplete()
+
+$(".places.index").ready ->
+  $('#place-input').change ->
+    if $('#place-input').val() == ''
+      $('#country').val('')
+      $('#place_id').val('')
+      $('#add-place').prop("disabled", true)
+  googlePlaceAutocomplete()
