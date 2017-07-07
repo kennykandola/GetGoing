@@ -1,0 +1,25 @@
+.place-location {
+  color: grey;
+}
+
+.fa-times {
+  color: #e9501f;
+  text-decoration: none;
+}
+
+.fa-map-marker, .fa-home {
+  color: #1695a3;
+  text-decoration: none;
+}
+
+.fa-map-marker{
+  margin-right: 2px;
+}
+
+.fa-times:active {
+  color: #ff8c67;
+}
+
+.fa-map-marker:active, .fa-home:active {
+  color: #1fc4d6;
+}

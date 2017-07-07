@@ -14,7 +14,7 @@ class User < ApplicationRecord
   has_many :notifications, foreign_key: :recipient_id, dependent: :destroy
   has_many :comments, dependent: :destroy
 
-  has_many :place_user_relations
+  has_many :place_user_relations, dependent: :destroy
   has_many :places, through: :place_user_relations
 
   enum role: [:simple_user, :moderator, :admin]
@@ -102,5 +102,43 @@ class User < ApplicationRecord
 
   def member_of_discussion?(response)
     self == response.user || self == response.post.user
+  end
+
+  def current_location
+    PlaceUserRelation.where(user: User.first, relation: "location").present? ? PlaceUserRelation.where(user: User.first, relation: "location").first.place.name : ''
+  end
+
+  def hometown
+    PlaceUserRelation.where(user: User.first, relation: "hometown").present? ? PlaceUserRelation.where(user: User.first, relation: "hometown").first.place.name : ''
+  end
+
+  def location=(place)
+    PlaceUserRelation.where(user: self, relation: 'location')
+                     .update_all(relation: 'traveled')
+    place_user_relations = PlaceUserRelation.where(place: place, user: self)
+    place_user_relations.each do |place_user_relation|
+      if place_user_relation.traveled?
+        place_user_relation.update(relation: 'location')
+      elsif place_user_relation.hometown?
+        PlaceUserRelation.create(place: place, user: self, relation: 'location')
+      end
+    end
+  end
+
+  def hometown=(place)
+    PlaceUserRelation.where(user: self, relation: 'hometown')
+                     .update_all(relation: 'traveled')
+    place_user_relations = PlaceUserRelation.where(place: place, user: self)
+    place_user_relations.each do |place_user_relation|
+      if place_user_relation.traveled?
+        place_user_relation.update(relation: 'hometown')
+      elsif place_user_relation.location?
+        PlaceUserRelation.create(place: place, user: self, relation: 'hometown')
+      end
+    end
+  end
+
+  def traveled_places
+    places.references( :place_user_relations ).where(place_user_relations: {relation: 'traveled'})
   end
 end

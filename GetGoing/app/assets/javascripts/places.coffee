@@ -12,6 +12,12 @@ $(".places.index").ready ->
     # postal_code: 'short_name'
     place_id: 'place_id'
 
+  $('#place-input').change ->
+    if input.value == ''
+      document.getElementById('country').value = ''
+      document.getElementById('place_id').value = ''
+      document.getElementById('add-place').disabled = true
+
   initAutocomplete = ->
     # Create the autocomplete object, restricting the search to geographical
     # location types.
@@ -27,7 +33,7 @@ $(".places.index").ready ->
     console.log(place)
     for component of componentForm
       document.getElementById(component).value = ''
-      # document.getElementById(component).disabled = false
+      document.getElementById('add-place').disabled = false
     # Get each component of the address from the place details
     # and fill the corresponding field on the form.
     i = 0

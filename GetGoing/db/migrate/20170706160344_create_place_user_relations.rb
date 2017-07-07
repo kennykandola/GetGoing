@@ -8,7 +8,7 @@ class CreatePlaceUserRelations < ActiveRecord::Migration[5.1]
       t.timestamps
     end
 
-    add_index :place_user_relations, [:user_id, :place_id], unique: true
+    add_index :place_user_relations, [:user_id, :place_id, :relation], unique: true, name: 'place_user_relations_index'
 
   end
 end

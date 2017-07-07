@@ -50,6 +50,8 @@ Rails.application.routes.draw do
 
   resources :places, only: [:index, :destroy] do
     collection { post :add_place_to_user }
+    member { patch :set_as_current_location }
+    member { patch :set_as_hometown }
   end
 
   get 'profile', to: 'users#profile'

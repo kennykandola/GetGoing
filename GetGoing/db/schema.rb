@@ -75,7 +75,7 @@ ActiveRecord::Schema.define(version: 20170706160344) do
     t.datetime "updated_at", null: false
     t.index ["place_id"], name: "index_place_user_relations_on_place_id"
     t.index ["relation"], name: "index_place_user_relations_on_relation"
-    t.index ["user_id", "place_id"], name: "index_place_user_relations_on_user_id_and_place_id", unique: true
+    t.index ["user_id", "place_id", "relation"], name: "place_user_relations_index", unique: true
     t.index ["user_id"], name: "index_place_user_relations_on_user_id"
   end
 
