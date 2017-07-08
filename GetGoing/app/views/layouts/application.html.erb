@@ -38,9 +38,6 @@
           <% if user_signed_in? %>
             <%= link_to("New Post", { :controller => "posts", :action => "new" },  :class => "nav-link w-nav-link") %>
           <% end %>
-          <% if user_signed_in? %>
-            <%= link_to("My places", places_path,  :class => "nav-link w-nav-link") %>
-          <% end %>
           <% if user_signed_in? && policy(:user).index? %>
             <%= link_to "All users", users_path, :class => "nav-link w-nav-link" %>
           <% end %>

@@ -1,8 +1,8 @@
 <div>
   <h5 class='place-location'>
     <%= icon "home" %> Hometown:
-    <% if current_user.hometown.present? %>
-      <%= current_user.hometown %>
+    <% if current_user.hometown_name.present? %>
+      <%= current_user.hometown_name %>
     <% else %>
       Unknown
     <% end %>
@@ -11,8 +11,8 @@
 <div>
   <h5 class='place-location'>
     &nbsp;<%= icon "map-marker" %> Current location:
-    <% if current_user.current_location.present? %>
-      <%= current_user.current_location %>
+    <% if current_user.current_location_name.present? %>
+      <%= current_user.current_location_name %>
     <% else %>
       Unknown
     <% end %>

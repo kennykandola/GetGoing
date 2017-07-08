@@ -20,7 +20,7 @@ module NotificationsHelper
     when 'recommended_link_upvoted'
       link_to "#{notification.actor.first_name} upvoted your recommended link from \"#{post.title}\"", post_path(post)
     when 'new_post_with_matching_place'
-      # TODO
+      link_to "#{notification.actor.first_name} just posted \"#{post.title}\" with places you have been", post_path(post)
     when 'new_comment_on_response'
       link_to "#{notification.actor.first_name} replied with comment on response from \"#{post.title}\"", post_path(post)
     end

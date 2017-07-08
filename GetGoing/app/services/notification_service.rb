@@ -22,7 +22,7 @@ class NotificationService
   end
 
   def new_post_with_matching_place
-    # TODO
+    notify('new_post_with_matching_place')
   end
 
   def new_comment_on_response

@@ -104,17 +104,25 @@ class User < ApplicationRecord
     self == response.user || self == response.post.user
   end
 
+  def current_location_name
+    PlaceUserRelation.where(user: self, relation: "location").present? ? PlaceUserRelation.where(user: self, relation: "location").first.place.name : nil
+  end
+
+  def hometown_name
+    PlaceUserRelation.where(user: self, relation: "hometown").present? ? PlaceUserRelation.where(user: self, relation: "hometown").first.place.name : nil
+  end
+
   def current_location
-    PlaceUserRelation.where(user: User.first, relation: "location").present? ? PlaceUserRelation.where(user: User.first, relation: "location").first.place.name : ''
+    PlaceUserRelation.where(user: self, relation: "location").present? ? PlaceUserRelation.where(user: self, relation: "location").first.place : nil
   end
 
   def hometown
-    PlaceUserRelation.where(user: User.first, relation: "hometown").present? ? PlaceUserRelation.where(user: User.first, relation: "hometown").first.place.name : ''
+    PlaceUserRelation.where(user: self, relation: "hometown").present? ? PlaceUserRelation.where(user: self, relation: "hometown").first.place : nil
   end
 
   def location=(place)
-    PlaceUserRelation.where(user: self, relation: 'location')
-                     .update_all(relation: 'traveled')
+    remove_old_location if current_location.present?
+
     place_user_relations = PlaceUserRelation.where(place: place, user: self)
     place_user_relations.each do |place_user_relation|
       if place_user_relation.traveled?
@@ -125,9 +133,19 @@ class User < ApplicationRecord
     end
   end
 
+  def remove_old_location
+    if traveled_places.where(id: current_location.id).present?
+      place_user_relations.where(place: current_location, relation: 'location')
+                          .destroy_all
+    else
+      PlaceUserRelation.where(user: self, relation: 'location')
+                       .update_all(relation: 'traveled')
+    end
+  end
+
   def hometown=(place)
-    PlaceUserRelation.where(user: self, relation: 'hometown')
-                     .update_all(relation: 'traveled')
+    remove_old_hometown if hometown.present?
+
     place_user_relations = PlaceUserRelation.where(place: place, user: self)
     place_user_relations.each do |place_user_relation|
       if place_user_relation.traveled?
@@ -138,7 +156,21 @@ class User < ApplicationRecord
     end
   end
 
+  def remove_old_hometown
+    if traveled_places.where(id: hometown.id).present?
+      place_user_relations.where(place: hometown, relation: 'hometown')
+                          .destroy_all
+    else
+      PlaceUserRelation.where(user: self, relation: 'hometown')
+                       .update_all(relation: 'traveled')
+    end
+  end
+
   def traveled_places
     places.references( :place_user_relations ).where(place_user_relations: {relation: 'traveled'})
+  end
+
+  def all_places
+    places.group(:id)
   end
 end

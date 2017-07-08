@@ -12,6 +12,8 @@ class Post < ApplicationRecord
 
   after_save :set_closing_job
 
+  after_create -> { MatchingPlacesSuggestionJob.perform_later(self) }
+
   serialize :claimed_users, Array
 
   validates_presence_of :title
