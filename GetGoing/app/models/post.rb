@@ -33,16 +33,31 @@ class Post < ApplicationRecord
 
   def connect_with_places(places_params)
     places_params.keys.each do |place_id|
-      google_place_id = places_params[place_id]['google_place_id']
-      existing_places = Place.where(google_place_id: google_place_id)
-      if existing_places.present? && self.places.exclude?(existing_places.first)
-        PlacePostRelation.create(post: self, place: existing_places.first)
+      existing_places = Place.where(google_place_id: places_params[place_id]['google_place_id'])
+
+      if existing_places.present? && places_params[place_id]['_destroy'] == '1'
+        disconnect_from_existing_place(existing_places)
+      elsif existing_places.present? && self.places.exclude?(existing_places.first)
+        connect_with_existing_place(existing_places)
       elsif existing_places.blank?
-        new_place = Place.create(name: places_params[place_id]['name'],
-                                 google_place_id: places_params[place_id]['google_place_id'],
-                                 country: places_params[place_id]['country'])
-        PlacePostRelation.create(post: self, place: new_place)
+        connect_with_new_place(places_params[place_id])
       end
     end
+  end
+
+  def connect_with_existing_place(existing_places)
+    PlacePostRelation.create(post: self, place: existing_places.first)
+  end
+
+  def connect_with_new_place(places_params)
+    new_place = Place.create(name: places_params['name'],
+                 google_place_id: places_params['google_place_id'],
+                 country: places_params['country'])
+    PlacePostRelation.create(post: self, place: new_place)
+  end
+
+  def disconnect_from_existing_place(existing_places)
+    relations = place_post_relations.where(place: existing_places.first)
+    relations.destroy_all
   end
 end
