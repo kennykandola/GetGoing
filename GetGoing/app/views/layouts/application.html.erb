@@ -24,7 +24,7 @@
   <%= javascript_include_tag "application"%>
   <%= csrf_meta_tags %>
 </head>
-<body id="<%= controller_name %> <%= action_name %>">
+<body class="<%= controller_name %> <%= action_name %>">
   <% unless (current_page?(posts_path) || current_page?(root_path))%>
     <div class="navbar-logged-in w-nav" data-animation="default" data-collapse="medium" data-duration="400">
       <div class="w-container">
@@ -37,6 +37,9 @@
           <a class="nav-link w-nav-link" href="#">Contact</a>
           <% if user_signed_in? %>
             <%= link_to("New Post", { :controller => "posts", :action => "new" },  :class => "nav-link w-nav-link") %>
+          <% end %>
+          <% if user_signed_in? %>
+            <%= link_to("My places", places_path,  :class => "nav-link w-nav-link") %>
           <% end %>
           <% if user_signed_in? && policy(:user).index? %>
             <%= link_to "All users", users_path, :class => "nav-link w-nav-link" %>

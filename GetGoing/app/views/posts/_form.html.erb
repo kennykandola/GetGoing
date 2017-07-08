@@ -30,11 +30,20 @@
       %>
       <br>
       <div id='places'>
-        <%= f.fields_for :places, Place.new do |place|%>
-          <%= render 'place_fields', f: place %>
+        <% if @post.places.present? %>
+          <%= f.fields_for :places, @post.places do |place|%>
+            <%= render 'place_fields', f: place %>
+          <% end %>
           <div class='links'>
             <%= link_to_add_association 'Add one more place', f, :places, class: 'btn btn-default'%>
           </div>
+        <% else %>
+          <%= f.fields_for :places, Place.new do |place|%>
+            <%= render 'place_fields', f: place %>
+            <div class='links'>
+              <%= link_to_add_association 'Add one more place', f, :places, class: 'btn btn-default'%>
+            </div>
+          <% end %>
         <% end %>
       </div>
     </div>

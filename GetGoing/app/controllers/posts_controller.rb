@@ -45,7 +45,9 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.user = current_user
     respond_to do |format|
-      if @post.save
+      if @post.save!
+        places = post_and_places_params[:places_attributes]
+        @post.connect_with_places(places)
         post_params
         User.all.each do |user|
           if user.tippa == true
@@ -66,6 +68,8 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params)
+        places = post_and_places_params[:places_attributes]
+        @post.connect_with_places(places)
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
         format.json { render :show, status: :ok, location: @post }
 
@@ -124,13 +128,17 @@ end
 
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def post_params
+    def post_and_places_params
       params.require(:post).permit(:title, :body, :whos_traveling, :structured,
                                    :already_booked, :budget, :travel_dates,
                                    :destination, :booking_links, :user_id,
                                    :claim, :claimed_users, :expired_at, :status,
                                    places_attributes: [:name, :google_place_id,
                                    :country, :_destroy])
+    end
+
+    def post_params
+      post_and_places_params.except(:places_attributes)
     end
 
   def sort_column

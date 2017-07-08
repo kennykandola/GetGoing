@@ -1,3 +1,11 @@
+$(".places.index").ready ->
+  googlePlaceAutocomplete()
+  $('#place-input').change ->
+    if $('#place-input').val() == ''
+      $('#country').val('')
+      $('#place_id').val('')
+      $('#add-place').prop("disabled", true)
+      
 googlePlaceAutocomplete = ->
   input = document.getElementById('place-input')
   placeSearch = undefined
@@ -10,6 +18,11 @@ googlePlaceAutocomplete = ->
     # Create the autocomplete object, restricting the search to geographical
     # location types.
     autocomplete = new (google.maps.places.Autocomplete)(input, types: [ 'geocode' ])
+    # Disable form submit on enter (prevent unexpected sumbit on place autocomplete)
+    google.maps.event.addDomListener input, 'keydown', (event) ->
+      if event.keyCode == 13
+        event.preventDefault()
+      return
     # When the user selects an address from the dropdown, populate the address
     # fields in the form.
     autocomplete.addListener 'place_changed', fillInAddress
@@ -33,11 +46,3 @@ googlePlaceAutocomplete = ->
     document.getElementById('place_id').value = place.place_id
 
   initAutocomplete()
-
-$(".places.index").ready ->
-  $('#place-input').change ->
-    if $('#place-input').val() == ''
-      $('#country').val('')
-      $('#place_id').val('')
-      $('#add-place').prop("disabled", true)
-  googlePlaceAutocomplete()

@@ -17,6 +17,7 @@
 //= require modal-bootstrap.min.js
 //= require local_time
 //= require cocoon
+//= require jquery.readyselector
 //= require cable.js
 //= require_tree .
 

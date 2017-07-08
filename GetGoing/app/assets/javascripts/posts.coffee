@@ -1,8 +1,8 @@
-$(".post.new").ready ->
+$(".posts.new").ready ->
   googlePlaceAutocomplete()
   cocoonCallbacks()
 
-$(".post.edit").ready ->
+$(".posts.edit").ready ->
   googlePlaceAutocomplete()
   cocoonCallbacks()
 
@@ -11,6 +11,7 @@ cocoonCallbacks = ->
     task_to_be_added.fadeIn 'slow'
     return
   ).on('cocoon:after-insert', (e, added_task) ->
+    $('#place-input').val('')
     return
   ).on 'cocoon:before-remove', (e, task) ->
     $(this).data 'remove-timeout', 1000
