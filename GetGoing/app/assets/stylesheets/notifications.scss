@@ -39,50 +39,185 @@ a.fa-stack:active {
   width: 50px;
 }
 
-.dropdown-menu {
-  margin-top: 20px !important;
-  margin-left: -110px !important;
-  width: 300px;
-  padding-left: 10px !important;
-  padding-right: 10px !important;
-  a {
-    text-decoration: none;
-  }
-}
-
-img.actor-image{
+img.img-circle{
     margin-right: 2px;
     border-radius: 80px;
+    max-width: none;
 }
 
-.dropdown-divider {
-  height: 1px;
-  margin: .5rem 0;
-  overflow: hidden;
-  background-color: #eceeef;
-}
 
 .w-nav {
   z-index: auto; // in order to make notifications dropdown display correctly
 }
 
-h4.dropdown-header {
-  font-size: 1em;
+.dropdown-container {
+  margin-top: 20px !important;
+  margin-left: -110px !important;
+  z-index: 1000000;
+  // width: 300px;
+  // padding-left: 10px !important;
+  // padding-right: 10px !important;
+  a {
+    text-decoration: none;
+  }
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: none;
+  float: left;
+  min-width: 200px;
+  // max-width: 330px;
+  margin: 2px 0 0;
+  list-style: none;
+  font-size: 14px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  background-clip: padding-box;
+}
+.dropdown-container > .dropdown-menu {
+  position: static;
+  z-index: 1000;
+  float: none!important;
+  padding: 10px 0;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  max-height: 330px;
+  overflow-y: auto;
+}
+.dropdown-container > .dropdown-menu + .dropdown-menu {
+  padding-top: 0;
+}
+.dropdown-menu > li > a {
+  overflow: hidden;
+  white-space: nowrap;
+  word-wrap: normal;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  -webkit-transition: none;
+  -o-transition: none;
+  transition: none;
 }
 
-.scrollable-menu {
-    height: auto;
-    max-height: 300px;
-    overflow-x: hidden;
+.dropdown-header {
+  white-space: nowrap;
 }
-
-.unread-notification {
+.open > .dropdown-container > .dropdown-menu,
+.open > .dropdown-container {
+  display: block;
+}
+.dropdown-toolbar {
+  padding-top: 6px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 5px;
+  background-color: #fff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px 4px 0 0;
+}
+.dropdown-toolbar > .form-group {
+  margin: 5px -10px;
+}
+.dropdown-toolbar .dropdown-toolbar-actions {
+  float: right;
+}
+.dropdown-toolbar .dropdown-toolbar-title {
+  margin: 0;
+  font-size: 14px;
+}
+.dropdown-footer {
+  padding: 5px 20px;
+  border-top: 1px solid #ccc;
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0 0 4px 4px;
   a{
-    font-weight:bold;
+    color:#333;
   }
 }
 
 
-.notifications-component{
-  z-index: 10000;
+.notifications {
+  list-style: none;
+  padding: 0;
+}
+.notification {
+  display: block;
+  padding: 9.6px 12px;
+  border-width: 0 0 1px 0;
+  border-style: solid;
+  border-color: #eeeeee;
+  background-color: #fff;
+  color: #333333;
+  text-decoration: none;
+}
+.notification:last-child {
+  border-bottom: 0;
+}
+.notification:hover,
+.notification.active:hover {
+  background-color: #f9f9f9;
+  border-color: #eeeeee;
+}
+.notification.active {
+  background-color: #f4f4f4;
+}
+a.notification:hover {
+  text-decoration: none;
+}
+.notification-title {
+  font-size: 15px;
+  margin-bottom: 0;
+}
+.notification-desc {
+  margin-bottom: 0;
+}
+.notification-meta {
+  color: #777777;
+}
+.dropdown-notifications > .dropdown-container,
+.dropdown-notifications > .dropdown-menu {
+  width: 300px;
+  max-width: 300px;
+}
+.dropdown-notifications .dropdown-menu {
+  padding: 0;
+}
+.dropdown-notifications .dropdown-toolbar,
+.dropdown-notifications .dropdown-footer {
+  padding: 9.6px 12px;
+}
+.dropdown-notifications .dropdown-toolbar {
+  background: #fff;
+}
+.dropdown-notifications .dropdown-footer {
+  background: #eeeeee;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.media-left, .media-right, .media-body {
+    display: table-cell;
+    vertical-align: top;
+}
+
+.media-left, .media>.pull-left {
+    padding-right: 10px;
+}
+
+.media-object {
+    display: block;
+}
+
+.navbar{
+  position: relative; // To make notifications-component available. By default it is fixed, which make imposible to set correct z-index and block notifications dropdown component
 }

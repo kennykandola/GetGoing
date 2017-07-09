@@ -70,7 +70,7 @@
       <div class="post-title"><%= response.body %> </div>
       <div class="response-status"><%=  %></div>
           <div class="w-clearfix">
-            <div class="show-post text-block-16">View Post</div>
+            <div class="show-post text-block-16"><%= link_to 'View Post', { controller: :posts, action: :show, id: response.post.id } %></div>
           </div>
       <% end %>
     </div>
