@@ -28,5 +28,15 @@
 <% end %>
 
 <% if policy(response).destroy? %>
-  <%= link_to 'Remove Response', post_response_path(response.post, response), remote: true, method: :delete %>
+  <%= link_to 'Remove Response', post_response_path(response.post, response), remote: true, method: :delete, data: { confirm: "Are you sure you want to delete this response?" } %>
 <% end %>
+
+<div id="comments-<%=response.id%>">
+  <% if response.comments.present? && policy(response).show_comments?%>
+    <%= render partial: 'comments/comments', locals: { comments: response.comments, post_response: response } %>
+  <% elsif policy(response).comment? %>
+    <%= link_to 'Add comment', new_response_comment_path(response), remote: true %>
+    <div id="comments-form-<%=response.id%>">
+    </div>
+  <% end %>
+</div>

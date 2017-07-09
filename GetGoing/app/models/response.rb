@@ -5,6 +5,9 @@ class Response < ApplicationRecord
   has_many :top_responses
   has_many :booking_links, dependent: :destroy
   has_many :notifications, as: :notifiable, dependent: :destroy
+  has_many :comments, dependent: :destroy
+
+  enum discussion_privacy: [:public_type, :private_type]
 
   after_save :build_booking_links
 

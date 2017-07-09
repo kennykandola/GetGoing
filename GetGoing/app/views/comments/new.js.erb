@@ -1,0 +1,1 @@
+$("#comments-form-<%= @response.id %>").html("<%= escape_javascript(render(partial: 'comments/form', locals: { post_response: @response })).html_safe %>");

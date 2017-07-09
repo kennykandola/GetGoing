@@ -24,4 +24,14 @@ class NotificationService
   def new_post_with_matching_place
     # TODO
   end
+
+  def new_comment_on_response
+    if @actor == @notifiable.response.user # @notifiable in this case is the comment object
+      @recipient = @post.user
+    elsif @actor == @post.user
+      @recipient = @notifiable.response.user
+    end
+    notify('new_comment_on_response')
+    ResponsesMailer.new_comment_email(@notifiable.response, @recipient).deliver_later
+  end
 end

@@ -6,6 +6,8 @@ module NotificationsHelper
       return notification.notifiable
     elsif ['Response', 'BookingLink'].include? notification.notifiable_type
       return notification.notifiable.post
+    elsif notification.notifiable_type == 'Comment'
+      return notification.notifiable.response.post
     end
   end
 
@@ -19,6 +21,12 @@ module NotificationsHelper
       link_to "#{notification.actor.first_name} upvoted your recommended link from \"#{post.title}\"", post_path(post)
     when 'new_post_with_matching_place'
       # TODO
+    when 'new_comment_on_response'
+      if notification.notifiable.response.comments.order('created_at ASC').first.id == notification.notifiable.id # check if that comment is first
+        link_to "#{notification.actor.first_name} commented on your response to \"#{post.title}\"", post_path(post)
+      else
+        link_to "#{notification.actor.first_name} replied to your comment", post_path(post)
+      end
     end
   end
 end
