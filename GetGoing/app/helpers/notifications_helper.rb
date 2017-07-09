@@ -22,7 +22,11 @@ module NotificationsHelper
     when 'new_post_with_matching_place'
       # TODO
     when 'new_comment_on_response'
-      link_to "#{notification.actor.first_name} replied with comment on response from \"#{post.title}\"", post_path(post)
+      if notification.notifiable.response.comments.order('created_at ASC').first.id == notification.notifiable.id # check if that comment is first
+        link_to "#{notification.actor.first_name} commented on your response to \"#{post.title}\"", post_path(post)
+      else
+        link_to "#{notification.actor.first_name} replied to your comment", post_path(post)
+      end
     end
   end
 end
