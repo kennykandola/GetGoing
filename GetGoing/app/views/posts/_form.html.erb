@@ -1,5 +1,4 @@
 <%= javascript_include_tag "http://maps.googleapis.com/maps/api/js?v=3.28&libraries=places&key=#{ENV['GOOGLE_MAPS_API']}" %>
-<% binding.pry %>
 <%= form_for(@post) do |f| %>
   <% if @post.errors.any? %>
     <div id="error_explanation">

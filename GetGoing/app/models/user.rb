@@ -70,6 +70,10 @@ class User < ApplicationRecord
     @google_oauth2_client
   end
 
+  def facebook_graph(accesstoken)
+    @facebook_graph ||= Koala::Facebook::API.new(accesstoken)
+  end
+
   def owns_post?(post)
     post.user_id == self.id
   end

@@ -19,8 +19,8 @@ class Identity < ApplicationRecord
     identity.birthday = Date.strptime(auth.extra.raw_info.birthday,'%m/%d/%Y') if auth.extra.raw_info.birthday.present?
     identity.age_max = auth.extra.raw_info.age_range.to_h["max"]
     identity.age_min = auth.extra.raw_info.age_range.to_h["min"]
-    identity.hometown = auth.extra.raw_info.hometown.name if auth.extra.raw_info.hometown.present?
-    identity.location = auth.extra.raw_info.location.name if auth.extra.raw_info.location.present?
+    # identity.hometown = auth.extra.raw_info.hometown.name if auth.extra.raw_info.hometown.present?
+    # identity.location = auth.extra.raw_info.location.name if auth.extra.raw_info.location.present?
     image = auth.info.image
     image += '?type=large' if auth.info.image.present? && auth.info.image.end_with?('picture')
     identity.image = image

@@ -16,8 +16,8 @@ class PlacesController < ApplicationController
                               country: params[:place][:country])
       end
       PlaceUserRelation.create(place: @place, user: current_user, relation: 'traveled')
-      @places = current_user.all_places
     end
+    @places = current_user.all_places
     respond_to :js
   end
 
