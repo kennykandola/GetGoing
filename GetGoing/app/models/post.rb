@@ -18,9 +18,17 @@ class Post < ApplicationRecord
 
   validates_presence_of :title
 
-  scope :open, -> { where(status: true) }
+  scope :status_open, -> { where(status: true) }
 
-  def open?
+  searchkick # index model with elasticsearch
+
+  def search_data
+    attributes.merge(
+      places_name: places.map(&:name)
+    )
+  end
+
+  def status_open?
     status
   end
 

@@ -72,7 +72,8 @@
     <div class="design-brief-subheading">Let us know your budget so advisors can bring you relevant suggestions for your price range.</div>
       <span class="field-tip">
       <br>
-      <%= f.select(:budget, options_for_select([['<$500', 1], ['<$1,000', 2], ['<$1,500', 3], ['<$2,000', 4], ['<$2,500', 5], ['<$3,000', 6], ['<$4,000', 6], ['>$5,000', 6]]), {}, { :class => 'budget' }) %>
+      <%= f.select(:budget, options_for_select([['<$500', '<$500'], ['<$1,000', '<$1,000'], ['<$1,500', '<$1,500'], ['<$2,000', '<$2,000'],
+                                                ['<$2,500', '<$2,500'], ['<$3,000', '<$3,000'], ['<$4,000', '<$4,000'], ['>$5,000', '>$5,000']], selected: @post.budget), {}, { :class => 'budget' }) %>
     </span>
     <br></br>
     <h1 class="h1-design">Travel Dates</h1>
@@ -101,7 +102,7 @@
     <div class="design-brief-subheading">This will let our advisors know whether to give you more specific suggestions or general tips and advice.
     </div>
       <br>
-    <%= f.select(:structured, options_for_select([['Full Itinerary - not a second free'], ['Busy Itinerary - a little down time'], ['Light Itinerary - ample amount of time for relaxation and freedom']]), {}, { :class => 'budget' }) %>
+    <%= f.select(:structured, options_for_select([['Full Itinerary - not a second free','Full Itinerary - not a second free'], ['Busy Itinerary - a little down time','Busy Itinerary - a little down time'], ['Light Itinerary - ample amount of time for relaxation and freedom','Light Itinerary - ample amount of time for relaxation and freedom']], selected: @post.structured ), {}, { :class => 'budget' }) %>
 
     </div>
     <br> </br>

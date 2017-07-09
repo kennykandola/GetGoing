@@ -3,8 +3,9 @@
 <div>
   <div class="w-container">
     <div>
+      <br>
       <center><div class="w-form">
-        <%= form_tag posts_path, :method => 'get' do %>
+        <%= form_tag all_posts_path, :method => 'get' do %>
             <p>
               <%= text_field_tag :search, params[:search] %>
               <%= submit_tag "Search", :name => nil %>
@@ -17,7 +18,7 @@
 <div>
   <div class="w-container">
     <div class="div-block-8 w-clearfix">
-      <h1 class="open-posts"><%= @posts.count(:status => "Open") %></h1>
+      <h1 class="open-posts"><%= @open_posts.count %></h1>
       <h1 class="total-posts"><%= @posts.count %></h1>
       <div class="text-block-11">Total Posts</div>
       <div class="text-block-10">Open Posts</div>

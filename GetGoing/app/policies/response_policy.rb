@@ -7,7 +7,7 @@ class ResponsePolicy < ApplicationPolicy
   end
 
   def create?
-    @user && @response.post.open?
+    @user && @response.post.status_open?
   end
 
   def update?

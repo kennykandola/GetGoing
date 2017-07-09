@@ -68,6 +68,14 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.3)
+    elasticsearch (5.0.4)
+      elasticsearch-api (= 5.0.4)
+      elasticsearch-transport (= 5.0.4)
+    elasticsearch-api (5.0.4)
+      multi_json
+    elasticsearch-transport (5.0.4)
+      faraday
+      multi_json
     erubi (1.6.0)
     et-orbi (1.0.4)
       tzinfo
@@ -100,12 +108,9 @@ GEM
     hashie (3.5.5)
     httpclient (2.8.3)
     i18n (0.8.4)
-    innertube (1.1.0)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
-    joiner (0.3.4)
-      activerecord (>= 4.1.0)
     jquery-rails (4.3.1)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
@@ -131,7 +136,6 @@ GEM
       mime-types (>= 1.16, < 4)
     memoist (0.16.0)
     method_source (0.8.2)
-    middleware (0.1.0)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
@@ -141,7 +145,6 @@ GEM
     multi_json (1.12.1)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
-    mysql2 (0.3.21)
     nio4r (2.1.0)
     nokogiri (1.8.0)
       mini_portile2 (~> 2.2.0)
@@ -267,6 +270,10 @@ GEM
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    searchkick (2.3.1)
+      activemodel (>= 4.1)
+      elasticsearch (>= 1)
+      hashie
     sidekiq (5.0.0)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
@@ -292,13 +299,6 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     sqlite3 (1.3.13)
-    thinking-sphinx (3.3.0)
-      activerecord (>= 3.1.0)
-      builder (>= 2.1.2)
-      innertube (>= 1.0.2)
-      joiner (>= 0.2.0)
-      middleware (>= 0.1.0)
-      riddle (>= 2.0.0)
     thor (0.19.4)
     thread_safe (0.3.6)
     tilt (2.0.7)
@@ -339,7 +339,6 @@ DEPENDENCIES
   koala
   listen (~> 3.0.5)
   local_time
-  mysql2 (~> 0.3.18)
   omniauth
   omniauth-facebook
   omniauth-google-oauth2
@@ -357,11 +356,11 @@ DEPENDENCIES
   rspec-rails (= 3.5)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
+  searchkick
   sidekiq
   sidekiq-cron (~> 0.4.0)
   spring
   sqlite3
-  thinking-sphinx (~> 3.3.0)
   turbolinks
   uglifier (>= 1.3.0)
   web-console
