@@ -1,5 +1,5 @@
 <%= form_for [post_response, post_response.comments.build], remote: true, hidden: '' do |f| %>
-  <%= f.text_area :body %>
+  <%= f.text_area :body, class: 'comment-box' %>
   <br>
   <% if post_response.comments.count == 0 %>
     <%= f.label 'discussion privacy settings'%>
