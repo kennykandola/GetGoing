@@ -22,9 +22,6 @@ googlePlaceAutocomplete = ->
   input = document.getElementById('place-input')
   placeSearch = undefined
   autocomplete = undefined
-  componentForm =
-    country: 'long_name'
-    place_id: 'place_id'
 
   initAutocomplete = ->
     # Create the autocomplete object, restricting the search to geographical
@@ -43,14 +40,9 @@ googlePlaceAutocomplete = ->
   fillInAddress = ->
     # Get the place details from the autocomplete object.
     place = autocomplete.getPlace()
-    $('.nested-fields:last #place_id').val(place.place_id);
-    $('.nested-fields:last #name').val(input.value);
-    i = 0
-    while i < place.address_components.length
-      addressType = place.address_components[i].types[0]
-      if componentForm[addressType]
-        val = place.address_components[i][componentForm[addressType]]
-        $('.nested-fields:last #country').val(val);
-      i++
+    console.log(place)
+    $('.nested-fields:last #place-google_id').val(place.place_id);
+    $('.nested-fields:last #place-name').val(place.name);
+    $('.nested-fields:last #place-address').val(place.formatted_address);
 
   initAutocomplete()

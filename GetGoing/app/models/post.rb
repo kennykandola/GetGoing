@@ -62,7 +62,7 @@ class Post < ApplicationRecord
   def connect_with_new_place(places_params)
     new_place = Place.create(name: places_params['name'],
                  google_place_id: places_params['google_place_id'],
-                 country: places_params['country'])
+                 address: places_params['address'])
     PlacePostRelation.create(post: self, place: new_place)
   end
 

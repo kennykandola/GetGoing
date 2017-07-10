@@ -1,8 +1,8 @@
 <div class='nested-fields'>
   <%= link_to_remove_association (icon "times"), f %>
   <%= icon "globe" %>
-  <%= f.text_field :name, id: 'name', readonly: true, class: 'place-item', placeholder: "Please enter place name above" %>
-  <%= f.text_field :country, id: 'country', readonly: true, hidden: true %>
-  <%= f.text_field :google_place_id, id: 'place_id', readonly: true, hidden: true %>
+  <%= f.text_field :name, id: 'place-name', readonly: true, class: 'place-item', placeholder: "Please enter place name above" %>
+  <%= f.text_field :address, id: 'place-address', readonly: true, hidden: true %>
+  <%= f.text_field :google_place_id, id: 'place-google_id', readonly: true, hidden: true %>
 
 </div>

@@ -21,13 +21,17 @@ class ImportPlacesService
   end
 
   def get_potential_place(name)
-    search_result = JSON.parse(Geocoder.search(name).to_json)
-    google_place_id = search_result[0]["data"]["place_id"]
-    country = search_result[0]['data']['address_components']
-                 .select{ |addr| addr['types'] == ['country', 'political']}
-                 .first['long_name']
-    name = "#{JSON.parse(search_result.to_json)[0]['data']['address_components'][0]['long_name']}, #{country}"
-    Place.new(google_place_id: google_place_id, country: country, name: name)
+    name = normalize(name)
+    google_place_api = GooglePlaces::Client.new(ENV['GOOGLE_MAPS_API'])
+    found_places = google_place_api.spots_by_query(name)
+    google_place_id = found_places.first.place_id
+    address = found_places.first.formatted_address
+    name = found_places.first.name
+    Place.new(google_place_id: google_place_id, address: address, name: name)
+  end
+
+  def normalize(name)
+    name.chomp.split(",").map(&:strip).uniq.join(", ")
   end
 
 

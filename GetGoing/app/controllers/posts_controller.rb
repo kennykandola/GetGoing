@@ -128,7 +128,7 @@ end
                                    :destination, :booking_links, :user_id,
                                    :claim, :claimed_users, :expired_at, :status,
                                    places_attributes: [:name, :google_place_id,
-                                   :country, :_destroy])
+                                   :address, :_destroy])
     end
 
     def post_params

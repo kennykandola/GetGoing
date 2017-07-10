@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170708071147) do
+ActiveRecord::Schema.define(version: 20170710130155) do
 
   create_table "booking_links", force: :cascade do |t|
     t.string "url"
@@ -89,7 +89,7 @@ ActiveRecord::Schema.define(version: 20170708071147) do
 
   create_table "places", force: :cascade do |t|
     t.string "name"
-    t.string "country"
+    t.string "address"
     t.string "google_place_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
