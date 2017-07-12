@@ -109,11 +109,17 @@ class User < ApplicationRecord
   end
 
   def current_location_name
-    PlaceUserRelation.where(user: self, relation: "location").present? ? PlaceUserRelation.where(user: self, relation: "location").first.place.name : nil
+    current_location_relation = PlaceUserRelation.where(user: self, relation: "location")
+    return nil unless current_location_relation.present?
+    place = current_location_relation.first.place
+    "#{[place.city, place.state, place.country].join(', ')}"
   end
 
   def hometown_name
-    PlaceUserRelation.where(user: self, relation: "hometown").present? ? PlaceUserRelation.where(user: self, relation: "hometown").first.place.name : nil
+    current_location_relation = PlaceUserRelation.where(user: self, relation: "hometown")
+    return nil unless current_location_relation.present?
+    place = current_location_relation.first.place
+    "#{[place.city, place.state, place.country].join(', ')}"
   end
 
   def current_location

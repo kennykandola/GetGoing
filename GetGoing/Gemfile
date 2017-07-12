@@ -81,6 +81,7 @@ gem 'searchkick'
 
 # Google Places API
 gem 'google_places'
+gem 'geocoder'
 
 # Simplify Rails app configuration
 gem 'figaro'
