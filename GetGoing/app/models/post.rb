@@ -22,7 +22,9 @@ class Post < ApplicationRecord
 
   def search_data
     attributes.merge(
-      places_name: places.map(&:name)
+      places_city: places.map(&:city),
+      places_country: places.map(&:country),
+      places_state: places.map(&:state)
     )
   end
 
