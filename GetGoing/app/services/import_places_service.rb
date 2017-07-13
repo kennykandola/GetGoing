@@ -10,7 +10,6 @@ class ImportPlacesService
 
   def import
     all_tagged_places = @graph_api.get_object('me/tagged_places')
-    binding.pry
     initialize_places(all_tagged_places)
     save_places
   end
@@ -110,7 +109,6 @@ class ImportPlacesService
 
     def add_place(relation_type)
       google_place = @graph_api.get_object("me?fields=#{relation_type}")
-      binding.pry
       return nil unless google_place[relation_type].present?
       name = normalize(google_place[relation_type]['name'])
       google_place = request_google_place(name)
