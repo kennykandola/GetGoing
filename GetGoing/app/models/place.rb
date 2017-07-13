@@ -8,8 +8,12 @@ class Place < ApplicationRecord
   validate :validate_place_attrs
 
   def validate_place_attrs
-    record.errors[:base] << "Can't be blank" unless city.present? ||
-                                                    state.present? ||
-                                                    country.present?
+    unless city.present? || state.present? || country.present?
+      errors[:base] << "Can\'t be blank"
+    end
+  end
+
+  def full_name
+    [city, state, country].compact.split('').flatten.join(', ')
   end
 end

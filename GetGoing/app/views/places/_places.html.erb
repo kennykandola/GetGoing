@@ -34,7 +34,7 @@
       <tr>
         <td class="place-container">
           <%= icon "globe" %>
-          <span class='place-name'><%= "#{[place.city, place.state, place.country].join(', ')}"%></span>
+          <span class='place-name'><%= place.full_name %></span>
           <span class='place-address'>(<%= place.google_place_id %>)</span>
         </td>
         <td>

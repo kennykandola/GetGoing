@@ -112,14 +112,14 @@ class User < ApplicationRecord
     current_location_relation = PlaceUserRelation.where(user: self, relation: "location")
     return nil unless current_location_relation.present?
     place = current_location_relation.first.place
-    "#{[place.city, place.state, place.country].join(', ')}"
+    place.full_name
   end
 
   def hometown_name
     current_location_relation = PlaceUserRelation.where(user: self, relation: "hometown")
     return nil unless current_location_relation.present?
     place = current_location_relation.first.place
-    "#{[place.city, place.state, place.country].join(', ')}"
+    place.full_name
   end
 
   def current_location
@@ -132,14 +132,17 @@ class User < ApplicationRecord
 
   def location=(place)
     remove_old_location if current_location.present?
-
     place_user_relations = PlaceUserRelation.where(place: place, user: self)
-    place_user_relations.each do |place_user_relation|
-      if place_user_relation.traveled?
-        place_user_relation.update(relation: 'location')
-      elsif place_user_relation.hometown?
-        PlaceUserRelation.create(place: place, user: self, relation: 'location')
+    if place_user_relations.present?
+      place_user_relations.each do |place_user_relation|
+        if place_user_relation.traveled?
+          place_user_relation.update(relation: 'location')
+        elsif place_user_relation.hometown?
+          PlaceUserRelation.create(place: place, user: self, relation: 'location')
+        end
       end
+    else
+      PlaceUserRelation.create(place: place, user: self, relation: 'location')
     end
   end
 
@@ -155,14 +158,17 @@ class User < ApplicationRecord
 
   def hometown=(place)
     remove_old_hometown if hometown.present?
-
     place_user_relations = PlaceUserRelation.where(place: place, user: self)
-    place_user_relations.each do |place_user_relation|
-      if place_user_relation.traveled?
-        place_user_relation.update(relation: 'hometown')
-      elsif place_user_relation.location?
-        PlaceUserRelation.create(place: place, user: self, relation: 'hometown')
+    if place_user_relations.present?
+      place_user_relations.each do |place_user_relation|
+        if place_user_relation.traveled?
+          place_user_relation.update(relation: 'hometown')
+        elsif place_user_relation.location?
+          PlaceUserRelation.create(place: place, user: self, relation: 'hometown')
+        end
       end
+    else
+      PlaceUserRelation.create(place: place, user: self, relation: 'hometown')
     end
   end
 

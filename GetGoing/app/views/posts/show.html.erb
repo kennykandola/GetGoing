@@ -20,8 +20,7 @@
       <h4>Places:</h4>
       <% @post.places.each do |place| %>
         <%= icon "globe" %>
-        <span class='place-name'><%= place.name %></span>
-        <span class='place-address'>(<%= place.address %>)</span>
+        <span class='place-name'><%= place.full_name %></span>
         <br>
       <% end %>
       <h3>Traveling With:</h3>

@@ -6,6 +6,7 @@ class ImportPlacesService
     @graph_api = @user.facebook_graph(@user.facebook.accesstoken)
     @places = []
     @new_place = nil
+    @city, @district, @state, @country, @google_place_id = nil
   end
 
   def import
@@ -38,19 +39,28 @@ class ImportPlacesService
     google_place = request_google_place(Geocoder.address("#{facebook_params[:lat]},
                                                           #{facebook_params[:lng]}"))
     return nil unless google_place.present?
-    address_components = google_place.data['address_components']
-    country = get_country(address_components)
-    state = get_state(address_components)
-    city = get_city(address_components)
-    country ||= facebook_params[:country]
-    state ||= facebook_params[:state]
-    city ||= facebook_params[:city]
-    city ||= get_city_from_fb_name(facebook_params[:name], state, country)
-    google_place = request_google_place("#{city} #{state} #{country}")
+    set_attributes(google_place.data['address_components'])
+    @country ||= facebook_params[:country]
+    @state ||= facebook_params[:state]
+    @city ||= facebook_params[:city]
+    @city ||= get_city_from_fb_name(facebook_params[:name], @state, @country)
+    google_place = request_google_place("#{@city} #{@district} #{@state} #{@country}")
     return nil unless google_place.present?
-    google_place_id = google_place.data['place_id']
-    Place.new(city: city, state: state, country: country,
-              google_place_id: google_place_id)
+    unless is_city?(google_place.data['types'])
+      google_place = request_google_place("#{@city} #{@state} #{@country}")
+      return nil unless google_place.present?
+    end
+    set_attributes(google_place.data['address_components'])
+    @google_place_id = google_place.data['place_id']
+    Place.new(city: @city, state: @state, country: @country,
+              google_place_id: @google_place_id)
+  end
+
+  def set_attributes(address_components)
+    @country = get_country(address_components)
+    @district = get_district(address_components)
+    @state = get_state(address_components)
+    @city = get_city(address_components)
   end
 
   def get_country(address_components)
@@ -71,22 +81,30 @@ class ImportPlacesService
 
   def get_city(address_components)
     city = address_components.find do |address_component|
-      address_component['types'] == %w[locality political] ||
-        address_component['types'] == %w[postal_town political] ||
-        address_component['types'] == %w[administrative_area_level_3 political] ||
-        address_component['types'] == %w[sublocality_level_1 political]
+      is_city?(address_component['types'])
     end
     return nil unless city.present?
     city['long_name']
   end
 
+  def is_city?(types)
+    types == %w[locality political] || types == %w[postal_town political] ||
+      types == %w[administrative_area_level_3 political] ||
+      types == %w[sublocality_level_1 political]
+  end
+
+  def get_district(address_components)
+    district = address_components.find do |address_component|
+      address_component['types'] == %w[administrative_area_level_2 political]
+    end
+    return nil unless district.present?
+    district['long_name']
+  end
+
   def get_city_from_fb_name(name, state, country)
     google_place = request_google_place("#{name} #{state} #{country}")
     return nil unless google_place.present?
-    return nil unless (google_place.data['types'] == %w[locality political] ||
-       google_place.data['types'] == %w[postal_town political] ||
-       google_place.data['types'] == %w[administrative_area_level_3 political] ||
-       google_place.data['types'] == %w[sublocality_level_1 political])
+    return nil unless is_city?(google_place.data['types'])
     get_city(google_place.data['address_components'])
   end
 
@@ -95,6 +113,7 @@ class ImportPlacesService
       existing_place = Place.where(google_place_id: new_place.google_place_id).first
       user_place = @user.places.where(google_place_id: new_place.google_place_id).first
       if existing_place.blank?
+        next unless new_place.city.present? && new_place.google_place_id.present?
         new_place.save!
         @user.places << new_place
       elsif existing_place.present? && user_place.blank?
@@ -109,6 +128,7 @@ class ImportPlacesService
 
     def add_place(relation_type)
       google_place = @graph_api.get_object("me?fields=#{relation_type}")
+      binding.pry
       return nil unless google_place[relation_type].present?
       name = normalize(google_place[relation_type]['name'])
       google_place = request_google_place(name)
@@ -120,26 +140,35 @@ class ImportPlacesService
       return nil unless city.present? && google_place_id.present?
       @new_place = Place.new(city: city, state: state, country: country,
                              google_place_id: google_place_id)
-      save_place(relation_type)
     end
 
-    def save_place(relation_type)
+    def save_hometown
       existing_place = Place.where(google_place_id: @new_place.google_place_id).first
-      user_place = @user.places.references( :place_user_relations )
-                               .where(place_user_relations: {relation: relation_type})
       if existing_place.blank?
         @new_place.save!
-        PlaceUserRelation.create(user: @user, place: @new_place, relation: relation_type)
-      elsif existing_place.present? && user_place.blank?
-        PlaceUserRelation.create(user: @user, place: existing_place, relation: relation_type)
+        @user.hometown = @new_place
+      elsif existing_place.present?
+        @user.hometown = existing_place
+      end
+    end
+
+    def save_location
+      existing_place = Place.where(google_place_id: @new_place.google_place_id).first
+      if existing_place.blank?
+        @new_place.save!
+        @user.location = @new_place
+      elsif existing_place.present?
+        @user.location = existing_place
       end
     end
 
     def add_location
       add_place('location')
+      save_location
     end
 
     def add_hometown
       add_place('hometown')
+      save_hometown
     end
 end

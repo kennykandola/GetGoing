@@ -5,8 +5,8 @@ class MatchingPlacesSuggestionJob < ApplicationJob
     author_id = post.user.id
     users_to_notify = []
     post.places.each do |place|
-      place.users.group(:id).each do |user|
-        users_to_notify << user if user.id != author_id
+      place.users.each do |user|
+        users_to_notify << user unless user.id == author_id
       end
     end
     users_to_notify.uniq.each do |user|

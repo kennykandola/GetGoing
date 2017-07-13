@@ -40,9 +40,26 @@ googlePlaceAutocomplete = ->
   fillInAddress = ->
     # Get the place details from the autocomplete object.
     place = autocomplete.getPlace()
-    console.log(place)
-    $('.nested-fields:last #place-google_id').val(place.place_id);
-    $('.nested-fields:last #place-state').val(place.name);
-    $('.nested-fields:last #place-city').val(place.formatted_address);
+    country = place.address_components.find(isCountry)
+    state = place.address_components.find(isState)
+    city = place.address_components.find(isCity)
+    $('.nested-fields:last #place-google_id').val(place?.place_id);
+    $('.nested-fields:last #place-country').val(country?.long_name);
+    $('.nested-fields:last #place-state').val(state?.short_name);
+    $('.nested-fields:last #place-city').val(city?.long_name);
+
+  isCity = (address_component) ->
+    address_component.types[0] == 'locality' || \
+      address_component.types[0] == 'postal_town' || \
+      address_component.types[0] == 'administrative_area_level_3' || \
+      address_component.types[0] == 'sublocality_level_1' || \
+      address_component.types[0] == 'administrative_area_level_2'
+
+  isState = (address_component) ->
+    address_component.types[0] == 'administrative_area_level_1'
+
+  isCountry = (address_component) ->
+    address_component.types[0] == 'country'
+
 
   initAutocomplete()

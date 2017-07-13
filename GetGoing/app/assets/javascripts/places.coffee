@@ -43,7 +43,8 @@ googlePlaceAutocomplete = ->
     address_component.types[0] == 'locality' || \
       address_component.types[0] == 'postal_town' || \
       address_component.types[0] == 'administrative_area_level_3' || \
-      address_component.types[0] == 'sublocality_level_1'
+      address_component.types[0] == 'sublocality_level_1' || \
+      address_component.types[0] == 'administrative_area_level_2'
 
   isState = (address_component) ->
     address_component.types[0] == 'administrative_area_level_1'
