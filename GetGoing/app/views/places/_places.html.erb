@@ -35,7 +35,7 @@
         <td class="place-container">
           <%= icon "globe" %>
           <span class='place-name'><%= place.full_name %></span>
-          <span class='place-address'>(<%= place.google_place_id %>)</span>
+          <span class='place-address'><%= place.fb_spots(current_user) %></span>
         </td>
         <td>
           <%= link_to set_as_current_location_place_path(place), remote: true, method: :patch, class: 'clear_link', title: 'Click here set place as your current location' do %>

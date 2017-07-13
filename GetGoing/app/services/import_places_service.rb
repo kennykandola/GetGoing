@@ -6,13 +6,13 @@ class ImportPlacesService
     @user = params[:user]
     @graph_api = @user.facebook_graph(@user.facebook.accesstoken)
     @places = []
+    @spots = []
     @new_place = nil
     @city, @district, @state, @country, @google_place_id = nil
   end
 
   def import
     all_tagged_places = @graph_api.get_object('me/tagged_places')
-    binding.pry
     initialize_places(all_tagged_places)
     save_places
   end
@@ -21,16 +21,24 @@ class ImportPlacesService
     all_tagged_places.each do |place|
       facebook_params = {}
       facebook_params[:name] = place['place']['name']
+      facebook_params[:fb_id] = place['place']['id']
       facebook_params[:lat] = place['place']['location']['latitude']
       facebook_params[:lng] = place['place']['location']['longitude']
       facebook_params[:city] = place['place']['location']['city']
       facebook_params[:state] = place['place']['location']['state']
       facebook_params[:country] = place['place']['location']['country']
-
       new_place = get_place_by_coordinates(facebook_params)
-      next unless new_place
+      next unless new_place.present?
       @places << new_place
+      assign_spots(new_place, facebook_params)
     end
+  end
+
+  def assign_spots(new_place, facebook_params)
+    new_spot = Spot.new(name: facebook_params[:name], place: new_place,
+                        fb_id: facebook_params[:fb_id])
+    @spots << new_spot
+    new_place.spots << new_spot
   end
 
   def request_google_place(query)
@@ -103,7 +111,6 @@ class ImportPlacesService
   end
 
   def get_sublocality(address_components)
-    binding.pry
     sublocality = address_components.find do |address_component|
       is_sublocality?(address_component['types'])
     end
@@ -137,9 +144,38 @@ class ImportPlacesService
       if existing_place.blank?
         next unless new_place.city.present? && new_place.google_place_id.present?
         new_place.save!
+        new_place.spots.each do |spot|
+          spot.save!
+          SpotUserRelation.create(user: @user, spot: spot)
+          @spots.delete(spot)
+        end
         @user.places << new_place
       elsif existing_place.present? && user_place.blank?
         @user.places << existing_place
+        new_place.spots.each do |spot|
+          spot.place = existing_place
+          spot.save!
+          SpotUserRelation.create(user: @user, spot: spot)
+          @spots.delete(spot)
+        end
+      end
+    end
+    save_remaining_spots
+  end
+
+  def save_remaining_spots
+    @spots.each do |spot|
+      existing_place = Place.where(google_place_id: spot.place.google_place_id).first
+      next unless existing_place.present?
+      existing_spot = Spot.where(fb_id: spot.fb_id).first
+      if existing_spot.present?
+        existing_spot_user_relation = SpotUserRelation.where(spot: existing_spot, user: @user).first
+        next if existing_spot_user_relation.present?
+        SpotUserRelation.create(user: @user, spot: existing_spot)
+      else
+        spot.place = existing_place
+        spot.save!
+        SpotUserRelation.create(user: @user, spot: spot)
       end
     end
   end
@@ -164,6 +200,7 @@ class ImportPlacesService
   end
 
   def save_hometown
+    return nil unless @new_place.present?
     existing_place = Place.where(google_place_id: @new_place.google_place_id).first
     if existing_place.blank?
       @new_place.save!
@@ -174,6 +211,7 @@ class ImportPlacesService
   end
 
   def save_location
+    return nil unless @new_place.present?
     existing_place = Place.where(google_place_id: @new_place.google_place_id).first
     if existing_place.blank?
       @new_place.save!

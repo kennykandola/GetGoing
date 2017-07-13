@@ -17,6 +17,9 @@ class User < ApplicationRecord
   has_many :place_user_relations, dependent: :destroy
   has_many :places, through: :place_user_relations
 
+  has_many :spot_user_relations, dependent: :destroy
+  has_many :spots, through: :spot_user_relations
+
   enum role: [:simple_user, :moderator, :admin]
 
   has_attached_file :photo
