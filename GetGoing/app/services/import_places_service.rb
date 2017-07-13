@@ -144,9 +144,8 @@ class ImportPlacesService
       if existing_place.blank?
         next unless new_place.city.present? && new_place.google_place_id.present?
         new_place.save!
+        save_spots(new_place.spots)
         new_place.spots.each do |spot|
-          spot.save!
-          SpotUserRelation.create(user: @user, spot: spot)
           @spots.delete(spot)
         end
         @user.places << new_place
@@ -154,17 +153,19 @@ class ImportPlacesService
         @user.places << existing_place
         new_place.spots.each do |spot|
           spot.place = existing_place
-          spot.save!
-          SpotUserRelation.create(user: @user, spot: spot)
+          @spots.delete(spot)
+        end
+        save_spots(existing_place.spots)
+        new_place.spots.each do |spot|
           @spots.delete(spot)
         end
       end
     end
-    save_remaining_spots
+    save_spots(@spots)
   end
 
-  def save_remaining_spots
-    @spots.each do |spot|
+  def save_spots(spots)
+    spots.each do |spot|
       existing_place = Place.where(google_place_id: spot.place.google_place_id).first
       next unless existing_place.present?
       existing_spot = Spot.where(fb_id: spot.fb_id).first
@@ -185,6 +186,7 @@ class ImportPlacesService
   end
 
   def add_place(relation_type)
+    
     google_place = @graph_api.get_object("me?fields=#{relation_type}")
     return nil unless google_place[relation_type].present?
     name = normalize(google_place[relation_type]['name'])
