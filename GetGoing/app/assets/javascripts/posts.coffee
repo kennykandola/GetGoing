@@ -26,7 +26,7 @@ googlePlaceAutocomplete = ->
   initAutocomplete = ->
     # Create the autocomplete object, restricting the search to geographical
     # location types.
-    autocomplete = new (google.maps.places.Autocomplete)(input, types: [ 'geocode' ])
+    autocomplete = new (google.maps.places.Autocomplete)(input, types: [ '(cities)' ])
     # Disable form submit on enter (prevent unexpected sumbit on place autocomplete)
     google.maps.event.addDomListener input, 'keydown', (event) ->
       if event.keyCode == 13
@@ -42,7 +42,7 @@ googlePlaceAutocomplete = ->
     place = autocomplete.getPlace()
     console.log(place)
     $('.nested-fields:last #place-google_id').val(place.place_id);
-    $('.nested-fields:last #place-name').val(place.name);
-    $('.nested-fields:last #place-address').val(place.formatted_address);
+    $('.nested-fields:last #place-state').val(place.name);
+    $('.nested-fields:last #place-city').val(place.formatted_address);
 
   initAutocomplete()

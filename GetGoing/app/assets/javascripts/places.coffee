@@ -15,7 +15,7 @@ googlePlaceAutocomplete = ->
   initAutocomplete = ->
     # Create the autocomplete object, restricting the search to geographical
     # location types.
-    autocomplete = new (google.maps.places.Autocomplete)(input, types: [ 'geocode' ])
+    autocomplete = new (google.maps.places.Autocomplete)(input, types: [ '(cities)' ])
     # Disable form submit on enter (prevent unexpected sumbit on place autocomplete)
     google.maps.event.addDomListener input, 'keydown', (event) ->
       if event.keyCode == 13
@@ -29,9 +29,26 @@ googlePlaceAutocomplete = ->
   fillInAddress = ->
     # Get the place details from the autocomplete object.
     place = autocomplete.getPlace()
-    $('#place-google_id').val(place.place_id)
-    $('#place-name').val(place.name)
-    $('#place-address').val(place.formatted_address)
+    console.log(place)
+    country = place.address_components.find(isCountry)
+    state = place.address_components.find(isState)
+    city = place.address_components.find(isCity)
+    $('#place-google_id').val(place?.place_id)
+    $('#place-city').val(city?.long_name)
+    $('#place-state').val(state?.short_name)
+    $('#place-country').val(country?.long_name)
     $('#add-place').prop("disabled", false)
+
+  isCity = (address_component) ->
+    address_component.types[0] == 'locality' || \
+      address_component.types[0] == 'postal_town' || \
+      address_component.types[0] == 'administrative_area_level_3' || \
+      address_component.types[0] == 'sublocality_level_1'
+
+  isState = (address_component) ->
+    address_component.types[0] == 'administrative_area_level_1'
+
+  isCountry = (address_component) ->
+    address_component.types[0] == 'country'
 
   initAutocomplete()

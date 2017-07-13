@@ -6,14 +6,13 @@ class PlacesController < ApplicationController
   end
 
   def add_place_to_user
-    if params[:place][:name].present? &&
-       params[:place][:google_place_id].present? &&
-       params[:place][:address].present?
+    if params[:place][:google_place_id].present?
       @place = Place.where(google_place_id: params[:place][:google_place_id]).first
       if @place.blank?
-        @place = Place.create(name: params[:place][:name],
-                              google_place_id: params[:place][:google_place_id],
-                              address: params[:place][:address])
+        @place = Place.create(city: params[:place][:city],
+                              state: params[:place][:state],
+                              country: params[:place][:country],
+                              google_place_id: params[:place][:google_place_id])
       end
       PlaceUserRelation.create(place: @place, user: current_user, relation: 'traveled')
     end
@@ -44,6 +43,6 @@ class PlacesController < ApplicationController
   private
 
   def place_params
-    params.require(:place).permit(:name, :google_place_id, :address)
+    params.require(:place).permit(:city, :state, :country, :google_place_id)
   end
 end
