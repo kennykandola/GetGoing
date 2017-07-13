@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170712171158) do
+ActiveRecord::Schema.define(version: 20170713182604) do
 
   create_table "booking_links", force: :cascade do |t|
     t.string "url"
@@ -131,6 +131,16 @@ ActiveRecord::Schema.define(version: 20170712171158) do
     t.integer "discussion_privacy", default: 0, null: false
     t.index ["post_id"], name: "index_responses_on_post_id"
     t.index ["user_id"], name: "index_responses_on_user_id"
+  end
+
+  create_table "spots", force: :cascade do |t|
+    t.string "name"
+    t.integer "fb_id"
+    t.integer "place_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fb_id"], name: "index_spots_on_fb_id"
+    t.index ["place_id"], name: "index_spots_on_place_id"
   end
 
   create_table "subscribers", force: :cascade do |t|

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # This class handles importing tagged_places from facebook account
 class ImportPlacesService
   def initialize(params)
@@ -11,6 +12,7 @@ class ImportPlacesService
 
   def import
     all_tagged_places = @graph_api.get_object('me/tagged_places')
+    binding.pry
     initialize_places(all_tagged_places)
     save_places
   end
@@ -40,10 +42,7 @@ class ImportPlacesService
                                                           #{facebook_params[:lng]}"))
     return nil unless google_place.present?
     set_attributes(google_place.data['address_components'])
-    @country ||= facebook_params[:country]
-    @state ||= facebook_params[:state]
-    @city ||= facebook_params[:city]
-    @city ||= get_city_from_fb_name(facebook_params[:name], @state, @country)
+    assign_from_fb_params(facebook_params)
     google_place = request_google_place("#{@city} #{@district} #{@state} #{@country}")
     return nil unless google_place.present?
     unless is_city?(google_place.data['types'])
@@ -52,8 +51,18 @@ class ImportPlacesService
     end
     set_attributes(google_place.data['address_components'])
     @google_place_id = google_place.data['place_id']
+    if is_sublocality?(google_place.data['types'])
+      @city = get_sublocality(google_place.data['address_components'])
+    end
     Place.new(city: @city, state: @state, country: @country,
               google_place_id: @google_place_id)
+  end
+
+  def assign_from_fb_params(facebook_params)
+    @country ||= facebook_params[:country]
+    @state ||= facebook_params[:state]
+    @city ||= facebook_params[:city]
+    @city ||= get_city_from_fb_name(facebook_params[:name], @state, @country)
   end
 
   def set_attributes(address_components)
@@ -93,6 +102,19 @@ class ImportPlacesService
       types == %w[sublocality_level_1 political]
   end
 
+  def get_sublocality(address_components)
+    binding.pry
+    sublocality = address_components.find do |address_component|
+      is_sublocality?(address_component['types'])
+    end
+    return nil unless sublocality.present?
+    sublocality['long_name']
+  end
+
+  def is_sublocality?(types)
+    types == %w[political sublocality sublocality_level_1]
+  end
+
   def get_district(address_components)
     district = address_components.find do |address_component|
       address_component['types'] == %w[administrative_area_level_2 political]
@@ -122,53 +144,52 @@ class ImportPlacesService
     end
   end
 
-    def normalize(name)
-      name.chomp.split(",").map(&:strip).uniq.join(", ")
-    end
+  def normalize(name)
+    name.chomp.split(',').map(&:strip).uniq.join(', ')
+  end
 
-    def add_place(relation_type)
-      google_place = @graph_api.get_object("me?fields=#{relation_type}")
-      binding.pry
-      return nil unless google_place[relation_type].present?
-      name = normalize(google_place[relation_type]['name'])
-      google_place = request_google_place(name)
-      address_components = google_place.data['address_components']
-      country = get_country(address_components)
-      state = get_state(address_components)
-      city = get_city(address_components)
-      google_place_id = google_place.data['place_id']
-      return nil unless city.present? && google_place_id.present?
-      @new_place = Place.new(city: city, state: state, country: country,
-                             google_place_id: google_place_id)
-    end
+  def add_place(relation_type)
+    google_place = @graph_api.get_object("me?fields=#{relation_type}")
+    return nil unless google_place[relation_type].present?
+    name = normalize(google_place[relation_type]['name'])
+    google_place = request_google_place(name)
+    address_components = google_place.data['address_components']
+    country = get_country(address_components)
+    state = get_state(address_components)
+    city = get_city(address_components)
+    google_place_id = google_place.data['place_id']
+    return nil unless city.present? && google_place_id.present?
+    @new_place = Place.new(city: city, state: state, country: country,
+                           google_place_id: google_place_id)
+  end
 
-    def save_hometown
-      existing_place = Place.where(google_place_id: @new_place.google_place_id).first
-      if existing_place.blank?
-        @new_place.save!
-        @user.hometown = @new_place
-      elsif existing_place.present?
-        @user.hometown = existing_place
-      end
+  def save_hometown
+    existing_place = Place.where(google_place_id: @new_place.google_place_id).first
+    if existing_place.blank?
+      @new_place.save!
+      @user.hometown = @new_place
+    elsif existing_place.present?
+      @user.hometown = existing_place
     end
+  end
 
-    def save_location
-      existing_place = Place.where(google_place_id: @new_place.google_place_id).first
-      if existing_place.blank?
-        @new_place.save!
-        @user.location = @new_place
-      elsif existing_place.present?
-        @user.location = existing_place
-      end
+  def save_location
+    existing_place = Place.where(google_place_id: @new_place.google_place_id).first
+    if existing_place.blank?
+      @new_place.save!
+      @user.location = @new_place
+    elsif existing_place.present?
+      @user.location = existing_place
     end
+  end
 
-    def add_location
-      add_place('location')
-      save_location
-    end
+  def add_location
+    add_place('location')
+    save_location
+  end
 
-    def add_hometown
-      add_place('hometown')
-      save_hometown
-    end
+  def add_hometown
+    add_place('hometown')
+    save_hometown
+  end
 end
