@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170705061659) do
+ActiveRecord::Schema.define(version: 20170713195805) do
 
   create_table "booking_links", force: :cascade do |t|
     t.string "url"
@@ -67,6 +67,38 @@ ActiveRecord::Schema.define(version: 20170705061659) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "place_post_relations", force: :cascade do |t|
+    t.integer "place_id"
+    t.integer "post_id"
+    t.index ["place_id", "post_id"], name: "index_place_post_relations_on_place_id_and_post_id", unique: true
+    t.index ["place_id"], name: "index_place_post_relations_on_place_id"
+    t.index ["post_id"], name: "index_place_post_relations_on_post_id"
+  end
+
+  create_table "place_user_relations", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "place_id"
+    t.integer "relation", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["place_id"], name: "index_place_user_relations_on_place_id"
+    t.index ["relation"], name: "index_place_user_relations_on_relation"
+    t.index ["user_id", "place_id", "relation"], name: "place_user_relations_index", unique: true
+    t.index ["user_id"], name: "index_place_user_relations_on_user_id"
+  end
+
+  create_table "places", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.string "google_place_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "city"
+    t.string "state"
+    t.string "country"
+    t.index ["google_place_id"], name: "index_places_on_google_place_id", unique: true
+  end
+
   create_table "posts", force: :cascade do |t|
     t.string "title"
     t.string "offering"
@@ -99,6 +131,24 @@ ActiveRecord::Schema.define(version: 20170705061659) do
     t.integer "discussion_privacy", default: 0, null: false
     t.index ["post_id"], name: "index_responses_on_post_id"
     t.index ["user_id"], name: "index_responses_on_user_id"
+  end
+
+  create_table "spot_user_relations", force: :cascade do |t|
+    t.integer "spot_id"
+    t.integer "user_id"
+    t.index ["spot_id", "user_id"], name: "index_spot_user_relations_on_spot_id_and_user_id", unique: true
+    t.index ["spot_id"], name: "index_spot_user_relations_on_spot_id"
+    t.index ["user_id"], name: "index_spot_user_relations_on_user_id"
+  end
+
+  create_table "spots", force: :cascade do |t|
+    t.string "name"
+    t.string "fb_id"
+    t.integer "place_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fb_id"], name: "index_spots_on_fb_id", unique: true
+    t.index ["place_id"], name: "index_spots_on_place_id"
   end
 
   create_table "subscribers", force: :cascade do |t|

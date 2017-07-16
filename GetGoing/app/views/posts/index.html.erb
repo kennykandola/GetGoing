@@ -30,12 +30,21 @@
   </div>
   <div class="hero-section">
     <div class="heading-container w-container" data-ix="new-interaction">
-      <h1 class="h1">Planning a vacation?</h1>
-      <div class="hero-subheading">Launch a travel contest and let others compete to build you the perfect itinerary.</div><center><div class="div-block-10"><%=
-      link_to_if(current_user.nil?, "Get Started", { :controller => "users", :action => "new" },  :class => "button w-button")  do
-        link_to("New Post", { :controller => "posts", :action => "new" },  :class => "button w-button")
-      end
-    %><a class="button w-button" href="/all_posts">Browse Posts</a></center></div>
+      <h1 class="h1">Get travel recommendations and advice.</h1>
+      <div class="hero-subheading">Personalized insights and links to help make planning and booking your trip a breeze.</div>
+      <div class="div-block-14">
+        <div class="w-form">
+          <form class="form-2" data-name="Email Form 2" id="email-form-2" name="email-form-2">
+            <div class="w-clearfix"><input class="text-field-4 w-input" id="field" maxlength="256" name="field" placeholder="Where are you traveling?" required="required" type="text"><a class="button-6 w-button" href="#">&gt;</a></div>
+          </form>
+          <div class="w-form-done">
+            <div>Thank you! Your submission has been received!</div>
+          </div>
+          <div class="w-form-fail">
+            <div>Oops! Something went wrong while submitting the form</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <section class="main-section" id="How-It-Works">
@@ -43,24 +52,21 @@
       <h2 class="black">How It Works</h2>
       <div class="w-row">
         <div class="w-col w-col-4 w-col-medium-4">
-          <div class="about-block" data-ix="new-interaction-2">
-            <%= image_tag "149307.svg", class: "about-image", "data-ix" => "new-interaction-2" %>
-            <h3>Build a Travel Brief</h3>
-            <p class="about-paragraph">Tell us about yourself and where you're traveling. You can make a travel brief no matter where you are with your travel plans. Launch your contest and 6 travel advisors will compete to give you quality guidance and insights.</p>
+          <div class="about-block" data-ix="new-interaction-2"><img class="about-image" data-ix="new-interaction-2" src="/assets/149307.svg">
+            <h3>Answer a few questions</h3>
+            <p class="about-paragraph">Tell us about your trip so we can deliver quality advice and relevant links.</p>
           </div>
         </div>
         <div class="w-col w-col-4 w-col-medium-4">
-          <div class="about-block" data-ix="new-interaction-3">
-            <%= image_tag "179672.svg", class: "about-image" %>
-            <h3>Get Travel Advice From 6 People</h3>
-            <p class="about-paragraph-2">Once you've made a brief and launched your contest, you will receive insightful responses as well as a list of links to help make booking your trip a breeze.</p>
+          <div class="about-block" data-ix="new-interaction-3"><img class="about-image" src="/assets/179672.svg">
+            <h3>Get Travel Advice&nbsp;</h3>
+            <p class="about-paragraph-2">Our advisors give you valuable insights and recommendations.</p>
           </div>
         </div>
         <div class="w-col w-col-4 w-col-medium-4">
-          <div class="about-block" data-ix="new-interaction-4">
-            <%= image_tag "263056.svg", class: "about-image" %>
-            <h3>Select Top Responses&nbsp;</h3>
-            <p class="about-paragraph-3">Out of the 6 responses you receive, choose up to 3 to receive a reward. If you're not satisfied with your experience, you will receive a full refund, no questions asked.</p>
+          <div class="about-block" data-ix="new-interaction-4"><img class="about-image" src="/assets/263056.svg">
+            <h3>Book Your Trip</h3>
+            <p class="about-paragraph-3">Relevant links are organized for you, so all you have to do is click and book.</p>
           </div>
         </div>
       </div>

@@ -68,6 +68,8 @@ Rails.application.routes.draw do
 
   get '/show' => 'posts#show'
 
+  get '/new_post_design' => 'posts#new_post_design'
+
   get 'upvote_link' => 'posts#show'
 
   devise_scope :user do
