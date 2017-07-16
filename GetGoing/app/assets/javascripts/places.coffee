@@ -37,6 +37,8 @@ googlePlaceAutocomplete = ->
     $('#place-city').val(city?.long_name)
     $('#place-state').val(state?.short_name)
     $('#place-country').val(country?.long_name)
+    $('#place-latitude').val(place?.geometry.location.lat())
+    $('#place-longitude').val(place?.geometry.location.lng())
     $('#add-place').prop("disabled", false)
 
   isCity = (address_component) ->

@@ -8,6 +8,8 @@ class Place < ApplicationRecord
   validates :google_place_id, presence: true
   validate :validate_place_attrs
 
+  reverse_geocoded_by :latitude, :longitude
+
   def validate_place_attrs
     unless city.present? || state.present? || country.present?
       errors[:base] << "Can\'t be blank"

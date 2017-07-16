@@ -13,6 +13,8 @@
     <%= f.text_field :state, id: 'place-state', hidden: true %>
     <%= f.text_field :country, id: 'place-country', hidden: true %>
     <%= f.text_field :google_place_id, id: 'place-google_id', hidden: true %>
+    <%= f.text_field :latitude, id: 'place-latitude', hidden: true %>
+    <%= f.text_field :longitude, id: 'place-longitude', hidden: true %>
     <br>
     <center>
       <%= f.submit 'Add place', class: 'btn btn-default', id: 'add-place', disabled: true %>

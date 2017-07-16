@@ -12,7 +12,9 @@ class PlacesController < ApplicationController
         @place = Place.create(city: params[:place][:city],
                               state: params[:place][:state],
                               country: params[:place][:country],
-                              google_place_id: params[:place][:google_place_id])
+                              google_place_id: params[:place][:google_place_id],
+                              latitude: params[:place][:latitude],
+                              longitude: params[:place][:longitude])
       end
       PlaceUserRelation.create(place: @place, user: current_user, relation: 'traveled')
     end
@@ -43,6 +45,6 @@ class PlacesController < ApplicationController
   private
 
   def place_params
-    params.require(:place).permit(:city, :state, :country, :google_place_id)
+    params.require(:place).permit(:city, :state, :country, :google_place_id, :latitude, :longitude)
   end
 end

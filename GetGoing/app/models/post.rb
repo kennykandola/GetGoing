@@ -64,7 +64,9 @@ class Post < ApplicationRecord
     new_place = Place.create(city: places_params['city'],
                              state: places_params['state'],
                              country: places_params['country'],
-                             google_place_id: places_params['google_place_id'])
+                             google_place_id: places_params['google_place_id'],
+                             latitude: places_params['latitude'],
+                             longitude: places_params['longitude'])
     PlacePostRelation.create(post: self, place: new_place)
   end
 

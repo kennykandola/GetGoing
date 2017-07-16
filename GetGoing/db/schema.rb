@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170713195805) do
+ActiveRecord::Schema.define(version: 20170714071702) do
 
   create_table "booking_links", force: :cascade do |t|
     t.string "url"
@@ -96,6 +96,8 @@ ActiveRecord::Schema.define(version: 20170713195805) do
     t.string "city"
     t.string "state"
     t.string "country"
+    t.float "latitude"
+    t.float "longitude"
     t.index ["google_place_id"], name: "index_places_on_google_place_id", unique: true
   end
 

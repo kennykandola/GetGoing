@@ -25,6 +25,10 @@ class NotificationService
     notify('new_post_with_matching_place')
   end
 
+  def new_post_with_matching_nearby_place
+    notify('new_post_with_matching_nearby_place')
+  end
+
   def new_comment_on_response
     if @actor == @notifiable.response.user # @notifiable in this case is the comment object
       @recipient = @post.user

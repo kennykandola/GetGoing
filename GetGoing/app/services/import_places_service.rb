@@ -8,7 +8,7 @@ class ImportPlacesService
     @places = []
     @spots = []
     @new_place = nil
-    @city, @district, @state, @country, @google_place_id = nil
+    @city, @district, @state, @country, @google_place_id, @lat, @lng = nil
   end
 
   def import
@@ -62,8 +62,14 @@ class ImportPlacesService
     if is_sublocality?(google_place.data['types'])
       @city = get_sublocality(google_place.data['address_components'])
     end
+    set_coordinates(google_place.data['geometry'])
     Place.new(city: @city, state: @state, country: @country,
-              google_place_id: @google_place_id)
+              google_place_id: @google_place_id, latitude: @lat, longitude: @lng)
+  end
+
+  def set_coordinates(geometry)
+    @lat = geometry['location']['lat']
+    @lng = geometry['location']['lng']
   end
 
   def assign_from_fb_params(facebook_params)
@@ -186,7 +192,7 @@ class ImportPlacesService
   end
 
   def add_place(relation_type)
-    
+
     google_place = @graph_api.get_object("me?fields=#{relation_type}")
     return nil unless google_place[relation_type].present?
     name = normalize(google_place[relation_type]['name'])
@@ -195,10 +201,11 @@ class ImportPlacesService
     country = get_country(address_components)
     state = get_state(address_components)
     city = get_city(address_components)
+    set_coordinates(google_place.data['geometry'])
     google_place_id = google_place.data['place_id']
     return nil unless city.present? && google_place_id.present?
     @new_place = Place.new(city: city, state: state, country: country,
-                           google_place_id: google_place_id)
+                           google_place_id: google_place_id, latitude: @lat, longitude: @lng)
   end
 
   def save_hometown

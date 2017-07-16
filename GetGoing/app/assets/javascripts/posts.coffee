@@ -47,6 +47,8 @@ googlePlaceAutocomplete = ->
     $('.nested-fields:last #place-country').val(country?.long_name);
     $('.nested-fields:last #place-state').val(state?.short_name);
     $('.nested-fields:last #place-city').val(city?.long_name);
+    $('.nested-fields:last #place-latitude').val(place?.geometry.location.lat())
+    $('.nested-fields:last #place-longitude').val(place?.geometry.location.lng())
 
   isCity = (address_component) ->
     address_component.types[0] == 'locality' || \
