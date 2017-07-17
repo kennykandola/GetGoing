@@ -4,13 +4,17 @@
   <br>
   <h3> Find place: </h3>
   <%= form_for :place, url: add_place_to_user_places_path, method: :post, remote: true do |f|%>
-    <%= f.text_field :name,
+    <%= text_field_tag 'name', nil,
         placeholder: "Place name",
         class: "form-control",
         id: 'place-input'
     %>
-    <%= f.text_field :country, id: 'country', hidden: true %>
-    <%= f.text_field :google_place_id, id: 'place_id', hidden: true %>
+    <%= f.text_field :city, id: 'place-city', hidden: true %>
+    <%= f.text_field :state, id: 'place-state', hidden: true %>
+    <%= f.text_field :country, id: 'place-country', hidden: true %>
+    <%= f.text_field :google_place_id, id: 'place-google_id', hidden: true %>
+    <%= f.text_field :latitude, id: 'place-latitude', hidden: true %>
+    <%= f.text_field :longitude, id: 'place-longitude', hidden: true %>
     <br>
     <center>
       <%= f.submit 'Add place', class: 'btn btn-default', id: 'add-place', disabled: true %>

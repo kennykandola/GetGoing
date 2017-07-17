@@ -79,7 +79,8 @@ gem "koala"
 # Elasticsearch interface
 gem 'searchkick'
 
-# Gems for Google Places and Geocoder
+# Google Places API
+gem 'google_places'
 gem 'geocoder'
 
 # Simplify Rails app configuration

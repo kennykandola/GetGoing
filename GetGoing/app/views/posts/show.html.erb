@@ -19,7 +19,8 @@
       <%= @post.destination %>
       <h4>Places:</h4>
       <% @post.places.each do |place| %>
-        <%= place.name %>
+        <%= icon "globe" %>
+        <span class='place-name'><%= place.full_name %></span>
         <br>
       <% end %>
       <h3>Traveling With:</h3>

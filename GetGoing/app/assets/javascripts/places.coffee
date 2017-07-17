@@ -2,22 +2,20 @@ $(".places.index").ready ->
   googlePlaceAutocomplete()
   $('#place-input').change ->
     if $('#place-input').val() == ''
-      $('#country').val('')
-      $('#place_id').val('')
+      $('#place-google_id').val('')
+      $('#place-name').val('')
+      $('#place-address').val('')
       $('#add-place').prop("disabled", true)
-      
+
 googlePlaceAutocomplete = ->
   input = document.getElementById('place-input')
   placeSearch = undefined
   autocomplete = undefined
-  componentForm =
-    country: 'long_name'
-    place_id: 'place_id'
 
   initAutocomplete = ->
     # Create the autocomplete object, restricting the search to geographical
     # location types.
-    autocomplete = new (google.maps.places.Autocomplete)(input, types: [ 'geocode' ])
+    autocomplete = new (google.maps.places.Autocomplete)(input, types: [ '(cities)' ])
     # Disable form submit on enter (prevent unexpected sumbit on place autocomplete)
     google.maps.event.addDomListener input, 'keydown', (event) ->
       if event.keyCode == 13
@@ -31,18 +29,29 @@ googlePlaceAutocomplete = ->
   fillInAddress = ->
     # Get the place details from the autocomplete object.
     place = autocomplete.getPlace()
-    for component of componentForm
-      document.getElementById(component).value = ''
-      document.getElementById('add-place').disabled = false
-    # Get each component of the address from the place details
-    # and fill the corresponding field on the form.
-    i = 0
-    while i < place.address_components.length
-      addressType = place.address_components[i].types[0]
-      if componentForm[addressType]
-        val = place.address_components[i][componentForm[addressType]]
-        document.getElementById(addressType).value = val
-      i++
-    document.getElementById('place_id').value = place.place_id
+    console.log(place)
+    country = place.address_components.find(isCountry)
+    state = place.address_components.find(isState)
+    city = place.address_components.find(isCity)
+    $('#place-google_id').val(place?.place_id)
+    $('#place-city').val(city?.long_name)
+    $('#place-state').val(state?.short_name)
+    $('#place-country').val(country?.long_name)
+    $('#place-latitude').val(place?.geometry.location.lat())
+    $('#place-longitude').val(place?.geometry.location.lng())
+    $('#add-place').prop("disabled", false)
+
+  isCity = (address_component) ->
+    address_component.types[0] == 'locality' || \
+      address_component.types[0] == 'postal_town' || \
+      address_component.types[0] == 'administrative_area_level_3' || \
+      address_component.types[0] == 'sublocality_level_1' || \
+      address_component.types[0] == 'administrative_area_level_2'
+
+  isState = (address_component) ->
+    address_component.types[0] == 'administrative_area_level_1'
+
+  isCountry = (address_component) ->
+    address_component.types[0] == 'country'
 
   initAutocomplete()

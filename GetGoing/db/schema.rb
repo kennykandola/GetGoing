@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170708071147) do
+ActiveRecord::Schema.define(version: 20170714071702) do
 
   create_table "booking_links", force: :cascade do |t|
     t.string "url"
@@ -89,10 +89,15 @@ ActiveRecord::Schema.define(version: 20170708071147) do
 
   create_table "places", force: :cascade do |t|
     t.string "name"
-    t.string "country"
+    t.string "address"
     t.string "google_place_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "city"
+    t.string "state"
+    t.string "country"
+    t.float "latitude"
+    t.float "longitude"
     t.index ["google_place_id"], name: "index_places_on_google_place_id", unique: true
   end
 
@@ -128,6 +133,24 @@ ActiveRecord::Schema.define(version: 20170708071147) do
     t.integer "discussion_privacy", default: 0, null: false
     t.index ["post_id"], name: "index_responses_on_post_id"
     t.index ["user_id"], name: "index_responses_on_user_id"
+  end
+
+  create_table "spot_user_relations", force: :cascade do |t|
+    t.integer "spot_id"
+    t.integer "user_id"
+    t.index ["spot_id", "user_id"], name: "index_spot_user_relations_on_spot_id_and_user_id", unique: true
+    t.index ["spot_id"], name: "index_spot_user_relations_on_spot_id"
+    t.index ["user_id"], name: "index_spot_user_relations_on_user_id"
+  end
+
+  create_table "spots", force: :cascade do |t|
+    t.string "name"
+    t.string "fb_id"
+    t.integer "place_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fb_id"], name: "index_spots_on_fb_id", unique: true
+    t.index ["place_id"], name: "index_spots_on_place_id"
   end
 
   create_table "subscribers", force: :cascade do |t|
