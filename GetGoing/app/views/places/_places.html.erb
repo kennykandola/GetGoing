@@ -1,0 +1,59 @@
+<div>
+  <h5 class='place-location'>
+    <%= icon "home" %> Hometown:
+    <% if current_user.hometown_name.present? %>
+      <%= current_user.hometown_name %>
+    <% else %>
+      Unknown
+    <% end %>
+  </h5>
+</div>
+<div>
+  <h5 class='place-location'>
+    &nbsp;<%= icon "map-marker" %> Current location:
+    <% if current_user.current_location_name.present? %>
+      <%= current_user.current_location_name %>
+    <% else %>
+      Unknown
+    <% end %>
+
+  </h5>
+</div>
+
+<h3> Places I've Traveled To</h3>
+
+<table class='table table-striped table-bordered table-hover'
+  <thead>
+    <tr>
+      <th> Place name </th>
+      <th> Place country</th>
+      <th> Action </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% places.each do |place| %>
+      <tr>
+        <td>
+          <%= icon "globe" %>
+          <%= place.name %>
+        </td>
+        <td>
+          <%= place.country %>
+        </td>
+        <td>
+          <%= link_to set_as_current_location_place_path(place), remote: true, method: :patch, class: 'clear_link', title: 'Click here set place as your current location' do %>
+            <%= icon "map-marker", title: 'Click here set place as your current location' %>
+          <% end %>
+          <%= link_to set_as_hometown_place_path(place), remote: true, method: :patch, class: 'clear_link', title: 'Click here set place as your hometown' do %>
+            <%= icon "home", title: 'Click here set place as your hometown' %>
+          <% end %>
+          <%= link_to place_path(place), remote: true, method: :delete, class: 'clear_link', title: 'Click here to remove place' do %>
+            <%= icon "times", title: 'Click here to remove place' %>
+          <% end %>
+
+
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -20,7 +20,7 @@ module NotificationsHelper
     when 'recommended_link_upvoted'
       link_to "#{notification.actor.first_name} upvoted your recommended link from \"#{post.title}\"", post_path(post)
     when 'new_post_with_matching_place'
-      # TODO
+      link_to "#{notification.actor.first_name} just posted \"#{post.title}\" with places you have been", post_path(post)
     when 'new_comment_on_response'
       if notification.notifiable.response.comments.order('created_at ASC').first.id == notification.notifiable.id # check if that comment is first
         link_to "#{notification.actor.first_name} commented on your response to \"#{post.title}\"", post_path(post)

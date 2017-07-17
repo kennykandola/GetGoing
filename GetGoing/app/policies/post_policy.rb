@@ -15,6 +15,6 @@ class PostPolicy < ApplicationPolicy
   end
 
   def create_response?
-    @user && @post.open?
+    @user && @post.status_open?
   end
 end

@@ -4,25 +4,19 @@ class PostsController < ApplicationController
 
   helper_method :sort_column, :sort_direction
 
-
-
   # GET /posts
   # GET /posts.json
   def all_posts
-
-
-
-# Could not get Post.search(params[:search]) to work...kept getting an error in the server when running "rake ts:index":
-# "ERROR: index 'post_core': sql_connect: could not connect to server: Connection refused  Is the server running on host "127.0.0.1" and accepting TCP/IP connections on port 5432?"
-#  This resulted in a error in the browser "no enabled local indexes to search"
-
-
-    @posts = Post.order(sort_column + ' ' + sort_direction).paginate(:per_page =>   10, :page => params[:page])
-
+    search = params[:search].present? ? params[:search] : '*'
+    @posts = Post.search(search, aggs: [:places_name], page: params[:page], per_page: 10,
+                         order: { sort_column => { order: sort_direction } }
+                         )
+    @open_posts = Post.search(search, page: params[:page], per_page: 10,
+                              aggs: [:places_name],
+                              order: { sort_column => { order: sort_direction } },
+                              where: { status: true })
     @subscriber = Subscriber.new
   end
-
-
 
   # GET /posts/1
   # GET /posts/1.json
@@ -42,23 +36,20 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
-
     @post = Post.new(post_params)
-
     @post.user = current_user
-
-
-
     respond_to do |format|
-      if @post.save
+      if @post.save!
+        places = post_and_places_params[:places_attributes]
+        @post.connect_with_places(places)
+        post_params
         User.all.each do |user|
           if user.tippa == true
-          PostsMailer.send_diffusion(@message, user).deliver_later
-end
-        format.html { redirect_to @post, notice: 'Post was successfully created.'}
-        format.json { render :show, status: :created, location: @post }
-end
-
+            PostsMailer.send_diffusion(@message, user).deliver_later
+          end
+          format.html { redirect_to @post, notice: 'Post was successfully created.'}
+          format.json { render :show, status: :created, location: @post }
+        end
       else
         format.html { render :new }
         format.json { render json: @post.errors, status: :unprocessable_entity }
@@ -71,6 +62,8 @@ end
   def update
     respond_to do |format|
       if @post.update(post_params)
+        places = post_and_places_params[:places_attributes]
+        @post.connect_with_places(places)
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
         format.json { render :show, status: :ok, location: @post }
 
@@ -129,8 +122,17 @@ end
 
 
     # Never trust parameters from the scary internet, only allow the white list through.
+    def post_and_places_params
+      params.require(:post).permit(:title, :body, :whos_traveling, :structured,
+                                   :already_booked, :budget, :travel_dates,
+                                   :destination, :booking_links, :user_id,
+                                   :claim, :claimed_users, :expired_at, :status,
+                                   places_attributes: [:name, :google_place_id,
+                                   :country, :_destroy])
+    end
+
     def post_params
-      params.require(:post).permit(:title, :body, :whos_traveling, :structured, :already_booked, :budget, :travel_dates, :destination, :booking_links, :user_id, :claim, :claimed_users, :expired_at, :status)
+      post_and_places_params.except(:places_attributes)
     end
 
   def sort_column

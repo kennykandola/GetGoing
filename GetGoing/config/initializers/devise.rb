@@ -259,9 +259,12 @@ Devise.setup do |config|
                                   prompt: "consent"
   config.omniauth :facebook, ENV['FACEBOOK_APP_ID'],
                              ENV['FACEBOOK_APP_SECRET'],
-                             scope: "email,user_hometown,user_birthday,user_location",
-                             info_fields: 'email,first_name,last_name,age_range,hometown,location,birthday',
-                             image_size: 'large'
+                             scope: "email,user_hometown,user_birthday,user_location,user_tagged_places",
+                             info_fields: 'email,first_name,last_name,age_range,hometown,location,birthday,tagged_places',
+                             client_options: {
+                               site: 'https://graph.facebook.com/v2.9',
+                               authorize_url: "https://www.facebook.com/v2.9/dialog/oauth"
+                             }
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

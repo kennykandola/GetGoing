@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170705061659) do
+ActiveRecord::Schema.define(version: 20170708071147) do
 
   create_table "booking_links", force: :cascade do |t|
     t.string "url"
@@ -65,6 +65,35 @@ ActiveRecord::Schema.define(version: 20170705061659) do
     t.integer "action", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "place_post_relations", force: :cascade do |t|
+    t.integer "place_id"
+    t.integer "post_id"
+    t.index ["place_id", "post_id"], name: "index_place_post_relations_on_place_id_and_post_id", unique: true
+    t.index ["place_id"], name: "index_place_post_relations_on_place_id"
+    t.index ["post_id"], name: "index_place_post_relations_on_post_id"
+  end
+
+  create_table "place_user_relations", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "place_id"
+    t.integer "relation", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["place_id"], name: "index_place_user_relations_on_place_id"
+    t.index ["relation"], name: "index_place_user_relations_on_relation"
+    t.index ["user_id", "place_id", "relation"], name: "place_user_relations_index", unique: true
+    t.index ["user_id"], name: "index_place_user_relations_on_user_id"
+  end
+
+  create_table "places", force: :cascade do |t|
+    t.string "name"
+    t.string "country"
+    t.string "google_place_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["google_place_id"], name: "index_places_on_google_place_id", unique: true
   end
 
   create_table "posts", force: :cascade do |t|

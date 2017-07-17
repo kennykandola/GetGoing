@@ -14,6 +14,9 @@ class User < ApplicationRecord
   has_many :notifications, foreign_key: :recipient_id, dependent: :destroy
   has_many :comments, dependent: :destroy
 
+  has_many :place_user_relations, dependent: :destroy
+  has_many :places, through: :place_user_relations
+
   enum role: [:simple_user, :moderator, :admin]
 
   has_attached_file :photo
@@ -67,6 +70,10 @@ class User < ApplicationRecord
     @google_oauth2_client
   end
 
+  def facebook_graph(accesstoken)
+    @facebook_graph ||= Koala::Facebook::API.new(accesstoken)
+  end
+
   def owns_post?(post)
     post.user_id == self.id
   end
@@ -99,5 +106,75 @@ class User < ApplicationRecord
 
   def member_of_discussion?(response)
     self == response.user || self == response.post.user
+  end
+
+  def current_location_name
+    PlaceUserRelation.where(user: self, relation: "location").present? ? PlaceUserRelation.where(user: self, relation: "location").first.place.name : nil
+  end
+
+  def hometown_name
+    PlaceUserRelation.where(user: self, relation: "hometown").present? ? PlaceUserRelation.where(user: self, relation: "hometown").first.place.name : nil
+  end
+
+  def current_location
+    PlaceUserRelation.where(user: self, relation: "location").present? ? PlaceUserRelation.where(user: self, relation: "location").first.place : nil
+  end
+
+  def hometown
+    PlaceUserRelation.where(user: self, relation: "hometown").present? ? PlaceUserRelation.where(user: self, relation: "hometown").first.place : nil
+  end
+
+  def location=(place)
+    remove_old_location if current_location.present?
+
+    place_user_relations = PlaceUserRelation.where(place: place, user: self)
+    place_user_relations.each do |place_user_relation|
+      if place_user_relation.traveled?
+        place_user_relation.update(relation: 'location')
+      elsif place_user_relation.hometown?
+        PlaceUserRelation.create(place: place, user: self, relation: 'location')
+      end
+    end
+  end
+
+  def remove_old_location
+    if traveled_places.where(id: current_location.id).present?
+      place_user_relations.where(place: current_location, relation: 'location')
+                          .destroy_all
+    else
+      PlaceUserRelation.where(user: self, relation: 'location')
+                       .update_all(relation: 'traveled')
+    end
+  end
+
+  def hometown=(place)
+    remove_old_hometown if hometown.present?
+
+    place_user_relations = PlaceUserRelation.where(place: place, user: self)
+    place_user_relations.each do |place_user_relation|
+      if place_user_relation.traveled?
+        place_user_relation.update(relation: 'hometown')
+      elsif place_user_relation.location?
+        PlaceUserRelation.create(place: place, user: self, relation: 'hometown')
+      end
+    end
+  end
+
+  def remove_old_hometown
+    if traveled_places.where(id: hometown.id).present?
+      place_user_relations.where(place: hometown, relation: 'hometown')
+                          .destroy_all
+    else
+      PlaceUserRelation.where(user: self, relation: 'hometown')
+                       .update_all(relation: 'traveled')
+    end
+  end
+
+  def traveled_places
+    places.references( :place_user_relations ).where(place_user_relations: {relation: 'traveled'})
+  end
+
+  def all_places
+    places.group(:id)
   end
 end

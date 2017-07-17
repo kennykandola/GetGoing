@@ -29,12 +29,13 @@
       <% if current_user.age.present? %>
         <div class="text-block-3">Age: <%=current_user.age%></div>
       <% end%>
-      <% if current_user.hometown.present? %>
-        <div class="text-block-3">Hometown: <%=current_user.hometown%></div>
+      <% if current_user.hometown_name.present? %>
+        <div class="text-block-3">Hometown: <%=current_user.hometown_name%></div>
       <% end%>
-      <% if current_user.location.present? %>
-        <div class="text-block-3">Current location: <%=current_user.location%></div>
+      <% if current_user.current_location_name.present? %>
+        <div class="text-block-3">Current location: <%=current_user.current_location_name%></div>
       <% end%>
+      <center><%= link_to("My places", places_path) %></center>
       <center><%= link_to 'Edit Profile Picture', edit_user_path(current_user) %></center>
       <div class="text-block-4"><%= current_user.posts.count %> Posts</div>
       <div class="text-block-5"><%= current_user.score %> Points</div>

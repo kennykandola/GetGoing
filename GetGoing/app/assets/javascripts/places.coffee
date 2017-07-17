@@ -1,23 +1,11 @@
-$(".posts.new").ready ->
+$(".places.index").ready ->
   googlePlaceAutocomplete()
-  cocoonCallbacks()
-
-$(".posts.edit").ready ->
-  googlePlaceAutocomplete()
-  cocoonCallbacks()
-
-cocoonCallbacks = ->
-  $('#places').on('cocoon:before-insert', (e, task_to_be_added) ->
-    task_to_be_added.fadeIn 'slow'
-    return
-  ).on('cocoon:after-insert', (e, added_task) ->
-    $('#place-input').val('')
-    return
-  ).on 'cocoon:before-remove', (e, task) ->
-    $(this).data 'remove-timeout', 1000
-    task.fadeOut 'slow'
-    return
-
+  $('#place-input').change ->
+    if $('#place-input').val() == ''
+      $('#country').val('')
+      $('#place_id').val('')
+      $('#add-place').prop("disabled", true)
+      
 googlePlaceAutocomplete = ->
   input = document.getElementById('place-input')
   placeSearch = undefined
@@ -43,14 +31,18 @@ googlePlaceAutocomplete = ->
   fillInAddress = ->
     # Get the place details from the autocomplete object.
     place = autocomplete.getPlace()
-    $('.nested-fields:last #place_id').val(place.place_id);
-    $('.nested-fields:last #name').val(input.value);
+    for component of componentForm
+      document.getElementById(component).value = ''
+      document.getElementById('add-place').disabled = false
+    # Get each component of the address from the place details
+    # and fill the corresponding field on the form.
     i = 0
     while i < place.address_components.length
       addressType = place.address_components[i].types[0]
       if componentForm[addressType]
         val = place.address_components[i][componentForm[addressType]]
-        $('.nested-fields:last #country').val(val);
+        document.getElementById(addressType).value = val
       i++
+    document.getElementById('place_id').value = place.place_id
 
   initAutocomplete()
