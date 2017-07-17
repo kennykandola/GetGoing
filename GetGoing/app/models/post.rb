@@ -5,6 +5,7 @@ class Post < ApplicationRecord
   has_many :responses
   has_many :top_responses
   has_many :claims
+  has_many :notifications, as: :notifiable, dependent: :destroy
 
   has_many :place_post_relations, dependent: :destroy
   has_many :places, through: :place_post_relations
