@@ -1,0 +1,41 @@
+.place-location {
+  color: grey;
+}
+
+.fa-times {
+  color: #e9501f;
+  text-decoration: none;
+}
+
+.fa-map-marker, .fa-home {
+  color: #1695a3;
+  text-decoration: none;
+}
+
+.fa-map-marker{
+  margin-right: 2px;
+}
+
+.fa-times:active {
+  color: #ff8c67;
+}
+
+.fa-map-marker:active, .fa-home:active {
+  color: #1fc4d6;
+}
+
+.places-autocomplete {
+  margin-top: 50px;
+  margin-left: 40px;
+  width: 700px;
+}
+
+.place-name{
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.place-address{
+  color: #757575;
+  font-size: 14px;
+}

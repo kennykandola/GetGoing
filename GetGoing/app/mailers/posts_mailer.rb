@@ -11,4 +11,14 @@ class PostsMailer < ActionMailer::Base
     mail(to: user.email, subject: "Your post '#{post.title}' has been
                                    inactive for the last week")
   end
+
+  def suggest_post(post, user)
+    @post = post
+    mail(to: user.email, subject: "Post suggestion: #{post.user.first_name} just posted #{post.title} with places you have been")
+  end
+
+  def suggest_post_nearby(post, user)
+    @post = post
+    mail(to: user.email, subject: "Post suggestion: #{post.user.first_name} just posted #{post.title} with places nearby to locations you have been")
+  end
 end

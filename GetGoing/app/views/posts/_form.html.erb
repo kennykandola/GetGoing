@@ -1,28 +1,4 @@
-<!DOCTYPE html>
-<!--  This site was created in Webflow. http://www.webflow.com -->
-<!--  Last Published: Wed Mar 08 2017 03:01:07 GMT+0000 (UTC)  -->
-<html data-wf-page="54f7bd5e04a195de6e5adf11" data-wf-site="54f7bd5e04a195de6e5adf0f">
-<head>
-  <meta charset="utf-8">
-  <title>Kenny&#39;s Playground</title>
-  <meta content="width=device-width, initial-scale=1" name="viewport">
-  <meta content="Webflow" name="generator">
-  <link href="/assets/normalize.css" rel="stylesheet" type="text/css">
-  <link href="/assets/webflow.css" rel="stylesheet" type="text/css">
-  <link href="/assets/kennykandola89.webflow.css" rel="stylesheet" type="text/css">
-  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
-  <script type="text/javascript">
-    WebFont.load({
-      google: {
-        families: ["Lato:100,100italic,300,300italic,400,400italic,700,700italic,900,900italic","Montserrat:400,700","Exo:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic","Oswald:300,400,700","Great Vibes:400","Bitter:400,700,400italic","PT Serif:400,400italic,700,700italic","Roboto:300,regular,500,700","Roboto Condensed:regular,700","Roboto Slab:300,regular"]
-      }
-    });
-  </script>
-  <!-- <script src="js/modernizr.js" type="text/javascript"></script> -->
-  <link href="https://daks2k3a4ib2z.cloudfront.net/placeholder/favicon.ico" rel="shortcut icon" type="image/x-icon">
-  <link href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png" rel="apple-touch-icon">
-</head>
-
+<%= javascript_include_tag "http://maps.googleapis.com/maps/api/js?v=3.28&libraries=places&key=#{ENV['GOOGLE_MAPS_API']}" %>
 <%= form_for(@post) do |f| %>
   <% if @post.errors.any? %>
     <div id="error_explanation">
@@ -43,6 +19,33 @@
       <br>
       <%= f.text_area :destination, class: "whos_traveling"  %>
     </span>
+    <div class='places-autocomplete' id='places-autocomplete' data-places-counter=0>
+      <h3>Pick a places you would like to visit</h3>
+
+      <%= text_field_tag 'name', nil,
+          placeholder: "Place name",
+          class: "form-control",
+          id: 'place-input'
+      %>
+      <br>
+      <div id='places'>
+        <% if @post.places.present? %>
+          <%= f.fields_for :places, @post.places do |place|%>
+            <%= render 'place_fields', f: place %>
+          <% end %>
+          <div class='links'>
+            <%= link_to_add_association 'Add one more place', f, :places, class: 'btn btn-default'%>
+          </div>
+        <% else %>
+          <%= f.fields_for :places, Place.new do |place|%>
+            <%= render 'place_fields', f: place %>
+            <div class='links'>
+              <%= link_to_add_association 'Add one more place', f, :places, class: 'btn btn-default'%>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
     <div>
       <h1 class="h1-design">Title</h1>
     </div>
@@ -69,7 +72,8 @@
     <div class="design-brief-subheading">Let us know your budget so advisors can bring you relevant suggestions for your price range.</div>
       <span class="field-tip">
       <br>
-      <%= f.select(:budget, options_for_select([['<$500', 1], ['<$1,000', 2], ['<$1,500', 3], ['<$2,000', 4], ['<$2,500', 5], ['<$3,000', 6], ['<$4,000', 6], ['>$5,000', 6]]), {}, { :class => 'budget' }) %>
+      <%= f.select(:budget, options_for_select([['<$500', '<$500'], ['<$1,000', '<$1,000'], ['<$1,500', '<$1,500'], ['<$2,000', '<$2,000'],
+                                                ['<$2,500', '<$2,500'], ['<$3,000', '<$3,000'], ['<$4,000', '<$4,000'], ['>$5,000', '>$5,000']], selected: @post.budget), {}, { :class => 'budget' }) %>
     </span>
     <br></br>
     <h1 class="h1-design">Travel Dates</h1>
@@ -98,7 +102,7 @@
     <div class="design-brief-subheading">This will let our advisors know whether to give you more specific suggestions or general tips and advice.
     </div>
       <br>
-    <%= f.select(:structured, options_for_select([['Full Itinerary - not a second free'], ['Busy Itinerary - a little down time'], ['Light Itinerary - ample amount of time for relaxation and freedom']]), {}, { :class => 'budget' }) %>
+    <%= f.select(:structured, options_for_select([['Full Itinerary - not a second free','Full Itinerary - not a second free'], ['Busy Itinerary - a little down time','Busy Itinerary - a little down time'], ['Light Itinerary - ample amount of time for relaxation and freedom','Light Itinerary - ample amount of time for relaxation and freedom']], selected: @post.structured ), {}, { :class => 'budget' }) %>
 
     </div>
     <br> </br>

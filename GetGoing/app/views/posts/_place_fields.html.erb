@@ -1,0 +1,10 @@
+<div class='nested-fields'>
+  <%= link_to_remove_association (icon "times"), f %>
+  <%= icon "globe" %>
+  <%= f.text_field :city, id: 'place-city', readonly: true, class: 'place-item', placeholder: "Please enter place name above" %>
+  <%= f.text_field :state, id: 'place-state', readonly: true, hidden: true %>
+  <%= f.text_field :country, id: 'place-country', readonly: true, hidden: true %>
+  <%= f.text_field :google_place_id, id: 'place-google_id', readonly: true, hidden: true %>
+  <%= f.text_field :latitude, id: 'place-latitude', readonly: true, hidden: true %>
+  <%= f.text_field :longitude, id: 'place-longitude', readonly: true, hidden: true %>
+</div>

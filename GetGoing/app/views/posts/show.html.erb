@@ -17,6 +17,12 @@
       <%= current_status(@post) %>
       <h3>Traveling To:</h3>
       <%= @post.destination %>
+      <h4>Places:</h4>
+      <% @post.places.each do |place| %>
+        <%= icon "globe" %>
+        <span class='place-name'><%= place.full_name %></span>
+        <br>
+      <% end %>
       <h3>Traveling With:</h3>
       <%= @post.whos_traveling %>
       <h3>Already Booked:</h3>

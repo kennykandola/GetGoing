@@ -37,9 +37,9 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       @user.update_attribute(:age, age)
     end
 
-    @user.update_attribute(:hometown, @identity.hometown) if @identity.hometown
-
-    @user.update_attribute(:location, @identity.location) if @identity.location
+    # @user.update_attribute(:hometown, @identity.hometown) if @identity.hometown
+    #
+    # @user.update_attribute(:location, @identity.location) if @identity.location
 
     @user.update_attribute(:profile_picture_url, @identity.image) if @identity.image && @user.profile_picture_url.blank?
 
