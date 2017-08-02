@@ -6,13 +6,16 @@ class User < ApplicationRecord
 
   attr_accessor :current_password
 
-  has_many :posts, dependent: :destroy
+  # has_many :posts, dependent: :destroy
   has_many :responses, dependent: :destroy
   has_many :claims, through: :posts
   has_many :identities, dependent: :destroy
   has_many :votes, dependent: :destroy
   has_many :notifications, foreign_key: :recipient_id, dependent: :destroy
   has_many :comments, dependent: :destroy
+
+  has_many :post_users
+  has_many :posts, through: :post_users
 
   has_many :place_user_relations, dependent: :destroy
   has_many :places, through: :place_user_relations
@@ -78,7 +81,7 @@ class User < ApplicationRecord
   end
 
   def owns_post?(post)
-    post.user_id == self.id
+    post_users.where(post: post).where(role: 'owner').present?
   end
 
   def owns_response?(response)
@@ -108,7 +111,7 @@ class User < ApplicationRecord
   end
 
   def member_of_discussion?(response)
-    self == response.user || self == response.post.user
+    self == response.user || self == response.post.owner
   end
 
   def current_location_name
@@ -191,5 +194,10 @@ class User < ApplicationRecord
 
   def all_places
     places.group(:id)
+  end
+
+  def owned_posts
+    post_users.ownerships.map(&:post)
+    # Post.where(id: post_users.ownerships.pluck(:post_id))
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170714071702) do
+ActiveRecord::Schema.define(version: 20170802143803) do
 
   create_table "booking_links", force: :cascade do |t|
     t.string "url"
@@ -101,6 +101,17 @@ ActiveRecord::Schema.define(version: 20170714071702) do
     t.index ["google_place_id"], name: "index_places_on_google_place_id", unique: true
   end
 
+  create_table "post_users", force: :cascade do |t|
+    t.integer "post_id"
+    t.integer "user_id"
+    t.integer "role"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_post_users_on_post_id"
+    t.index ["role"], name: "index_post_users_on_role"
+    t.index ["user_id"], name: "index_post_users_on_user_id"
+  end
+
   create_table "posts", force: :cascade do |t|
     t.string "title"
     t.string "offering"
@@ -110,7 +121,6 @@ ActiveRecord::Schema.define(version: 20170714071702) do
     t.string "budget"
     t.string "travel_dates"
     t.string "destination"
-    t.integer "user_id"
     t.integer "top_responses_count"
     t.integer "claim", default: 0
     t.string "claimed_users", default: "--- []\n"
@@ -120,7 +130,6 @@ ActiveRecord::Schema.define(version: 20170714071702) do
     t.datetime "updated_at", null: false
     t.date "expired_at"
     t.boolean "status", default: true, null: false
-    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "responses", force: :cascade do |t|

@@ -13,7 +13,7 @@ class InactivePostsJob < ApplicationJob
 
     # send emails to post's creators which has posts that was inactive for 7 days
     open_posts_without_deadline.where(updated_at: (Date.today.beginning_of_day - 7.days)..(Date.today.end_of_day - 7.days)).each do |post|
-      PostsMailer.inactivity_email(post, post.user).deliver_later
+      PostsMailer.inactivity_email(post, post.owner).deliver_later
     end
 
 

@@ -13,7 +13,7 @@ class NotificationService
   end
 
   def new_response
-    @recipient = @post.user
+    @recipient = @post.owner
     notify('new_response')
   end
 
@@ -31,8 +31,8 @@ class NotificationService
 
   def new_comment_on_response
     if @actor == @notifiable.response.user # @notifiable in this case is the comment object
-      @recipient = @post.user
-    elsif @actor == @post.user
+      @recipient = @post.owner
+    elsif @actor == @post.owner
       @recipient = @notifiable.response.user
     end
     notify('new_comment_on_response')

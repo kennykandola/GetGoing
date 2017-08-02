@@ -37,7 +37,7 @@
       <% end%>
       <center><%= link_to("My places", places_path) %></center>
       <center><%= link_to 'Edit Profile Picture', edit_user_path(current_user) %></center>
-      <div class="text-block-4"><%= current_user.posts.count %> Posts</div>
+      <div class="text-block-4"><%= current_user.owned_posts.count %> Posts</div>
       <div class="text-block-5"><%= current_user.score %> Points</div>
       <div class="text-block-6">No Badges</div>
       <div class="text-block-7">You are currently receiving emails for new posts. Click here to no longer receive them.</div>
@@ -51,7 +51,7 @@
     </div>
     <div class="user-posts w-clearfix">
       <h1 class="heading-4">Your Posts</h1>
-      <% current_user.posts.each do |post| %>
+      <% current_user.owned_posts.each do |post| %>
       <div class="post-title"><%= post.title %></div>
       <div class="post-responses-count"><%= post.responses.count %></div>
           <div class="w-clearfix">

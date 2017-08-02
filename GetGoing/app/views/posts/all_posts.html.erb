@@ -81,8 +81,8 @@
     <div>
       <div class="w-row">
         <div class="w-clearfix w-col w-col-6">
-          <div class="user-profile-all-posts"><%= image_tag post.user.picture_url, class: "posts-table-profile-image" %></img>
-            <div class="text-block-14"><%= post.user.first_name  %></div>
+          <div class="user-profile-all-posts"><%= image_tag post.owner.picture_url, class: "posts-table-profile-image" %></img>
+            <div class="text-block-14"><%= post.owner.first_name  %></div>
           </div>
           <div class="div-block-9 w-clearfix">
             <div class="posts-title-all-posts-table"><%= post.title %></div>

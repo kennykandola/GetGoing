@@ -9,13 +9,13 @@ class MatchingPlacesSuggestionJob < ApplicationJob
     direct_users.uniq.each do |user|
       PostsMailer.suggest_post(post, user).deliver_later
       NotificationService.new(recipient: user, notifiable: post,
-                              actor: post.user).new_post_with_matching_place
+                              actor: post.owner).new_post_with_matching_place
     end
 
     nearby_users.uniq.each do |user|
       PostsMailer.suggest_post_nearby(post, user).deliver_later
       NotificationService.new(recipient: user, notifiable: post,
-                              actor: post.user).new_post_with_matching_nearby_place
+                              actor: post.owner).new_post_with_matching_nearby_place
     end
   end
 end

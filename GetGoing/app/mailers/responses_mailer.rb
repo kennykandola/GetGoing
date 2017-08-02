@@ -4,12 +4,12 @@ class ResponsesMailer < ActionMailer::Base
   def submitted(response)
     @response = response
 
-    mail(to: @response.post.user.email, subject: 'Sample Email')
+    mail(to: @response.post.owner.email, subject: 'Sample Email')
   end
 
   def submitted_top(post)
     @post = post
-    mail(to: @post.user.email, subject: 'Sample Email')
+    mail(to: @post.owner.email, subject: 'Sample Email')
   end
 
   def new_comment_email(response, user)

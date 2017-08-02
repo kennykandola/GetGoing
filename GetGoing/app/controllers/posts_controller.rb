@@ -37,9 +37,9 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(post_params)
-    @post.user = current_user
     respond_to do |format|
       if @post.save!
+        @post.owner = current_user # creates join record in join table
         places = post_and_places_params[:places_attributes]
         @post.connect_with_places(places)
         post_params

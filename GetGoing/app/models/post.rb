@@ -1,11 +1,13 @@
 class Post < ApplicationRecord
-  belongs_to :user
-
-  has_many :booking_links
-  has_many :responses
+  # belongs_to :user
+  has_many :booking_links, dependent: :destroy
+  has_many :responses, dependent: :destroy
   has_many :top_responses
   has_many :claims
   has_many :notifications, as: :notifiable, dependent: :destroy
+
+  has_many :post_users
+  has_many :users, through: :post_users
 
   has_many :place_post_relations, dependent: :destroy
   has_many :places, through: :place_post_relations
@@ -16,6 +18,26 @@ class Post < ApplicationRecord
   serialize :claimed_users, Array
 
   validates_presence_of :title
+
+  def owner
+    post_users.ownerships.map(&:user).first
+  end
+
+  def owner=(user)
+    post_users.create(user: user, role: 'owner') unless owner?(user)
+  end
+
+  def owner?(user)
+    post_users.where(user: user).where(role: 'owner').present?
+  end
+
+  def invite_user(user)
+    post_users.create(user: user, role: 'invited_user') unless invited?(user)
+  end
+
+  def invited?(user)
+    post_users.where(user: user).where(role: 'invited_user').present?
+  end
 
   scope :status_open, -> { where(status: true) }
 

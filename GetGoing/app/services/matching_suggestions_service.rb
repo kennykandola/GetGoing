@@ -7,7 +7,7 @@ class MatchingSuggestionsService
     @post = Post.find(params[:post_id])
     @direct_places = @post.places
     @nearby_places = find_nearby_places
-    @author_id = @post.user.id
+    @author_id = @post.owner.id
     @direct_users = []
     @nearby_users = []
   end
