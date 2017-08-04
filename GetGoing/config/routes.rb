@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     resources :responses do
       member { patch :set_top }
     end
+    resources :post_users, path: :users, module: :posts
   end
 
   resources :responses, only: [] do

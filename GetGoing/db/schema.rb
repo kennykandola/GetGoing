@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170802143803) do
+ActiveRecord::Schema.define(version: 20170803105236) do
 
   create_table "booking_links", force: :cascade do |t|
     t.string "url"
@@ -107,6 +107,7 @@ ActiveRecord::Schema.define(version: 20170802143803) do
     t.integer "role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["post_id", "user_id"], name: "post_user_index", unique: true
     t.index ["post_id"], name: "index_post_users_on_post_id"
     t.index ["role"], name: "index_post_users_on_role"
     t.index ["user_id"], name: "index_post_users_on_user_id"
@@ -192,7 +193,19 @@ ActiveRecord::Schema.define(version: 20170802143803) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "role", default: 0, null: false
+    t.string "invitation_token"
+    t.datetime "invitation_created_at"
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
+    t.integer "invitation_limit"
+    t.string "invited_by_type"
+    t.integer "invited_by_id"
+    t.integer "invitations_count", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
+    t.index ["invitations_count"], name: "index_users_on_invitations_count"
+    t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
+    t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by_type_and_invited_by_id"
   end
 
   create_table "votes", force: :cascade do |t|

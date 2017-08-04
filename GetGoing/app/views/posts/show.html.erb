@@ -30,6 +30,13 @@
       <%= @post.structured %>
       <h3>Brief:</h3>
       <%= @post.body %>
+
+      <h4> Invite User</h4>
+      <%= form_for [@post, PostUser.new] do |f| %>
+        <%= f.text_field :email, required: true %>
+        <%= f.submit 'Invite' %>
+      <% end %>
+      
     </div>
     <div id="booking_links">
       <%= render partial: 'booking_links/booking_links', locals: { booking_links: @post.booking_links } %>

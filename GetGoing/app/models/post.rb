@@ -20,7 +20,11 @@ class Post < ApplicationRecord
   validates_presence_of :title
 
   def owner
-    post_users.ownerships.map(&:user).first
+    User.where(id: post_users.ownerships.pluck(:user_id)).first
+  end
+
+  def invited_users
+    User.where(id: post_users.invitations.pluck(:user_id))
   end
 
   def owner=(user)

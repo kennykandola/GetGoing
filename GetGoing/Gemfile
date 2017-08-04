@@ -68,6 +68,7 @@ gem 'google-api-client', '~> 0.11'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'devise'
+gem 'devise_invitable', '~> 1.7.0'
 gem 'omniauth-google-oauth2'
 
 # Authorization
