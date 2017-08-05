@@ -25,23 +25,23 @@
       <% end %>
       <h3>Traveling With:</h3>
       <%= @post.whos_traveling %>
+
+      <%= link_to new_invitation_post_path(@post), remote: true, method: :get, class: 'clear_link', title: 'Click here to invite your friend' do %>
+        <%= icon "user-plus" %> Invite
+      <% end %>
+      <%= link_to 'Invite', new_invitation_post_path, id: 'invite', class: "btn btn-default" %>
       <h3>Already Booked:</h3>
       <h3>Structured:</h3>
       <%= @post.structured %>
       <h3>Brief:</h3>
       <%= @post.body %>
-
-      <h4> Invite User</h4>
-      <%= form_for [@post, PostUser.new] do |f| %>
-        <%= f.text_field :email, required: true %>
-        <%= f.submit 'Invite' %>
-      <% end %>
-      
     </div>
     <div id="booking_links">
       <%= render partial: 'booking_links/booking_links', locals: { booking_links: @post.booking_links } %>
     </div>
-    <div id='modal-component' class="modal fade"> </div>
+    <div id='modal-component' class="modal fade">
+      render( partial: 'posts/invite', locals: { :post => @post })
+    </div>
 
 </div>
 

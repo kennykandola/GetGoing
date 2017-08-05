@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :new_invitation]
   before_action :authenticate_user!, only: [:show, :edit, :update, :destroy]
 
   helper_method :sort_column, :sort_direction
@@ -112,6 +112,11 @@ end
       format.html { redirect_to all_posts_url, notice: 'Post was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def new_invitation
+    @users = User.where.not(id: current_user.id)
+    respond_to :js
   end
 
   private

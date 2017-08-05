@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       member { patch :set_top }
     end
     resources :post_users, path: :users, module: :posts
+    member { get :new_invitation }
   end
 
   resources :responses, only: [] do
@@ -46,6 +47,9 @@ Rails.application.routes.draw do
       member { patch :assign_as_admin }
       member { patch :assign_as_moderator }
       member { patch :assign_as_simple_user }
+      collection do
+        get :autocomplete
+      end
     end
   end
 

@@ -54,6 +54,18 @@ class UsersController < ApplicationController
     respond_to :js
   end
 
+  def autocomplete
+    render json: User.search(params[:query], {
+      fields: ["email^5", "first_name", "last_name"],
+      match: :word_start,
+      limit: 10,
+      load: false,
+      misspellings: {below: 5}
+    }).map { |user| { email: user.email,
+                      first_name: user.first_name,
+                      last_name: user.last_name } }
+  end
+
   private
   def user_params
     params.require(:user).permit(:first_name, :last_name, :email, :password, :tippa, :score, :photo)

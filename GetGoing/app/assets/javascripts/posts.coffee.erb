@@ -63,5 +63,30 @@ googlePlaceAutocomplete = ->
   isCountry = (address_component) ->
     address_component.types[0] == 'country'
 
-
   initAutocomplete()
+
+
+$(".posts.show").ready ->
+  facebookSDKInitialize()
+
+facebookSDKInitialize = ->
+  window.fbAsyncInit = ->
+    FB.init
+      appId: '<%= ENV["FACEBOOK_APP_ID"] %>'
+      autoLogAppEvents: true
+      xfbml: true
+      version: 'v2.10'
+    FB.AppEvents.logPageView()
+    return
+
+  ((d, s, id) ->
+    js = undefined
+    fjs = d.getElementsByTagName(s)[0]
+    if d.getElementById(id)
+      return
+    js = d.createElement(s)
+    js.id = id
+    js.src = '//connect.facebook.net/en_US/sdk.js'
+    fjs.parentNode.insertBefore js, fjs
+    return
+  ) document, 'script', 'facebook-jssdk'

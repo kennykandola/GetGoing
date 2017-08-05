@@ -1,0 +1,35 @@
+$("#modal-component").html("<%= escape_javascript(render( partial: 'posts/new_invitation', locals: { :post => @post })).html_safe %>");
+$("#modal-component").modal("show");
+
+$("#shareBtn").click(function(){
+  FB.ui({
+    method: 'send',
+    link: 'https://developers.facebook.com/docs/',
+  });
+});
+
+$("#shareBtn2").click(function(){
+  FB.ui({
+    method: 'share',
+    href: 'https://developers.facebook.com/docs/',
+  }, function(response){});
+});
+
+var users = new Bloodhound({
+  datumTokenizer: Bloodhound.tokenizers.whitespace,
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  remote: {
+    url: '/manage/users/autocomplete?query=%QUERY',
+    wildcard: '%QUERY'
+  }
+});
+$('#users_search').typeahead(null, {
+  source: users,
+  hint: false,
+  displayKey: 'email',
+  templates: {
+    suggestion: function(data){
+      return '<p><strong>' + data.email + '</strong> - ' + data.first_name + data.last_name + '</p>';
+    }
+  }
+});

@@ -19,6 +19,7 @@
 //= require cocoon
 //= require jquery.readyselector
 //= require cable.js
+//= require typeahead.bundle.min
 //= require_tree .
 
 // $( "button#jQueryColorChange" ).click(function() {
@@ -42,4 +43,4 @@
 // $('#ranger').on 'input', ->
 // $('#target').text($('#ranger').val())
 
-$('a').tooltip();
+// $('a').tooltip();

@@ -6,6 +6,16 @@ class User < ApplicationRecord
 
   attr_accessor :current_password
 
+  searchkick
+
+  def search_data
+    {
+      email: email,
+      first_name: first_name,
+      last_name: last_name
+    }
+  end
+
   # has_many :posts, dependent: :destroy
   has_many :responses, dependent: :destroy
   has_many :claims, through: :posts
