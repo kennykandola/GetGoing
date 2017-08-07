@@ -1,0 +1,22 @@
+<%= form_for @booking_link_type, remote: true do |f| %>
+  <div class="modal-body">
+    <div class='form-group'>
+      <%= f.label :name, 'Name (will be displayed on the booking links block in the Post page, e.g. Restaurant, Hotel...)', class: "col-sm-2 control-label" %>
+      <div class='col-sm-10'>
+        <%= f.text_field :name, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class='form-group'>
+      <%= f.label :url_type, 'Url type name (hashtag). In order to work best, it should be lower case and single word', class: "col-sm-2 control-label" %>
+      <div class='col-sm-10'>
+        <%= f.text_field :url_type, class: 'form-control' %>
+      </div>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <%= f.submit 'Save', class: "btn btn-info" %>
+    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+  </div>
+<% end %>

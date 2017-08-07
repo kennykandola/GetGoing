@@ -1,0 +1,2 @@
+$("#modal-component").modal("hide");
+$("#booking_link_types_table").html("<%= escape_javascript(render(partial: 'booking_link_types/booking_link_types_table', locals: { booking_link_types: @booking_link_types })).html_safe %>");

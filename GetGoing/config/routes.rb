@@ -51,6 +51,8 @@ Rails.application.routes.draw do
         get :autocomplete
       end
     end
+
+    resources :booking_link_types
   end
 
   resources :places, only: [:index, :destroy] do
@@ -58,6 +60,8 @@ Rails.application.routes.draw do
     member { patch :set_as_current_location }
     member { patch :set_as_hometown }
   end
+
+
 
   get 'profile', to: 'users#profile'
 

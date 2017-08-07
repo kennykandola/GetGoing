@@ -1,0 +1,13 @@
+<br>
+<div class='w-container'>
+  <% if policy(BookingLinkType).create? %>
+    <%= link_to 'Create new Booking Link Type', new_booking_link_type_path, remote: true, class: 'btn btn-default' %>
+    <br>
+  <% end %>
+  <br>
+  <div class='table-responsive' id='booking_link_types_table'>
+    <%= render partial: 'booking_link_types/booking_link_types_table', locals: { booking_link_types: @booking_link_types } %>
+  </div>
+  <div id='modal-component' class="modal fade">
+  </div>
+</div>

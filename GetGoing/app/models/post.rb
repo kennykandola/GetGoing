@@ -11,6 +11,10 @@ class Post < ApplicationRecord
 
   has_many :place_post_relations, dependent: :destroy
   has_many :places, through: :place_post_relations
+
+  has_many :booking_link_types_posts, dependent: :destroy
+  has_many :booking_link_types, through: :booking_link_types_posts
+
   accepts_nested_attributes_for :places
 
   after_save :set_closing_job

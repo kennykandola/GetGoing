@@ -5,6 +5,8 @@ class BookingLink < ApplicationRecord
   has_many :votes, dependent: :destroy
   has_many :notifications, as: :notifiable, dependent: :destroy
 
+  belongs_to :booking_link_type
+
   enum url_type: [:restaurant, :hotel, :airbnb, :rental, :activity, :flight, :tour, :attraction]
 
   def downvote(user)
