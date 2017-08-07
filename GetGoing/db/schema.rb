@@ -10,24 +10,45 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170803105236) do
+ActiveRecord::Schema.define(version: 20170807130211) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "booking_link_types", force: :cascade do |t|
+    t.string "name"
+    t.string "url_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "booking_link_types_posts", force: :cascade do |t|
+    t.bigint "booking_link_type_id"
+    t.bigint "post_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["booking_link_type_id", "post_id"], name: "index_booking_link_types_posts", unique: true
+    t.index ["booking_link_type_id"], name: "index_booking_link_types_posts_on_booking_link_type_id"
+    t.index ["post_id"], name: "index_booking_link_types_posts_on_post_id"
+  end
 
   create_table "booking_links", force: :cascade do |t|
     t.string "url"
-    t.integer "url_type"
-    t.integer "post_id"
+    t.bigint "post_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "cached_votes_up", default: 0
     t.integer "cached_votes_down", default: 0
-    t.integer "response_id"
+    t.bigint "response_id"
+    t.bigint "booking_link_type_id"
+    t.index ["booking_link_type_id"], name: "index_booking_links_on_booking_link_type_id"
     t.index ["post_id"], name: "index_booking_links_on_post_id"
     t.index ["response_id"], name: "index_booking_links_on_response_id"
   end
 
   create_table "comments", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "response_id"
+    t.bigint "user_id"
+    t.bigint "response_id"
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -36,7 +57,7 @@ ActiveRecord::Schema.define(version: 20170803105236) do
   end
 
   create_table "identities", force: :cascade do |t|
-    t.integer "user_id"
+    t.bigint "user_id"
     t.string "provider"
     t.string "accesstoken"
     t.string "refreshtoken"
@@ -68,16 +89,16 @@ ActiveRecord::Schema.define(version: 20170803105236) do
   end
 
   create_table "place_post_relations", force: :cascade do |t|
-    t.integer "place_id"
-    t.integer "post_id"
+    t.bigint "place_id"
+    t.bigint "post_id"
     t.index ["place_id", "post_id"], name: "index_place_post_relations_on_place_id_and_post_id", unique: true
     t.index ["place_id"], name: "index_place_post_relations_on_place_id"
     t.index ["post_id"], name: "index_place_post_relations_on_post_id"
   end
 
   create_table "place_user_relations", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "place_id"
+    t.bigint "user_id"
+    t.bigint "place_id"
     t.integer "relation", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -102,8 +123,8 @@ ActiveRecord::Schema.define(version: 20170803105236) do
   end
 
   create_table "post_users", force: :cascade do |t|
-    t.integer "post_id"
-    t.integer "user_id"
+    t.bigint "post_id"
+    t.bigint "user_id"
     t.integer "role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -134,8 +155,8 @@ ActiveRecord::Schema.define(version: 20170803105236) do
   end
 
   create_table "responses", force: :cascade do |t|
-    t.integer "post_id"
-    t.integer "user_id"
+    t.bigint "post_id"
+    t.bigint "user_id"
     t.text "body"
     t.boolean "top", default: false
     t.datetime "created_at", null: false
@@ -146,8 +167,8 @@ ActiveRecord::Schema.define(version: 20170803105236) do
   end
 
   create_table "spot_user_relations", force: :cascade do |t|
-    t.integer "spot_id"
-    t.integer "user_id"
+    t.bigint "spot_id"
+    t.bigint "user_id"
     t.index ["spot_id", "user_id"], name: "index_spot_user_relations_on_spot_id_and_user_id", unique: true
     t.index ["spot_id"], name: "index_spot_user_relations_on_spot_id"
     t.index ["user_id"], name: "index_spot_user_relations_on_user_id"
@@ -156,7 +177,7 @@ ActiveRecord::Schema.define(version: 20170803105236) do
   create_table "spots", force: :cascade do |t|
     t.string "name"
     t.string "fb_id"
-    t.integer "place_id"
+    t.bigint "place_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["fb_id"], name: "index_spots_on_fb_id", unique: true
@@ -190,6 +211,8 @@ ActiveRecord::Schema.define(version: 20170803105236) do
     t.datetime "last_sign_in_at"
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "role", default: 0, null: false
@@ -199,18 +222,19 @@ ActiveRecord::Schema.define(version: 20170803105236) do
     t.datetime "invitation_accepted_at"
     t.integer "invitation_limit"
     t.string "invited_by_type"
-    t.integer "invited_by_id"
+    t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
     t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by_type_and_invited_by_id"
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   create_table "votes", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "booking_link_id"
+    t.bigint "user_id"
+    t.bigint "booking_link_id"
     t.integer "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -218,4 +242,23 @@ ActiveRecord::Schema.define(version: 20170803105236) do
     t.index ["user_id"], name: "index_votes_on_user_id"
   end
 
+  add_foreign_key "booking_link_types_posts", "booking_link_types"
+  add_foreign_key "booking_link_types_posts", "posts"
+  add_foreign_key "booking_links", "booking_link_types"
+  add_foreign_key "booking_links", "posts"
+  add_foreign_key "booking_links", "responses"
+  add_foreign_key "comments", "responses"
+  add_foreign_key "comments", "users"
+  add_foreign_key "identities", "users"
+  add_foreign_key "place_post_relations", "places"
+  add_foreign_key "place_post_relations", "posts"
+  add_foreign_key "post_users", "posts"
+  add_foreign_key "post_users", "users"
+  add_foreign_key "responses", "posts"
+  add_foreign_key "responses", "users"
+  add_foreign_key "spot_user_relations", "spots"
+  add_foreign_key "spot_user_relations", "users"
+  add_foreign_key "spots", "places"
+  add_foreign_key "votes", "booking_links"
+  add_foreign_key "votes", "users"
 end

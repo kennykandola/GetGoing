@@ -1,4 +1,4 @@
-class DeviseCreateUsers < ActiveRecord::Migration
+class DeviseCreateUsers < ActiveRecord::Migration[5.1]
   def change
     create_table :users do |t|
       ## Database authenticatable
@@ -30,8 +30,8 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string   :last_sign_in_ip
 
       ## Recoverable
-      # t.string   :reset_password_token
-      # t.datetime :reset_password_sent_at
+      t.string   :reset_password_token
+      t.datetime :reset_password_sent_at
 
       ## Confirmable
       # t.string   :confirmation_token
@@ -48,7 +48,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
     end
 
     add_index :users, :email,                unique: true
-    # add_index :users, :reset_password_token, unique: true
+    add_index :users, :reset_password_token, unique: true
     # add_index :users, :confirmation_token,   unique: true
     # add_index :users, :unlock_token,         unique: true
   end
