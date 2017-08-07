@@ -1,39 +1,9 @@
 <div class="post-links-div">
   <h1 class="posts-heading">Booking Links</h1>
-
-  <h3 class="post-link-headings">Restaurants</h3>
-  <% booking_links.restaurant.order('cached_votes_up DESC, cached_votes_down ASC').each do |booking_link| %>
-    <%= render partial: 'booking_links/booking_link', locals: { booking_link: booking_link } %>
-  <%end%>
-
-  <h3 class="post-link-headings">Hotels</h3>
-  <% booking_links.hotel.order('cached_votes_up DESC, cached_votes_down ASC').each do |booking_link| %>
-    <%= render partial: 'booking_links/booking_link', locals: { booking_link: booking_link } %>
-  <%end%>
-
-  <h3 class="post-link-headings">Airbnb</h3>
-  <% booking_links.airbnb.order('cached_votes_up DESC, cached_votes_down ASC').each do |booking_link| %>
-    <%= render partial: 'booking_links/booking_link', locals: { booking_link: booking_link } %>
-  <%end%>
-  <h3 class="post-link-headings">Rentals</h3>
-  <% booking_links.rental.order('cached_votes_up DESC, cached_votes_down ASC').each do |booking_link| %>
-    <%= link_to booking_link.url, booking_link.url, target: :_blank %>
-  <%end%>
-
-  <h3 class="post-link-headings">Activities</h3>
-  <% booking_links.activity.order('cached_votes_up DESC, cached_votes_down ASC').each do |booking_link| %>
-    <%= render partial: 'booking_links/booking_link', locals: { booking_link: booking_link } %>
-  <%end%>
-  <h3 class="post-link-headings">Flights</h3>
-  <% booking_links.flight.order('cached_votes_up DESC, cached_votes_down ASC').each do |booking_link| %>
-    <%= render partial: 'booking_links/booking_link', locals: { booking_link: booking_link } %>
-  <%end%>
-  <h3 class="post-link-headings">Tours</h3>
-  <% booking_links.tour.order('cached_votes_up DESC, cached_votes_down ASC').each do |booking_link| %>
-    <%= render partial: 'booking_links/booking_link', locals: { booking_link: booking_link } %>
-  <%end%>
-  <h3 class="post-link-headings">Attractions</h3>
-  <% booking_links.attraction.order('cached_votes_up DESC, cached_votes_down ASC').each do |booking_link| %>
-    <%= render partial: 'booking_links/booking_link', locals: { booking_link: booking_link } %>
+  <% BookingLink.url_types.each do |url_type| %>
+    <h3 class="post-link-headings"><%=url_type[0].capitalize%></h3>
+    <% booking_links.where(url_type: url_type[0]).order('cached_votes_up DESC, cached_votes_down ASC').each do |booking_link| %>
+      <%= render partial: 'booking_links/booking_link', locals: { booking_link: booking_link } %>
+    <%end%>
   <%end%>
 </div>

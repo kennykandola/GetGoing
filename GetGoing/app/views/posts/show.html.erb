@@ -37,7 +37,7 @@
       <%= @post.body %>
     </div>
     <div id="booking_links">
-      <%= render partial: 'booking_links/booking_links', locals: { booking_links: @post.booking_links } %>
+      <%= render partial: 'booking_links/booking_links', locals: { booking_links: @decorated_booking_links } %>
     </div>
     <div id='modal-component' class="modal fade">
       render( partial: 'posts/invite', locals: { :post => @post })

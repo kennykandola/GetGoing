@@ -4,14 +4,18 @@ class BookingLinkPolicy < ApplicationPolicy
   def initialize(user, booking_link)
     @user = user
     @booking_link = booking_link
+    @bl_voting_service = BookingLinkVotingService.new(user: @user,
+                                                      booking_link: @booking_link)
   end
 
   def upvote?
-    @user && @user.owns_post?(@booking_link.post) && !@booking_link.upvoted_by?(@user)
+    @user && @user.owns_post?(@booking_link.post) &&
+      !@bl_voting_service.upvoted?
   end
 
   def downvote?
-    @user && (@user.owns_post?(@booking_link.post) || @user.moderator? || @user.admin?)
+    @user && (@user.owns_post?(@booking_link.post) || @user.moderator? || @user.admin?) &&
+      !@bl_voting_service.downvoted?
   end
 
   def destroy?

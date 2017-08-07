@@ -2,10 +2,11 @@ class BookingLinksController < ApplicationController
   before_action :authenticate_user!
   before_action :set_booking_link
   before_action :set_post
+  before_action :set_bl_voting_service, only: [:upvote, :downvote]
 
   def upvote
     authorize @booking_link
-    @booking_link.upvote(current_user)
+    @bl_voting_service.upvote
     NotificationService.new(actor: current_user,
                             notifiable: @booking_link,
                             recipient: @booking_link.response.user).recommended_link_upvoted
@@ -14,13 +15,15 @@ class BookingLinksController < ApplicationController
 
   def downvote
     authorize @booking_link
-    @booking_link.downvote(current_user) unless @booking_link.downvoted_by?(current_user)
+    @bl_voting_service.downvote
     respond_to :js # 'Remove the link?' modal will still appear even if the link was already downvoted earlier and downvoting is ignored now
   end
 
   def destroy
     authorize @booking_link
-    @booking_link.destroy
+    if @booking_link.destroy
+      UserScoreService.new(user: @booking_link.user).update_score('remove')
+    end
     respond_to :js
   end
 
@@ -28,6 +31,11 @@ class BookingLinksController < ApplicationController
 
   def set_booking_link
     @booking_link = BookingLink.find(params[:id])
+  end
+
+  def set_bl_voting_service
+    @bl_voting_service = BookingLinkVotingService.new(user: current_user,
+                                                      booking_link: @booking_link)
   end
 
   def set_post

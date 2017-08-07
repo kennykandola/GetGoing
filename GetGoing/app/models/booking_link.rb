@@ -1,34 +1,14 @@
 class BookingLink < ApplicationRecord
   belongs_to :post, touch: true # touch allows to track the latest activity on the post with updated_at
   belongs_to :response
-  
+
   has_many :votes, dependent: :destroy
   has_many :notifications, as: :notifiable, dependent: :destroy
 
   enum url_type: [:restaurant, :hotel, :airbnb, :rental, :activity, :flight, :tour, :attraction]
 
-  def upvote(user)
-    if downvoted_by?(user)
-      downvotes.where(user_id: user).first.update(value: 1)
-    else
-      vote = votes.new(booking_link: self, user: user, value: 1)
-      vote.save
-    end
-    self.cached_votes_up = votes.where(value: 1).count
-    self.cached_votes_down = votes.where(value: -1).count
-    save
-  end
-
   def downvote(user)
-    if upvoted_by?(user)
-      upvotes.where(user_id: user).first.update(value: -1)
-    else
-      vote = votes.new(booking_link: self, user: user, value: -1)
-      vote.save
-    end
-    self.cached_votes_up = votes.where(value: 1).count
-    self.cached_votes_down = votes.where(value: -1).count
-    save
+    VotingService.new(user: user, booking_link: self).downvote
   end
 
   def upvoted_by?(user)

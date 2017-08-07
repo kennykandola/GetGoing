@@ -1,11 +1,11 @@
 <div class="booking_links_post">
   <% if policy(booking_link).downvote? %>
-    <%= booking_link.downvotes.count %>
+    <%= booking_link.downvotes_count %>
     <%= link_to downvote_booking_link_path(booking_link), remote: true, method: :patch, class: 'clear_link' do %>
       <%= icon "thumbs-down" %>
     <% end %>
   <% else %>
-    <%= booking_link.downvotes.count %>
+    <%= booking_link.downvotes_count %>
     <%= icon "thumbs-down" %>
   <% end %>
 
@@ -13,12 +13,12 @@
 
   <div class='right-block'>
     <% if policy(booking_link).upvote? %>
-      <%= booking_link.upvotes.count %>
+      <%= booking_link.upvotes_count %>
       <%= link_to upvote_booking_link_path(booking_link), remote: true, method: :patch, class: 'clear_link' do %>
         <%= icon "thumbs-up" %>
       <% end %>
   <% else %>
-      <%= booking_link.upvotes.count %>
+      <%= booking_link.upvotes_count %>
       <%= icon "thumbs-up" %>
   <% end %>
 </div>
