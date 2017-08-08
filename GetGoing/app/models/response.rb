@@ -24,14 +24,14 @@ class Response < ApplicationRecord
   def extract_booking_links
     new_booking_links = []
     links = body.scan(/([a-zA-Z]+)#((?:https?):\/\/[\w\d\/.-\?\&\%\-\#]+)/)
-
     if links.present?
       links.each do |link_pair|
         url_type = link_pair[0].downcase.singularize
         url = link_pair[1]
-        if BookingLink.url_types.include?(url_type)
-          new_booking_links << BookingLink.new(url_type: url_type, url: url,
-                                               post: post, response: self)
+        if BookingLinkType.all.pluck(:url_type).include?(url_type)
+          booking_link_type_id = BookingLinkType.where(url_type: url_type).first.id
+          new_booking_links << BookingLink.new(booking_link_type_id: booking_link_type_id,
+                                               url: url, post: post, response: self)
         end
       end
     end

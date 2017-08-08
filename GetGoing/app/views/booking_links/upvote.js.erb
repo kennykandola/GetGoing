@@ -1,1 +1,1 @@
-$("#booking_links").html("<%= escape_javascript(render(partial: 'booking_links/booking_links', locals: { booking_links: @post.booking_links })).html_safe %>");
+$("#booking_links").html("<%= escape_javascript(render(partial: 'booking_links/booking_links', locals: { booking_links: @structured_booking_links })).html_safe %>");

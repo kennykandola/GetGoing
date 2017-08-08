@@ -14,8 +14,7 @@ class BookingLinkPolicy < ApplicationPolicy
   end
 
   def downvote?
-    @user && (@user.owns_post?(@booking_link.post) || @user.moderator? || @user.admin?) &&
-      !@bl_voting_service.downvoted?
+    @user && (@user.owns_post?(@booking_link.post) || @user.moderator? || @user.admin?)
   end
 
   def destroy?

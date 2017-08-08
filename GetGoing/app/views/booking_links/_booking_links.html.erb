@@ -1,9 +1,10 @@
 <div class="post-links-div">
   <h1 class="posts-heading">Booking Links</h1>
-  <% BookingLink.url_types.each do |url_type| %>
-    <h3 class="post-link-headings"><%=url_type[0].capitalize%></h3>
-    <% booking_links.where(url_type: url_type[0]).order('cached_votes_up DESC, cached_votes_down ASC').each do |booking_link| %>
+
+  <% @structured_booking_links.each do |url_type_name, booking_links| %>
+    <h3 class="post-link-headings"><%=url_type_name%></h3>
+    <% booking_links.each do |booking_link| %>
       <%= render partial: 'booking_links/booking_link', locals: { booking_link: booking_link } %>
     <%end%>
-  <%end%>
+  <% end %>
 </div>

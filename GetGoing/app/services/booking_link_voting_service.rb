@@ -6,25 +6,25 @@ class BookingLinkVotingService
   end
 
   def upvote
-    if @booking_link.downvoted?
+    if downvoted?
       @booking_link.downvotes.where(user_id: @user).first.update(value: 1)
     else
       vote = @booking_link.votes.new(booking_link: @booking_link, user: @user, value: 1)
       vote.save
     end
     update_cached_votes
-    UserScoreService.new(user: @booking_link.user).update_score('upvote')
+    UserScoreService.new(user: @booking_link.response.user).update_score('upvote')
   end
 
   def downvote
-    if @booking_link.upvoted?
+    if upvoted?
       @booking_link.upvotes.where(user_id: @user).first.update(value: -1)
     else
       vote = @booking_link.votes.new(booking_link: @booking_link, user: @user, value: -1)
       vote.save
     end
     update_cached_votes
-    UserScoreService.new(user: @booking_link.user).update_score('downvote')
+    UserScoreService.new(user: @booking_link.response.user).update_score('downvote')
   end
 
   def update_cached_votes
@@ -34,11 +34,11 @@ class BookingLinkVotingService
   end
 
   def upvoted?
-    upvotes.where(user_id: user).present?
+    @booking_link.upvotes.where(user_id: @user).present?
   end
 
   def downvoted?
-    downvotes.where(user_id: user).present?
+    @booking_link.downvotes.where(user_id: @user).present?
   end
 
   def upvotes

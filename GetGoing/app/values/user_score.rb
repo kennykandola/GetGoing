@@ -3,7 +3,7 @@ class UserScore
   def self.impact_value(action)
     case action
     when 'downvote'
-      5
+      -5
     when 'upvote'
       10
     when 'remove'

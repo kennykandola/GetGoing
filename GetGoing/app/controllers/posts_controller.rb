@@ -21,7 +21,8 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
-    @decorated_booking_links = @post.booking_links.decorate
+    @structured_booking_links = BookingLinksService.new(post: @post)
+                                                   .structured_booking_links
   end
 
   # GET /posts/new
