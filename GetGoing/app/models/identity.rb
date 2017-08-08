@@ -17,6 +17,7 @@ class Identity < ApplicationRecord
     identity.first_name = auth.extra.raw_info.given_name || auth.extra.raw_info.first_name
     identity.last_name = auth.extra.raw_info.family_name || auth.extra.raw_info.last_name
     identity.birthday = Date.strptime(auth.extra.raw_info.birthday,'%m/%d/%Y') if auth.extra.raw_info.birthday.present?
+    identity.gender = auth.extra.raw_info.gender if auth.extra.raw_info.gender.present?
     identity.age_max = auth.extra.raw_info.age_range.to_h["max"]
     identity.age_min = auth.extra.raw_info.age_range.to_h["min"]
     # identity.hometown = auth.extra.raw_info.hometown.name if auth.extra.raw_info.hometown.present?

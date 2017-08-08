@@ -34,6 +34,7 @@ class User < ApplicationRecord
   has_many :spots, through: :spot_user_relations
 
   enum role: [:simple_user, :moderator, :admin]
+  enum sex: [:male, :female]
 
   has_attached_file :photo
 

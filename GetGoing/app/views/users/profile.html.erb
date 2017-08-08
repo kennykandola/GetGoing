@@ -29,6 +29,9 @@
       <% if current_user.age.present? %>
         <div class="text-block-3">Age: <%=current_user.age%></div>
       <% end%>
+      <% if current_user.sex.present? %>
+        <div class="text-block-3">Sex: <%=current_user.sex%></div>
+      <% end%>
       <% if current_user.hometown_name.present? %>
         <div class="text-block-3">Hometown: <%=current_user.hometown_name%></div>
       <% end%>

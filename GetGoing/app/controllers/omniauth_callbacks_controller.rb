@@ -20,22 +20,28 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
 
     if @user.email.blank? && @identity.email
-      @user.update_attribute(:email, @identity.email)
+      @user.email = @identity.email
     end
 
     if @user.first_name.blank? && @identity.first_name
-      @user.update_attribute(:first_name, @identity.first_name)
+      @user.first_name = @identity.first_name
     end
 
     if @user.last_name.blank? && @identity.last_name
-      @user.update_attribute(:last_name, @identity.last_name)
+      @user.last_name = @identity.last_name
     end
 
     if @identity.birthday
       age = Date.today.year - @identity.birthday.year
       age -= 1 if Date.today < @identity.birthday + age.years
-      @user.update_attribute(:age, age)
+      @user.age = age
     end
+
+    if @identity.gender.present? && @user.sex.blank? && User.sexes.include?(@identity.gender)
+      @user.sex = @identity.gender
+    end
+
+    @user.save
 
     # @user.update_attribute(:hometown, @identity.hometown) if @identity.hometown
     #

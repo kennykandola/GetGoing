@@ -308,7 +308,7 @@ Devise.setup do |config|
   config.omniauth :facebook, ENV['FACEBOOK_APP_ID'],
                              ENV['FACEBOOK_APP_SECRET'],
                              scope: "email,user_hometown,user_birthday,user_location,user_tagged_places",
-                             info_fields: 'email,first_name,last_name,age_range,hometown,location,birthday,tagged_places',
+                             info_fields: 'email,first_name,last_name,age_range,hometown,location,birthday,tagged_places,gender',
                              client_options: {
                                site: 'https://graph.facebook.com/v2.9',
                                authorize_url: "https://www.facebook.com/v2.9/dialog/oauth"
