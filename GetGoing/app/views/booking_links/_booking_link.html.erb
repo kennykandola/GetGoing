@@ -9,7 +9,7 @@
     <%= icon "thumbs-down" %>
   <% end %>
 
-  <%= link_to booking_link.shortened_url, booking_link.url, target: :_blank%>
+  <%= link_to truncate(booking_link.title, length: 40), booking_link.url, target: :_blank%>
 
   <div class='right-block'>
     <% if policy(booking_link).upvote? %>

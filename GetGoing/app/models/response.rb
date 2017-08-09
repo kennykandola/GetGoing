@@ -17,7 +17,7 @@ class Response < ApplicationRecord
     if booking_links.present? # Response already has booking links which needs to be updated
       update_booking_links(new_booking_links)
     else
-      new_booking_links.each(&:save)
+      new_booking_links.each(&:save) if new_booking_links.present?
     end
   end
 
@@ -29,9 +29,12 @@ class Response < ApplicationRecord
         url_type = link_pair[0].downcase.singularize
         url = link_pair[1]
         if BookingLinkType.all.pluck(:url_type).include?(url_type)
+          title = pull_page_title(url)
+          return nil unless title.present?
           booking_link_type_id = BookingLinkType.where(url_type: url_type).first.id
           new_booking_links << BookingLink.new(booking_link_type_id: booking_link_type_id,
-                                               url: url, post: post, response: self)
+                                               url: url, post: post,
+                                               response: self, title: title)
         end
       end
     end
@@ -58,6 +61,15 @@ class Response < ApplicationRecord
     booking_links.where.not(id: old_booking_links_ids_to_keep).destroy_all
 
     # save new booking links
-    new_booking_links.each(&:save)
+    new_booking_links.each(&:save) if new_booking_links.present?
+  end
+
+  def pull_page_title(url)
+    agent = Mechanize.new
+    begin
+      agent.get(url).title
+    rescue
+      nil
+    end
   end
 end

@@ -82,6 +82,9 @@ gem "koala"
 # Elasticsearch interface
 gem 'searchkick'
 
+# Mechanize is a Ruby library for automating interaction with websites
+gem 'mechanize'
+
 # Google Places API
 gem 'google_places'
 gem 'geocoder'
