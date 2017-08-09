@@ -1,0 +1,7 @@
+$('<%= j render partial: "posts" %>').appendTo('#infinite-container').hide().fadeIn(1000);
+// $('#infinite-container').append('<%= j render partial: "posts" %>').fadeIn('slow');
+<% if @posts.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate(@posts) %>');
+<% else %>
+  $('.pagination').remove();
+<% end %>

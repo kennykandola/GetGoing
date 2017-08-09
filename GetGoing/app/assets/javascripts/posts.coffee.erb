@@ -90,3 +90,14 @@ facebookSDKInitialize = ->
     fjs.parentNode.insertBefore js, fjs
     return
   ) document, 'script', 'facebook-jssdk'
+
+$(".posts.all_posts").ready ->
+  $ ->
+    if $('.pagination').length && $('#infinite-container').length
+      console.log 'hello'
+      $(window).scroll ->
+        url = $('.pagination .next_page').attr('href')
+        if url && $(window).scrollTop() > $(document).height() - $(window).height() - 100
+          $('.pagination').text("Loading more posts...")
+          $.getScript(url)
+      $(window).scroll()

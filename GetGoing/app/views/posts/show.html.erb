@@ -13,6 +13,9 @@
       <% if current_user.moderator? || current_user.admin? %>
         <div><%= @post.owner.email %></div>
       <% end %>
+      <%= "Age: #{@post.owner.age}" %> <br>
+      <%= "Sex: #{@post.owner.sex}" %> <br>
+      <%= "Current location: #{@post.owner.current_location_name}" %> <br><br>
       <h3>Post status:</h3>
       <%= current_status(@post) %>
       <h3>Traveling To:</h3>

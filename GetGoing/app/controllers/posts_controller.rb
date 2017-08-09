@@ -7,14 +7,22 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def all_posts
+
     search = params[:search].present? ? params[:search] : '*'
-    @posts = Post.search(search, aggs: [:places_name], page: params[:page], per_page: 10,
+    @posts = Post.search(search, aggs: [:places_name], page: params[:page], per_page: 50,
                          order: { sort_column => { order: sort_direction } }
                          )
-    @open_posts = Post.search(search, page: params[:page], per_page: 10,
+    @open_posts = Post.search(search, page: params[:page], per_page: 50,
                               aggs: [:places_name],
                               order: { sort_column => { order: sort_direction } },
                               where: { status: true })
+    if params[:search].present?
+      @all_posts_count = @posts.count
+      @open_posts_count = @open_posts.count
+    else
+      @all_posts_count = Post.all.count
+      @open_posts_count = Post.status_open.count
+    end
     @subscriber = Subscriber.new
   end
 

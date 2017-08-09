@@ -1,0 +1,42 @@
+<% @posts.each do |post| %>
+  <div class="section-2">
+    <div class="w-container">
+      <div>
+        <div class="w-row">
+          <div class="w-clearfix w-col w-col-6">
+            <div class="user-profile-all-posts"><%= image_tag post.owner.picture_url, class: "posts-table-profile-image" %></img>
+              <div class="text-block-14"><%= post.owner.first_name  %></div>
+            </div>
+            <div class="div-block-9 w-clearfix">
+              <div class="posts-title-all-posts-table"><%= post.title %></div>
+              <div class="post-body-all-posts-table"><%= truncate(post.body, length: 100) %></div>
+            </div>
+          </div>
+          <div class="w-col w-col-2">
+            <h4 class="posts-table-all-other-columns"><%= post.destination  %></h4>
+          </div>
+          <div class="w-col w-col-1">
+            <h4 class="posts-table-all-other-columns"><%= post.responses.count %></h4>
+          </div>
+          <div class="w-col w-col-2">
+            <h4 class="posts-table-all-other-columns"><%= post.created_at %></h4>
+
+          </div>
+          <div class="w-col w-col-1">
+            <h4 class="posts-table-all-other-columns"><%= current_status(post) %></h4>
+          </div>
+          <div class="control-post">
+            <%= link_to "View Post", { controller: :posts, action: :show, id: post.id },{ class: 'view-post'} %>
+            <% if policy(post).update? %>
+              <%= link_to 'Edit Post', edit_post_path(post), class: 'view-post' %>
+            <% end %>
+            <% if policy(post).destroy? %>
+              <%= link_to 'Remove Post', post_path(post), method: :delete, data: { confirm: "Are you sure you want to delete this post?" }, class: 'view-post' %>
+            <% end %>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
