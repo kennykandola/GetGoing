@@ -29,6 +29,8 @@ module NotificationsHelper
       else
         link_to "#{notification.actor.first_name} replied to your comment", post_path(post)
       end
+    when 'claims_open'
+      link_to "Claim for #{post.title} has just opened", post_path(post)
     end
   end
 end

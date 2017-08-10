@@ -19,7 +19,7 @@ class Post < ApplicationRecord
 
   after_save :set_closing_job
 
-  serialize :claimed_users, Array
+  # serialize :claimed_users, Array
 
   validates_presence_of :title
 

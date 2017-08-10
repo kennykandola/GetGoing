@@ -18,7 +18,7 @@ class User < ApplicationRecord
 
   # has_many :posts, dependent: :destroy
   has_many :responses, dependent: :destroy
-  has_many :claims, through: :posts
+  has_many :claims
   has_many :identities, dependent: :destroy
   has_many :votes, dependent: :destroy
   has_many :notifications, foreign_key: :recipient_id, dependent: :destroy

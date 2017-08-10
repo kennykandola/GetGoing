@@ -9,26 +9,6 @@ class BookingLink < ApplicationRecord
 
   enum url_type: [:restaurant, :hotel, :airbnb, :rental, :activity, :flight, :tour, :attraction]
 
-  def downvote(user)
-    VotingService.new(user: user, booking_link: self).downvote
-  end
-
-  def upvoted_by?(user)
-    upvotes.where(user_id: user).present?
-  end
-
-  def downvoted_by?(user)
-    downvotes.where(user_id: user).present?
-  end
-
-  def upvotes
-    votes.where(value: 1)
-  end
-
-  def downvotes
-    votes.where(value: -1)
-  end
-
   def shortened_url
     return url if url.length < 40
 

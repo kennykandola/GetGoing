@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170809114604) do
+ActiveRecord::Schema.define(version: 20170810135139) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,17 @@ ActiveRecord::Schema.define(version: 20170809114604) do
     t.index ["booking_link_type_id"], name: "index_booking_links_on_booking_link_type_id"
     t.index ["post_id"], name: "index_booking_links_on_post_id"
     t.index ["response_id"], name: "index_booking_links_on_response_id"
+  end
+
+  create_table "claims", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "post_id"
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_claims_on_post_id"
+    t.index ["user_id", "post_id"], name: "index_claims_on_user_id_and_post_id", unique: true
+    t.index ["user_id"], name: "index_claims_on_user_id"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -154,6 +165,7 @@ ActiveRecord::Schema.define(version: 20170809114604) do
     t.datetime "updated_at", null: false
     t.date "expired_at"
     t.boolean "status", default: true, null: false
+    t.boolean "claims_available"
   end
 
   create_table "responses", force: :cascade do |t|
@@ -250,6 +262,8 @@ ActiveRecord::Schema.define(version: 20170809114604) do
   add_foreign_key "booking_links", "booking_link_types"
   add_foreign_key "booking_links", "posts"
   add_foreign_key "booking_links", "responses"
+  add_foreign_key "claims", "posts"
+  add_foreign_key "claims", "users"
   add_foreign_key "comments", "responses"
   add_foreign_key "comments", "users"
   add_foreign_key "identities", "users"

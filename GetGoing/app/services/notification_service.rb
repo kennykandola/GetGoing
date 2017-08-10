@@ -38,4 +38,13 @@ class NotificationService
     notify('new_comment_on_response')
     ResponsesMailer.new_comment_email(@notifiable.response, @recipient).deliver_later
   end
+
+  def claims_open
+    @notifiable = @post
+    @actor = @post.owner
+    @post.claims.where(status: 'waitlisted').each do |claim|
+      @recipient = claim.user
+      notify('claims_open')
+    end
+  end
 end
