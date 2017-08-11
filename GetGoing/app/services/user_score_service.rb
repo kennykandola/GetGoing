@@ -6,7 +6,6 @@ class UserScoreService
 
   # update user score according to occurred action
   def update_score(action)
-    binding.pry
     @user.score += UserScore.impact_value(action)
     @user.save
   end

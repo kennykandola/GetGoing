@@ -1,0 +1,5 @@
+$("#claim-block").html("<%= escape_javascript(render(partial: 'claim')).html_safe %>");
+$("#new-responses").html("<%= escape_javascript(render(partial: 'responses/new')).html_safe %>");
+<% flash.each do |type, message| %>
+  $("#flash-messages").append("<%= j content_tag :p, message.html_safe, class: "flash text-center" %>").hide().fadeIn(1000);
+<% end %>

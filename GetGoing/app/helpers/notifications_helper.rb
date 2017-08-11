@@ -31,6 +31,8 @@ module NotificationsHelper
       end
     when 'claims_open'
       link_to "Claim for #{post.title} has just opened", post_path(post)
+    when 'claim_expired'
+      link_to "Your claim for #{post.title} has expired", post_path(post)
     end
   end
 end

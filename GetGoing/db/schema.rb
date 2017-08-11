@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170810135139) do
+ActiveRecord::Schema.define(version: 20170811165250) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -157,15 +157,13 @@ ActiveRecord::Schema.define(version: 20170810135139) do
     t.string "travel_dates"
     t.string "destination"
     t.integer "top_responses_count"
-    t.integer "claim", default: 0
-    t.string "claimed_users", default: "--- []\n"
     t.string "structured"
     t.string "already_booked"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "expired_at"
     t.boolean "status", default: true, null: false
-    t.boolean "claims_available"
+    t.boolean "claims_available", default: true
   end
 
   create_table "responses", force: :cascade do |t|

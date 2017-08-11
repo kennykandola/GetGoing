@@ -6,7 +6,9 @@ class Notification < ApplicationRecord
   scope :unread, -> { where(read_at: nil) }
   scope :read, -> { where.not(read_at: nil) }
 
-  enum action: [:new_response, :recommended_link_upvoted, :new_post_with_matching_place, :new_comment_on_response, :new_post_with_matching_nearby_place]
+  enum action: %i[new_response recommended_link_upvoted new_post_with_matching_place
+                  new_comment_on_response new_post_with_matching_nearby_place
+                  claims_open claim_expired]
 
-  after_commit -> { NotificationRelayJob.perform_later(self.recipient) }
+  after_commit -> { NotificationRelayJob.perform_later(recipient) }
 end

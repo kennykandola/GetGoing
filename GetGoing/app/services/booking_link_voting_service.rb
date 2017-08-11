@@ -7,7 +7,7 @@ class BookingLinkVotingService
 
   def upvote
     if downvoted?
-      @booking_link.downvotes.where(user_id: @user).first.update(value: 1)
+      downvotes.where(user_id: @user).first.update(value: 1)
     else
       vote = @booking_link.votes.new(booking_link: @booking_link, user: @user, value: 1)
       vote.save
@@ -18,7 +18,7 @@ class BookingLinkVotingService
 
   def downvote
     if upvoted?
-      @booking_link.upvotes.where(user_id: @user).first.update(value: -1)
+      upvotes.where(user_id: @user).first.update(value: -1)
     else
       vote = @booking_link.votes.new(booking_link: @booking_link, user: @user, value: -1)
       vote.save
@@ -34,11 +34,11 @@ class BookingLinkVotingService
   end
 
   def upvoted?
-    @booking_link.upvotes.where(user_id: @user).present?
+    upvotes.where(user_id: @user).present?
   end
 
   def downvoted?
-    @booking_link.downvotes.where(user_id: @user).present?
+    downvotes.where(user_id: @user).present?
   end
 
   def upvotes

@@ -1,0 +1,12 @@
+<div id='flash-messages'></div>
+<% if policy(@post).claim? %>
+  <%= link_to "Respond to this Post", claim_post_path(@post), method: :post, remote: true, class: 'btn btn-default app_nav' %>
+<% elsif policy(@post).cancel_claim? %>
+  <div class="app_nav"><br>You've claimed this post</br></div>
+  <%= link_to "Click Here to Cancel Your Claim", cancel_claim_post_path(@post), method: :patch, remote: true, class: 'btn btn-default app_nav' %>
+  <br></br>
+<% elsif policy(@post).waitlisted? %>
+  <div class="app_nav"><br>You've been waitlisted to claim this post.</br></div>
+  <%= link_to "Click Here to Cancel Your Claim Requst", cancel_claim_post_path(@post), method: :patch, remote: true, class: 'btn btn-default app_nav' %>
+  <br></br>
+<% end %>

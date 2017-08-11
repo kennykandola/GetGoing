@@ -25,6 +25,8 @@ Rails.application.routes.draw do
     end
     resources :post_users, path: :users, module: :posts
     member { get :new_invitation }
+    member { post :claim }
+    member { patch :cancel_claim}
   end
 
   resources :responses, only: [] do
@@ -68,10 +70,6 @@ Rails.application.routes.draw do
   get '/top' => 'responses#top'
 
   get '/top_email' => 'responses#top_email'
-
-  get '/claim' => 'posts#claim'
-
-  get '/claim_remove' => 'posts#claim_remove'
 
   get '/tippa' => 'users#tippa'
 

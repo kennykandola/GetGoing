@@ -8,15 +8,16 @@ class ResponsesController < ApplicationController
     @response.user_id = current_user.id
     @post = Post.find(params[:post_id])
 
-
-    if @response.save
+    @claim_service = ClaimsService.new(post: @response.post, user: current_user)
+    if @claim_service.claim_accepted? && @response.save
       @response.user.increment!(:score, by = 10)
       @post = Post.find(params[:post_id])
       ResponsesMailer.submitted(@response).deliver_later
       NotificationService.new(actor: current_user, notifiable: @response, post: @post).new_response
+      @claim_service.response_created
       redirect_to @post, notice: 'Response was successfully created.'
     else
-      render root_path
+      redirect_to @post, notice: 'Response wasn\'t created.'
     end
   end
 
@@ -61,15 +62,20 @@ class ResponsesController < ApplicationController
     @response = Response.find(params[:id])
     @post = @response.post
     authorize @response
-    @response.update(body: params[:response][:body],
-                     discussion_privacy: params[:response][:discussion_privacy])
+    @response.update(body: params[:response][:body])
+    @responses = @post.responses
+    @structured_booking_links = BookingLinksService.new(post: @post)
+                                                   .structured_booking_links
     respond_to :js
   end
 
   def destroy
     @response = Response.find(params[:id])
     @post = @response.post
-    @response.destroy
+    if @response.destroy
+      ClaimsService.new(post: @response.post, user: @response.user).response_deleted
+      UserScoreService.new(user: @response.user).update_score('remove')
+    end
     respond_to :js
   end
 

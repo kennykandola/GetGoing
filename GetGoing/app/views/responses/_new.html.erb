@@ -1,13 +1,9 @@
-<% if  @post.claimed_users.include?(current_user.email) %>
+<% if policy(@post).create_response? %>
+  <a href="/tippa_guide" target="_blank">Read this guide before responding</a>
 
-    <a href="/tippa_guide" target = "_blank" >Read this guide before responding</a>
-
-<%= form_for([ @post, Response.new ]) do |form| %>
-  Your response:<br>
-  <%= form.text_area :body, size: '50x20' %><br>
-  <%= form.submit  id: @post.id  %>
-<% end %>
-
-<% else %>
-
+  <%= form_for([ @post, Response.new ]) do |form| %>
+    Your response:<br>
+    <%= form.text_area :body, size: '50x20' %><br>
+    <%= form.submit  id: @post.id  %>
+  <% end %>
 <% end %>

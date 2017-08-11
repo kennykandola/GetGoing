@@ -47,4 +47,10 @@ class NotificationService
       notify('claims_open')
     end
   end
+
+  def claim_expired
+    @notifiable = @post
+    @actor = @post.owner
+    notify('claim_expired')
+  end
 end
