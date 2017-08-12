@@ -17,8 +17,8 @@
         </td>
         <td>
           <% if policy(booking_link_type).update? %>
-            <%= link_to edit_booking_link_type_path(booking_link_type), remote: true, class: 'clear_link', title: 'Click here to remove booking link type' do %>
-              <%= icon "pencil", title: 'Click here to remove booking link type' %>
+            <%= link_to edit_booking_link_type_path(booking_link_type), remote: true, class: 'clear_link', title: 'Click here to edit booking link type' do %>
+              <%= icon "pencil", title: 'Click here to edit booking link type' %>
             <% end %>
           <% end %>
           <% if policy(booking_link_type).destroy? %>

@@ -1,0 +1,2 @@
+$("#modal-component").modal("hide");
+$("#booking_links_table").html("<%= escape_javascript(render(partial: 'booking_links/booking_links_table', locals: { booking_links: @booking_links })).html_safe %>");

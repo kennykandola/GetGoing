@@ -39,9 +39,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :booking_links, only: [:destroy] do
+  resources :booking_links, only: [:index, :destroy] do
     member { patch :upvote }
     member { patch :downvote }
+    member { patch :click_by_author }
+    member { get :edit_affiliate_revenue }
+    member { patch :update_affiliate_revenue }
   end
 
   scope '/manage' do

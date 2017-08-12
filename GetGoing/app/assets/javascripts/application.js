@@ -20,6 +20,7 @@
 //= require jquery.readyselector
 //= require cable.js
 //= require typeahead.bundle.min
+//= require jquery.inputmask.bundle
 //= require_tree .
 
 // $( "button#jQueryColorChange" ).click(function() {

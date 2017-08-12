@@ -1,0 +1,3 @@
+$("#modal-component").html("<%= escape_javascript(render( partial: 'booking_links/edit_affiliate_revenue', locals: { :booking_link => @booking_link })).html_safe %>");
+$("#modal-component").modal("show");
+$("#affiliate_revenue-input").inputmask("currency");

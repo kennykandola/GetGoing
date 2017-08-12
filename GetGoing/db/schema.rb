@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170811165250) do
+ActiveRecord::Schema.define(version: 20170812042859) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,10 @@ ActiveRecord::Schema.define(version: 20170811165250) do
     t.bigint "response_id"
     t.bigint "booking_link_type_id"
     t.string "title"
+    t.integer "affiliate_revenue_cents", default: 0, null: false
+    t.string "affiliate_revenue_currency", default: "USD", null: false
+    t.boolean "clicked_by_author", default: false
+    t.datetime "clicked_by_author_at"
     t.index ["booking_link_type_id"], name: "index_booking_links_on_booking_link_type_id"
     t.index ["post_id"], name: "index_booking_links_on_post_id"
     t.index ["response_id"], name: "index_booking_links_on_response_id"

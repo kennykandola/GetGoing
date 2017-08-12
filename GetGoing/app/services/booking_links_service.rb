@@ -2,6 +2,7 @@
 class BookingLinksService
   def initialize(params)
     @post = params[:post]
+    @booking_link = params[:booking_link]
   end
 
   def structured_booking_links
@@ -21,5 +22,11 @@ class BookingLinksService
     else
       BookingLinkType.all
     end
+  end
+
+  def click_by_author
+    @booking_link.clicked_by_author = true
+    @booking_link.clicked_by_author_at = Time.now
+    @booking_link.save
   end
 end
