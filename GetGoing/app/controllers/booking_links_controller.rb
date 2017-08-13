@@ -78,7 +78,7 @@ class BookingLinksController < ApplicationController
   end
 
   def set_structured_booking_links
-    @structured_booking_links = booking_links_service.structured_booking_links
+    @structured_booking_links = @booking_links_service.structured_booking_links
   end
 
   def sorted_and_paginated_booking_links

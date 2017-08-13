@@ -208,7 +208,12 @@ class User < ApplicationRecord
   end
 
   def owned_posts
-    post_users.ownerships.map(&:post)
-    # Post.where(id: post_users.ownerships.pluck(:post_id))
+    # post_users.ownerships.map(&:post)
+    Post.where(id: post_users.ownerships.pluck(:post_id))
+  end
+
+  def invited_posts
+    # post_users.ownerships.map(&:post)
+    Post.where(id: post_users.invitations.pluck(:post_id))
   end
 end

@@ -1,0 +1,28 @@
+<% @activities.each do |activity| %>
+<div>
+  <div class="media-left">
+    <div class='media-object'>
+      <%= activity.icon %>
+    </div>
+  </div>
+  <div class="media-body">
+    <div class="arrow_box">
+      <div class="arrow_box-message">
+        <%= activity.render_activity %>
+        <small class="timestamp">
+          <%= icon "clock-o" %>
+          &nbsp;
+          <%= local_time_ago(activity.created_at) %>
+        </small>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
+<center>
+  <div class="pagination-container">
+    <div class="digg_pagination">
+      <%= will_paginate @activities, params: { anchor: '1'} %>
+    </div>
+  </div>
+</center>

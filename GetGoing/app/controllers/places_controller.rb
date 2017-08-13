@@ -1,5 +1,6 @@
 class PlacesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_user
 
   def index
     @places = current_user.all_places
@@ -46,5 +47,9 @@ class PlacesController < ApplicationController
 
   def place_params
     params.require(:place).permit(:city, :state, :country, :google_place_id, :latitude, :longitude)
+  end
+
+  def set_user
+    @user = current_user
   end
 end

@@ -11,4 +11,18 @@ class Notification < ApplicationRecord
                   claims_open claim_expired]
 
   after_commit -> { NotificationRelayJob.perform_later(recipient) }
+
+  def self.system_actions
+    %[claims_open claim_expired]
+  end
+
+  def notifiable_post
+    if notifiable_type == 'Post'
+      notifiable
+    elsif ['Response', 'BookingLink'].include? notifiable_type
+      notifiable.post
+    elsif notifiable_type == 'Comment'
+      notifiable.response.post
+    end
+  end
 end

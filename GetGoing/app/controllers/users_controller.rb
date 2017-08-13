@@ -33,7 +33,17 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User
+    @user = User.find(params[:id])
+    @activities = @user.notifications
+                       .order(created_at: :desc)
+                       .paginate(page: params[:page], per_page: 10)
+                       .decorate
+    @posts = @user.owned_posts.order(created_at: :desc)
+                  .paginate(page: params[:page], per_page: 10)
+    @places = @user.all_places
+                   .order(created_at: :desc)
+                   .paginate(page: params[:page], per_page: 10)
+
   end
 
   def assign_as_admin

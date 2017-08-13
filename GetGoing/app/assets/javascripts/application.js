@@ -14,7 +14,7 @@
 //= require jquery_ujs
 //= require webflow.js
 //= require modernizr.js
-//= require modal-bootstrap.min.js
+//= require bootstrap.min.js
 //= require local_time
 //= require cocoon
 //= require jquery.readyselector

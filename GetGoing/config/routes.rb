@@ -60,6 +60,8 @@ Rails.application.routes.draw do
     resources :booking_link_types
   end
 
+  resources :users, only: [:show]
+
   resources :places, only: [:index, :destroy] do
     collection { post :add_place_to_user }
     member { patch :set_as_current_location }

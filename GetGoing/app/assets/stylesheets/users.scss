@@ -1,3 +1,105 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.profile-container{
+  background-color: #f5f5f5;
+  height:100%;
+  overflow:auto;
+  position: relative;
+  .badge-info {
+    margin-left: 4px;
+    background-color: #1695a3 !important;
+  }
+  .badge-info:hover {
+    background-color: #1695a3 !important;
+  }
+
+  .tab-content {
+    margin-top: 15px;
+  }
+
+  .nav-tabs {
+    a {
+      color: #138794;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .active {
+      a {
+        color: #138794 !important;
+      }
+    }
+  }
+  .arrow_box {
+  	position: relative;
+  	background: #ffffff;
+  	border: 1px solid #dddada;
+    padding: 30px;
+    width: 100%;
+    height: 20px;
+    border-radius: 6px;
+    color: #716f6f;
+    .arrow_box-message {
+      // text-align: center;
+      font-size: 15px;
+      line-height: 1px;
+      a{
+        color: #138794;
+        font-weight: bold;
+        text-decoration: none;
+      }
+      // font-weight: bold;
+      // text-transform: uppercase;
+    }
+    margin-bottom: 10px;
+  }
+  .arrow_box:after, .arrow_box:before {
+  	right: 100%;
+  	top: 40%;
+  	border: solid transparent;
+  	content: " ";
+  	height: 0;
+  	width: 0;
+  	position: absolute;
+  	pointer-events: none;
+  }
+
+  .arrow_box:after {
+  	border-color: rgba(195, 217, 212, 0);
+  	border-right-color: #ffffff;
+  	border-width: 12px;
+  	margin-top: -12px;
+  }
+  .arrow_box:before {
+  	border-color: rgba(22, 149, 163, 0);
+  	border-right-color: #dddada;
+  	border-width: 13px;
+  	margin-top: -13px;
+  }
+
+  .pagination-container {
+    clear:both;
+    float: none;
+    .digg_pagination
+    {
+      background-color: inherit;
+    }
+  }
+
+  .media-body {
+    padding-left: 12px;
+  }
+  .media-object {
+    margin-top: 8px;
+  }
+
+  .timestamp {
+    float: right;
+  }
+
+  .system-activity {
+    font-size: 30px;
+    color: #1695a3;
+  }
+}

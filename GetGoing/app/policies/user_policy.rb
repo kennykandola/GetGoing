@@ -21,4 +21,8 @@ class UserPolicy < ApplicationPolicy
   def assign_as_simple_user?
     @user && @user.admin? && !@user_object.simple_user?
   end
+
+  def place?
+    @user && @user.id == @user_object.id
+  end
 end
