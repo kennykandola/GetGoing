@@ -1,11 +1,6 @@
 $(".places.index").ready ->
   googlePlaceAutocomplete()
 
-
-$(".users.show").ready ->
-  if $('#place-input').length
-    googlePlaceAutocomplete()
-
 googlePlaceAutocomplete = ->
   input = document.getElementById('place-input')
   placeSearch = undefined

@@ -51,7 +51,7 @@ class BookingLinkVotingService
   end
 
   def track_activity
-    Activity.create(actor: @user, actionable: @booking_link, action: 'upvoted_link')
-    Activity.create(actor: @booking_link.response.user, actionable: @booking_link, action: 'link_was_upvoted')
+    Activity.create(actor: @user, acted: @booking_link.response.user, actionable: @booking_link, action: 'upvoted_link')
+    Activity.create(actor: @booking_link.response.user, acted: @user, actionable: @booking_link, action: 'link_was_upvoted')
   end
 end

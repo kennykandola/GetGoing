@@ -20,7 +20,11 @@
   </h5>
 </div>
 
-<h3> Places I've Traveled To</h3>
+<% if current_user.id == @user.id %>
+  <h3> Places I've Traveled To</h3>
+<% else %>
+  <h3> <%= "Places #{@user.full_name} have traveled To" %></h3>
+<% end %>
 
 <table class='table table-striped table-bordered table-hover'
   <thead>

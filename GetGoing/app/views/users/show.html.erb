@@ -17,12 +17,6 @@
           <a href="#3" data-toggle="tab">Posts<span class="badge badge-info"><%= @posts.total_entries %></span>
           </a>
         </li>
-        <li>
-          <%= link_to user_path(@user, anchor: '1'), "data-toggle" => "tab" do %>
-          <%= icon "inbox" %>
-          Notifications<span class="badge badge-info"><%= @activities.total_entries %></span>
-          <% end %>
-        </li>
       </ul>
 
       <div class="tab-content ">

@@ -17,11 +17,14 @@ ActiveRecord::Schema.define(version: 20170813183611) do
 
   create_table "activities", force: :cascade do |t|
     t.integer "actor_id"
+    t.integer "acted_id"
     t.integer "action"
     t.integer "actionable_id"
     t.string "actionable_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["actionable_type", "actionable_id"], name: "index_activities_on_actionable_type_and_actionable_id"
+    t.index ["actor_id"], name: "index_activities_on_actor_id"
   end
 
   create_table "booking_link_types", force: :cascade do |t|
@@ -112,6 +115,9 @@ ActiveRecord::Schema.define(version: 20170813183611) do
     t.integer "action", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["actor_id"], name: "index_notifications_on_actor_id"
+    t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable_type_and_notifiable_id"
+    t.index ["recipient_id"], name: "index_notifications_on_recipient_id"
   end
 
   create_table "place_post_relations", force: :cascade do |t|

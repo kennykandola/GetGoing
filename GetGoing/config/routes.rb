@@ -48,7 +48,7 @@ Rails.application.routes.draw do
   end
 
   scope '/manage' do
-    resources :users do
+    resources :users, only: [:index] do
       member { patch :assign_as_admin }
       member { patch :assign_as_moderator }
       member { patch :assign_as_simple_user }
@@ -60,7 +60,7 @@ Rails.application.routes.draw do
     resources :booking_link_types
   end
 
-  resources :users, only: [:show]
+  resources :users, only: [:show, :edit]
 
   resources :places, only: [:index, :destroy] do
     collection { post :add_place_to_user }

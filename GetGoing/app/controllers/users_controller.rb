@@ -33,8 +33,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
-    @activities = @user.notifications
+    @user = User.find(params[:id]).decorate
+    @activities = @user.activities
                        .order(created_at: :desc)
                        .paginate(page: params[:page], per_page: 10)
                        .decorate
