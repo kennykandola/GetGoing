@@ -10,7 +10,7 @@ class ResponsesController < ApplicationController
 
     @claim_service = ClaimsService.new(post: @response.post, user: current_user)
     if @claim_service.claim_accepted? && @response.save
-      @response.user.increment!(:score, by = 10)
+      # @response.user.increment!(:score, by = 10)
       @post = Post.find(params[:post_id])
       ResponsesMailer.submitted(@response).deliver_later
       NotificationService.new(actor: current_user, notifiable: @response, post: @post).new_response

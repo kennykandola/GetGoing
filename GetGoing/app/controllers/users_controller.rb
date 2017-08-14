@@ -40,6 +40,7 @@ class UsersController < ApplicationController
                        .decorate
     @posts = @user.owned_posts.order(created_at: :desc)
                   .paginate(page: params[:page], per_page: 10)
+                  .decorate
     @places = @user.all_places
                    .order(created_at: :desc)
                    .paginate(page: params[:page], per_page: 10)

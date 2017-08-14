@@ -9,7 +9,7 @@
       <h1 class="posts-heading"><%= @post.title %></h1>
       <!-- <img class="post-author-image" src="/assets/Photo-on-8-5-16-at-6.26-PM-3.jpg" width="102"> -->
       <%= image_tag @post.owner.picture_url, width: "102", class: 'post-author-image'%>
-      <div class="quote-author"><%= @post.owner.first_name %></div>
+      <div class="quote-author"><%= link_to @post.owner.first_name, @post.owner %></div>
       <% if current_user.moderator? || current_user.admin? %>
         <div><%= @post.owner.email %></div>
       <% end %>

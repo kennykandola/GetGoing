@@ -1,7 +1,27 @@
-<div class="profile-container">
-  <div class="col-md-2"></div>
-  <div class="col-md-10">
-    <div class="container">
+<div class="profile-container clear">
+  <div class="container">
+    <div class="col-md-3">
+      <div class="thumbnail">
+      <%=image_tag @user.picture_url %>
+    </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">SCORE</h3>
+        </div>
+        <div class="panel-body score">
+          <%= @user.score_value %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <h1 class='user-name'>
+        <%= @user.full_name %>
+      </h1>
+      <div class="arrow_box">
+        <div class="arrow_box-message">
+          <%= @user.profile_page_type %>
+        </div>
+      </div>
       <ul class="nav nav-tabs">
         <li class="active">
           <%= link_to user_path(@user, anchor: '1'), "data-toggle" => "tab" do %>

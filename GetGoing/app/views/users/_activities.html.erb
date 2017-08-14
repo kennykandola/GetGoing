@@ -8,12 +8,12 @@
   <div class="media-body">
     <div class="arrow_box">
       <div class="arrow_box-message">
-        <%= activity.render_activities %>
         <small class="timestamp">
           <%= icon "clock-o" %>
           &nbsp;
           <%= local_time_ago(activity.created_at) %>
         </small>
+        <%= activity.render_activities %>
       </div>
     </div>
   </div>
