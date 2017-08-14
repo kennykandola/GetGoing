@@ -1,0 +1,10 @@
+<% if flash[:alert].present? %>
+  <div class="alert alert-alert">
+    <a href="#" data-dismiss="alert" class="close">×</a>
+    <ul>
+      <li>
+        <%= flash[:alert] %>
+      </li>
+    </ul>
+  </div>
+<% end %>

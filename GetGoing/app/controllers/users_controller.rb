@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   def index
     @users = User.all
     authorize @users
+    @users = @users.decorate
   end
 
   def edit
