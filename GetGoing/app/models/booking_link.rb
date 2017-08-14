@@ -4,6 +4,7 @@ class BookingLink < ApplicationRecord
 
   has_many :votes, dependent: :destroy
   has_many :notifications, as: :notifiable, dependent: :destroy
+  has_many :activities, as: :actionable, dependent: :destroy
 
   belongs_to :booking_link_type
 

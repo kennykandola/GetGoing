@@ -22,6 +22,7 @@ class User < ApplicationRecord
   has_many :identities, dependent: :destroy
   has_many :votes, dependent: :destroy
   has_many :notifications, foreign_key: :recipient_id, dependent: :destroy
+  has_many :activities, foreign_key: :actor_id, dependent: :destroy
   has_many :comments, dependent: :destroy
 
   has_many :post_users

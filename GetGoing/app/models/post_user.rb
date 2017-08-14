@@ -9,11 +9,16 @@ class PostUser < ApplicationRecord
   attribute :email, :string
 
   before_validation :set_user_id, if: :email?
+  after_create :track_activity
 
   scope :ownerships, -> { where(role: 'owner') }
   scope :invitations, -> { where(role: 'invited_user') }
 
   def set_user_id
     self.user = User.invite!(email: email)
+  end
+
+  def track_activity
+    Activity.create(actor: user, actionable: self.post, action: 'new_post')
   end
 end

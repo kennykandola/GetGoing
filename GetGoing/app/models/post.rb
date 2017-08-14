@@ -5,6 +5,7 @@ class Post < ApplicationRecord
   has_many :top_responses
   has_many :claims
   has_many :notifications, as: :notifiable, dependent: :destroy
+  has_many :activities, as: :actionable, dependent: :destroy
 
   has_many :post_users
   has_many :users, through: :post_users
