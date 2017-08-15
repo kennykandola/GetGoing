@@ -9,7 +9,8 @@ Rails.application.routes.draw do
 
   # Authentication routes
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks',
-                                    registrations: 'registrations' }
+                                    registrations: 'registrations',
+                                    invitations: 'users/invitations' }
 
   authenticate :user, lambda { |u| u.admin? } do
     mount Sidekiq::Web => '/sidekiq'

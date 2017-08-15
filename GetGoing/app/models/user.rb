@@ -211,7 +211,7 @@ class User < ApplicationRecord
   end
 
   def traveled_places
-    places.references( :place_user_relations ).where(place_user_relations: {relation: 'traveled'})
+    places.references( :place_user_relations ).where(place_user_relations: { relation: 'traveled' })
   end
 
   def all_places
@@ -226,5 +226,9 @@ class User < ApplicationRecord
   def invited_posts
     # post_users.ownerships.map(&:post)
     Post.where(id: post_users.invitations.pluck(:post_id))
+  end
+
+  def invited?
+    invitation_token.present?
   end
 end
