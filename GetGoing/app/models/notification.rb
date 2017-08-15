@@ -10,7 +10,7 @@ class Notification < ApplicationRecord
                   new_comment_on_response new_post_with_matching_nearby_place
                   claims_open claim_expired]
 
-  after_commit -> { NotificationRelayJob.perform_later(recipient) }, on: [:create, :update]
+  after_commit -> { NotificationRelayJob.perform_later(recipient_id) }, on: [:create, :update]
 
   def self.system_actions
     %[claims_open claim_expired]

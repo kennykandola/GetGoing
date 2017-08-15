@@ -3,11 +3,11 @@ class Post < ApplicationRecord
   has_many :booking_links, dependent: :destroy
   has_many :responses, dependent: :destroy
   has_many :top_responses
-  has_many :claims
+  has_many :claims, dependent: :destroy
   has_many :notifications, as: :notifiable, dependent: :destroy
   has_many :activities, as: :actionable, dependent: :destroy
 
-  has_many :post_users
+  has_many :post_users, dependent: :destroy
   has_many :users, through: :post_users
 
   has_many :place_post_relations, dependent: :destroy
@@ -15,6 +15,8 @@ class Post < ApplicationRecord
 
   has_many :booking_link_types_posts, dependent: :destroy
   has_many :booking_link_types, through: :booking_link_types_posts
+
+  has_secure_token :invitation_token
 
   accepts_nested_attributes_for :places
 

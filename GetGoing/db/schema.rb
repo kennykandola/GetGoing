@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170813183611) do
+ActiveRecord::Schema.define(version: 20170815172910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -183,6 +183,8 @@ ActiveRecord::Schema.define(version: 20170813183611) do
     t.date "expired_at"
     t.boolean "status", default: true, null: false
     t.boolean "claims_available", default: true
+    t.string "invitation_token"
+    t.index ["invitation_token"], name: "index_posts_on_invitation_token", unique: true
   end
 
   create_table "responses", force: :cascade do |t|

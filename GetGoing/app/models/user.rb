@@ -23,10 +23,14 @@ class User < ApplicationRecord
   has_many :identities, dependent: :destroy
   has_many :votes, dependent: :destroy
   has_many :notifications, foreign_key: :recipient_id, dependent: :destroy
+  has_many :acted_notifications, foreign_key: :actor_id,
+                                 class_name: 'Notification', dependent: :destroy
   has_many :activities, foreign_key: :actor_id, dependent: :destroy
+  has_many :acted_activities, foreign_key: :acted_id,
+                              class_name: 'Activity', dependent: :destroy
   has_many :comments, dependent: :destroy
 
-  has_many :post_users, dependent: :destroy
+  has_many :post_users
   has_many :posts, through: :post_users
 
   has_many :place_user_relations, dependent: :destroy
@@ -54,6 +58,11 @@ class User < ApplicationRecord
   validates :last_name, length: { minimum: 3, maximum: 100 }
 
   after_create :send_welcome_email
+  before_destroy :remove_owned_posts
+
+  def remove_owned_posts
+    owned_posts.destroy_all
+  end
 
   def send_welcome_email
     ExampleMailer.sample_email(self).deliver_later
