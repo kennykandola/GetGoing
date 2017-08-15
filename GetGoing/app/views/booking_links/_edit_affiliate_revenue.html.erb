@@ -1,0 +1,26 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <center>
+        <h3>Affiliate Revenue</h3>
+      </center>
+    </div>
+    <%= form_for @booking_link, url: update_affiliate_revenue_booking_link_path, remote: true, method: :patch do |f| %>
+      <div class="modal-body">
+        <div class='form-group'>
+          <div class='col-sm-2'>
+            <%= f.label :affiliate_revenue_cents, 'Affiliate Revenue Value', class: "col-sm-2 control-label" %>
+          </div>
+          <div class='col-sm-8'>
+            <%= f.text_field :affiliate_revenue_cents, value: (humanized_money @booking_link.affiliate_revenue), class: 'form-control', id: 'affiliate_revenue-input' %>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <%= f.submit 'Save', class: "btn btn-info" %>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+    <% end %>
+
+  </div>
+</div>

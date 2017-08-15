@@ -9,7 +9,11 @@
     <%= icon "thumbs-down" %>
   <% end %>
 
-  <%= link_to truncate(booking_link.title, length: 40), booking_link.url, target: :_blank%>
+  <% if policy(booking_link).track_click? %>
+    <%= link_to truncate(booking_link.url_title, length: 40), booking_link.url, target: :_blank, :'data-trackable' => booking_link.id %>
+  <% else %>
+    <%= link_to truncate(booking_link.url_title, length: 40), booking_link.url, target: :_blank%>
+  <% end %>
 
   <div class='right-block'>
     <% if policy(booking_link).upvote? %>

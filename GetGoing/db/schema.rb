@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170811165250) do
+ActiveRecord::Schema.define(version: 20170813183611) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "activities", force: :cascade do |t|
+    t.integer "actor_id"
+    t.integer "acted_id"
+    t.integer "action"
+    t.integer "actionable_id"
+    t.string "actionable_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["actionable_type", "actionable_id"], name: "index_activities_on_actionable_type_and_actionable_id"
+    t.index ["actor_id"], name: "index_activities_on_actor_id"
+  end
 
   create_table "booking_link_types", force: :cascade do |t|
     t.string "name"
@@ -42,6 +54,10 @@ ActiveRecord::Schema.define(version: 20170811165250) do
     t.bigint "response_id"
     t.bigint "booking_link_type_id"
     t.string "title"
+    t.integer "affiliate_revenue_cents", default: 0, null: false
+    t.string "affiliate_revenue_currency", default: "USD", null: false
+    t.boolean "clicked_by_author", default: false
+    t.datetime "clicked_by_author_at"
     t.index ["booking_link_type_id"], name: "index_booking_links_on_booking_link_type_id"
     t.index ["post_id"], name: "index_booking_links_on_post_id"
     t.index ["response_id"], name: "index_booking_links_on_response_id"
@@ -99,6 +115,9 @@ ActiveRecord::Schema.define(version: 20170811165250) do
     t.integer "action", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["actor_id"], name: "index_notifications_on_actor_id"
+    t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable_type_and_notifiable_id"
+    t.index ["recipient_id"], name: "index_notifications_on_recipient_id"
   end
 
   create_table "place_post_relations", force: :cascade do |t|

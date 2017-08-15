@@ -41,7 +41,6 @@ class PostsController < ApplicationController
         @post.owner = current_user # creates join record in join table
         places = post_and_places_params[:places_attributes]
         @post.connect_with_places(places)
-        post_params
         User.all.each do |user|
           if user.tippa == true
             PostsMailer.send_diffusion(@message, user).deliver_later

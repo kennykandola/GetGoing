@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   def index
     @users = User.all
     authorize @users
+    @users = @users.decorate
   end
 
   def edit
@@ -33,7 +34,18 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User
+    @user = User.find(params[:id]).decorate
+    @activities = @user.activities
+                       .order(created_at: :desc)
+                       .paginate(page: params[:page], per_page: 10)
+                       .decorate
+    @posts = @user.owned_posts.order(created_at: :desc)
+                  .paginate(page: params[:page], per_page: 10)
+                  .decorate
+    @places = @user.all_places
+                   .order(created_at: :desc)
+                   .paginate(page: params[:page], per_page: 10)
+
   end
 
   def assign_as_admin

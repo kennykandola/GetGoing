@@ -39,13 +39,16 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :booking_links, only: [:destroy] do
+  resources :booking_links, only: [:index, :destroy] do
     member { patch :upvote }
     member { patch :downvote }
+    member { patch :click_by_author }
+    member { get :edit_affiliate_revenue }
+    member { patch :update_affiliate_revenue }
   end
 
   scope '/manage' do
-    resources :users do
+    resources :users, only: [:index] do
       member { patch :assign_as_admin }
       member { patch :assign_as_moderator }
       member { patch :assign_as_simple_user }
@@ -54,9 +57,7 @@ Rails.application.routes.draw do
     resources :booking_link_types
   end
 
-  resources :users, only: [:show, :edit] do
-    collection { get :autocomplete }
-  end
+  resources :users, only: [:show, :edit]
 
   resources :places, only: [:index, :destroy] do
     collection { post :add_place_to_user }

@@ -22,6 +22,6 @@
   <% end %>
   <br>
   <div id='places'>
-    <%= render partial: 'places', locals: { places: @places } %>
+    <%= render partial: 'places/places', locals: { places: @places, user: @user } %>
   </div>
 </div>

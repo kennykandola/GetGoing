@@ -1,29 +1,33 @@
-<br>
-<div class='w-container'>
-  <div class='table-responsive' id='users_table'>
-    <table class='table table-striped table-bordered table-hover'
-      <thead>
-        <tr>
-          <th>  </th>
-          <th> Notification </th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @notifications.each do |notification| %>
-          <tr>
-            <td>
-              <%=link_to image_tag(notification.actor.picture_url, height: "35px", class: 'actor-image'), "#" %>
-            </td>
-            <td>
-              <%= notifiable_link(notification)%>
-              <br>
-              <small class="timestamp">
-                <%= local_time_ago(notification.created_at) %>
-              </small>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+<div class='notifications-container'>
+  <div class="container">
+    <h3> Notifications history</h3>
+    <% @notifications.each do |notification| %>
+    <div>
+      <div class="media-left">
+        <div class='media-object'>
+          <%= notification.icon %>
+        </div>
+      </div>
+      <div class="media-body">
+        <div class="arrow_box">
+          <div class="arrow_box-message">
+            <%= notification.render_notifications %>
+            <small class="timestamp">
+              <%= icon "clock-o" %>
+              &nbsp;
+              <%= local_time_ago(notification.created_at) %>
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
+    <center>
+      <div class="pagination-container">
+        <div class="digg_pagination">
+          <%= will_paginate @notifications %>
+        </div>
+      </div>
+    </center>
   </div>
 </div>

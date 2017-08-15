@@ -1,16 +1,16 @@
 $(".places.index").ready ->
   googlePlaceAutocomplete()
+
+googlePlaceAutocomplete = ->
+  input = document.getElementById('place-input')
+  placeSearch = undefined
+  autocomplete = undefined
   $('#place-input').change ->
     if $('#place-input').val() == ''
       $('#place-google_id').val('')
       $('#place-name').val('')
       $('#place-address').val('')
       $('#add-place').prop("disabled", true)
-
-googlePlaceAutocomplete = ->
-  input = document.getElementById('place-input')
-  placeSearch = undefined
-  autocomplete = undefined
 
   initAutocomplete = ->
     # Create the autocomplete object, restricting the search to geographical

@@ -20,4 +20,24 @@ class BookingLinkPolicy < ApplicationPolicy
   def destroy?
     @user && (@user.owns_post?(@booking_link.post) || @user.moderator? || @user.admin?)
   end
+
+  def index?
+    @user && (@user.moderator? || @user.admin?)
+  end
+
+  def click_by_author?
+    @user && @user.owns_post?(@booking_link.post)
+  end
+
+  def track_click?
+    click_by_author?
+  end
+
+  def update_affiliate_revenue?
+    @user && (@user.moderator? || @user.admin?)
+  end
+
+  def edit_affiliate_revenue?
+    @user && (@user.moderator? || @user.admin?)
+  end
 end

@@ -34,7 +34,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if @identity.birthday
       age = Date.today.year - @identity.birthday.year
       age -= 1 if Date.today < @identity.birthday + age.years
-      @user.update_attribute(:age, @identity.age)
+      @user.update_attribute(:age, age)
     end
 
     if @identity.gender.present? && @user.sex.blank? && User.sexes.include?(@identity.gender)

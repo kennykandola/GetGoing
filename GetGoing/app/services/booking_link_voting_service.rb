@@ -14,6 +14,7 @@ class BookingLinkVotingService
     end
     update_cached_votes
     UserScoreService.new(user: @booking_link.response.user).update_score('upvote')
+    track_activity
   end
 
   def downvote
@@ -47,5 +48,10 @@ class BookingLinkVotingService
 
   def downvotes
     @booking_link.votes.where(value: -1)
+  end
+
+  def track_activity
+    Activity.create(actor: @user, acted: @booking_link.response.user, actionable: @booking_link, action: 'upvoted_link')
+    Activity.create(actor: @booking_link.response.user, acted: @user, actionable: @booking_link, action: 'link_was_upvoted')
   end
 end

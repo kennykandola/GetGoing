@@ -1,8 +1,8 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :recoverable and :validatable
+  # :confirmable, :lockable, :timeoutable and :validatable
   devise :invitable, :database_authenticatable, :registerable, :omniauthable,
-         :rememberable, :trackable, :invitable
+         :rememberable, :trackable, :invitable, :recoverable
 
   attr_accessor :current_password
 
@@ -23,6 +23,7 @@ class User < ApplicationRecord
   has_many :identities, dependent: :destroy
   has_many :votes, dependent: :destroy
   has_many :notifications, foreign_key: :recipient_id, dependent: :destroy
+  has_many :activities, foreign_key: :actor_id, dependent: :destroy
   has_many :comments, dependent: :destroy
 
   has_many :post_users, dependent: :destroy
@@ -209,7 +210,12 @@ class User < ApplicationRecord
   end
 
   def owned_posts
-    post_users.ownerships.map(&:post)
-    # Post.where(id: post_users.ownerships.pluck(:post_id))
+    # post_users.ownerships.map(&:post)
+    Post.where(id: post_users.ownerships.pluck(:post_id))
+  end
+
+  def invited_posts
+    # post_users.ownerships.map(&:post)
+    Post.where(id: post_users.invitations.pluck(:post_id))
   end
 end

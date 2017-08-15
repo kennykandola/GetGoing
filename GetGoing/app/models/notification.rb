@@ -15,4 +15,14 @@ class Notification < ApplicationRecord
   def self.system_actions
     %[claims_open claim_expired]
   end
+
+  def notifiable_post
+    if notifiable_type == 'Post'
+      notifiable
+    elsif ['Response', 'BookingLink'].include? notifiable_type
+      notifiable.post
+    elsif notifiable_type == 'Comment'
+      notifiable.response.post
+    end
+  end
 end

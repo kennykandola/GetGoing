@@ -6,6 +6,7 @@ class UserScoreService
 
   # update user score according to occurred action
   def update_score(action)
+    @user.score ||= 0
     @user.score += UserScore.impact_value(action)
     @user.save
   end
