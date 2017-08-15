@@ -54,16 +54,21 @@ class UsersController < ApplicationController
     respond_to :js
   end
 
+
   def autocomplete
-    render json: User.search(params[:query], {
-      fields: ["email^5", "first_name", "last_name"],
-      match: :word_start,
-      limit: 10,
-      load: false,
-      misspellings: {below: 5}
-    }).map { |user| { email: user.email,
-                      first_name: user.first_name,
-                      last_name: user.last_name } }
+  ## Server-side user autocomplete search disabled in order to eliminate network requests
+  ## (For now it’s much faster and efficient to load all records into JavaScript and autocomplete there instead of making request to server with each input keypress)
+    # render json: User.search(params[:query], {
+    #   fields: ["email^5", "first_name", "last_name"],
+    #   match: :word_start,
+    #   limit: 10,
+    #   load: false,
+    #   misspellings: {below: 5}
+    # }).map { |user| { email: user.email,
+    #                   first_name: user.first_name,
+    #                   last_name: user.last_name } }
+    @users = User.simple_user
+    respond_to :json
   end
 
   private

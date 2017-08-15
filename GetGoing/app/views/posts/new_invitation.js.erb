@@ -15,11 +15,13 @@ $("#shareBtn2").click(function(){
   }, function(response){});
 });
 
+<%# Server-side user autocomplete search disabled in order to eliminate network requests
+(For now it’s much faster and efficient to load all records into JavaScript and autocomplete there instead of making request to server with each input keypress)
 var users = new Bloodhound({
   datumTokenizer: Bloodhound.tokenizers.whitespace,
   queryTokenizer: Bloodhound.tokenizers.whitespace,
   remote: {
-    url: '/manage/users/autocomplete?query=%QUERY',
+    url: '/users/autocomplete?query=%QUERY',
     wildcard: '%QUERY'
   }
 });
@@ -32,4 +34,4 @@ $('#users_search').typeahead(null, {
       return '<p><strong>' + data.email + '</strong> - ' + data.first_name + data.last_name + '</p>';
     }
   }
-});
+});%>

@@ -49,12 +49,13 @@ Rails.application.routes.draw do
       member { patch :assign_as_admin }
       member { patch :assign_as_moderator }
       member { patch :assign_as_simple_user }
-      collection do
-        get :autocomplete
-      end
     end
 
     resources :booking_link_types
+  end
+
+  resources :users, only: [:show, :edit] do
+    collection { get :autocomplete }
   end
 
   resources :places, only: [:index, :destroy] do

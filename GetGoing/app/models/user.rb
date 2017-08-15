@@ -6,25 +6,26 @@ class User < ApplicationRecord
 
   attr_accessor :current_password
 
-  searchkick
+  ## Server-side user autocomplete search disabled in order to eliminate network requests
+  ## (For now it’s much faster and efficient to load all records into JavaScript and autocomplete there instead of making request to server with each input keypress)
+  # searchkick word_start: [:email, :first_name, :last_name]
+  #
+  # def search_data
+  #   {
+  #     email: email,
+  #     first_name: first_name,
+  #     last_name: last_name
+  #   }
+  # end
 
-  def search_data
-    {
-      email: email,
-      first_name: first_name,
-      last_name: last_name
-    }
-  end
-
-  # has_many :posts, dependent: :destroy
   has_many :responses, dependent: :destroy
-  has_many :claims
+  has_many :claims, dependent: :destroy
   has_many :identities, dependent: :destroy
   has_many :votes, dependent: :destroy
   has_many :notifications, foreign_key: :recipient_id, dependent: :destroy
   has_many :comments, dependent: :destroy
 
-  has_many :post_users
+  has_many :post_users, dependent: :destroy
   has_many :posts, through: :post_users
 
   has_many :place_user_relations, dependent: :destroy
