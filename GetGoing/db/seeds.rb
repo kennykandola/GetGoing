@@ -8,10 +8,13 @@ end
 
 # Reindex Post model with Elasticsearch
 if Post.all.blank?
-  Post.create(title: 'Temp post to perform Reindex')
+  post = Post.create(title: 'Temp post to perform Reindex')
+  PostUser.create(post: post, user: User.first)
   Post.reindex
-  Post.where(title: 'Temp post to perform Reindex').destroy_all
 end
+Post.reindex
+Post.where(title: 'Temp post to perform Reindex').destroy_all
+
 
 # Create default Booking Link Types
 if BookingLinkType.all.blank?
