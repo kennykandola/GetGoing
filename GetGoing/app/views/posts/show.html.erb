@@ -32,7 +32,6 @@
       <%= link_to new_invitation_post_path(@post), remote: true, method: :get, class: 'clear_link', title: 'Click here to invite your friend' do %>
         <%= icon "user-plus" %> Invite
       <% end %>
-      <%= link_to 'Invite', new_invitation_post_path, id: 'invite', class: "btn btn-default" %>
       <h3>Already Booked:</h3>
       <h3>Structured:</h3>
       <%= @post.structured %>

@@ -1,0 +1,13 @@
+.git*
+.gitignore
+
+log/*
+tmp/*
+.rake_tasks*
+README.md
+
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+/config/application.yml

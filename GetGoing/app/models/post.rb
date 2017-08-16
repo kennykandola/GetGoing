@@ -55,11 +55,19 @@ class Post < ApplicationRecord
   searchkick # index model with elasticsearch
 
   def search_data
-    attributes.merge(
+    {
+      title: title,
+      who_is_traveling: who_is_traveling,
+      body: body,
+      budget: budget,
+      destination: destination,
+      structured: structured,
+      travel_dates: travel_dates,
+      already_booked: already_booked,
       places_city: places.map(&:city),
       places_country: places.map(&:country),
       places_state: places.map(&:state)
-    )
+    }
   end
 
   def status_open?

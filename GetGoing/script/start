@@ -1,0 +1,7 @@
+#!/bin/bash -e
+
+if [[ -a /tmp/puma.pid ]]; then
+  rm /tmp/puma.pid
+fi
+
+rails s -p 3000 -b '0.0.0.0' -P /tmp/puma.pid
