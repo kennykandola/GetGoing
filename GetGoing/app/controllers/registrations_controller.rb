@@ -1,4 +1,15 @@
 class RegistrationsController < Devise::RegistrationsController
+  def create
+    super
+    token = session[:invitation_token]
+    if token.present? && resource.present?
+      invited_post = Post.where(invitation_token: token).first
+      PostUser.create(post: invited_post, user: resource, role: 'invited_user')
+      resource.invitation_accepted
+    end
+    session[:invitation_token] = nil
+  end
+
   def update_resources(resource, params)
     if resource.enctypted_password.blank?
       resource.email = params[:email] if params[:email]

@@ -53,4 +53,14 @@ class NotificationService
     @actor = @post.owner
     notify('claim_expired')
   end
+
+  def invited_to_post
+    @notifiable = @post
+    notify('invited_to_post')
+  end
+
+  def accepted_invitation
+    @notifiable = @post
+    notify('accepted_invitation')
+  end
 end

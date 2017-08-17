@@ -19,6 +19,6 @@ class PostUser < ApplicationRecord
   end
 
   def track_activity
-    Activity.create(actor: user, actionable: self.post, action: 'new_post')
+    Activity.create(actor: user, actionable: self.post, action: 'new_post') if owner?
   end
 end

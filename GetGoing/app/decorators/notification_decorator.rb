@@ -22,6 +22,12 @@ class NotificationDecorator < ApplicationDecorator
         action = 'replied to your comment from'
         h.render partial: 'notifications/notifications/notification_uao', locals: { notification: self, action: action }
       end
+    when 'invited_to_post'
+      action = 'invited you to join'
+      h.render partial: 'notifications/notifications/notification_uao', locals: { notification: self, action: action }
+    when 'accepted_invitation'
+      action = 'accepted your invitation to'
+      h.render partial: 'notifications/notifications/notification_uao', locals: { notification: self, action: action }
 
     when 'new_post_with_matching_place'
       action = 'posted'

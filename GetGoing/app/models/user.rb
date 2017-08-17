@@ -59,9 +59,28 @@ class User < ApplicationRecord
 
   after_create :send_welcome_email
   before_destroy :remove_owned_posts
+  before_destroy :remove_invitations
+  after_invitation_accepted :invitation_accepted
+
+  def invitation_accepted
+    NotificationService.new(post: invited_posts.last, recipient: self, actor: invited_posts.last.owner).invited_to_post
+    NotificationService.new(post: invited_posts.last, recipient: invited_posts.last.owner, actor: self).accepted_invitation
+    Activity.create(actor: invited_posts.last.owner,
+                    acted: self,
+                    actionable: invited_posts.last,
+                    action: 'invited_to_post')
+    Activity.create(actor: self,
+                    acted: invited_posts.last.owner,
+                    actionable: invited_posts.last,
+                    action: 'was_invited')
+  end
 
   def remove_owned_posts
     owned_posts.destroy_all
+  end
+
+  def remove_invitations
+    post_users.invitations.destroy_all
   end
 
   def send_welcome_email

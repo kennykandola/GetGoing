@@ -35,6 +35,18 @@ class ActivityDecorator < ApplicationDecorator
       action = 'upvoted link recommended by'
       extra = 'from post'
       h.render partial: 'activities/activities/activity_uaueo', locals: { activity: self, action: action, extra: extra, user1: user1, user2: user2 }
+    when 'invited_to_post'
+      user1 = acted
+      user2 = actor
+      action = 'was invited by'
+      extra = 'to'
+      h.render partial: 'activities/activities/activity_uaueo', locals: { activity: self, action: action, extra: extra, user1: user1, user2: user2 }
+    when 'was_invited'
+      user1 = actor
+      user2 = acted
+      action = 'was invited by'
+      extra = 'to'
+      h.render partial: 'activities/activities/activity_uaueo', locals: { activity: self, action: action, extra: extra, user1: user1, user2: user2 }
     end
   end
 

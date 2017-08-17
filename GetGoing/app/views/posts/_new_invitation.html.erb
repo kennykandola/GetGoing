@@ -7,9 +7,9 @@
       </center>
     </div>
     <div class="modal-body">
-      <%= form_tag(autocomplete_users_path, method: :get, class: "form-inline", role: 'search') do %>
+      <!-- <%#= form_tag(autocomplete_users_path, method: :get, class: "form-inline", role: 'search') do %>
         <div class="input-group">
-          <%= text_field_tag :query,
+          <%#= text_field_tag :query,
               params[:query],
               id: 'users_search',
               autocomplete: :off,
@@ -17,10 +17,10 @@
               class: 'form-control autocomplete-input' %>
           <div class="input-group-btn search-panel">
             <%= link_to 'Clear', root_url, class: "btn btn-default" %>
-            <%= submit_tag 'Search', name: nil, class: "btn btn-default" %>
+            <%#= submit_tag 'Search', name: nil, class: "btn btn-default" %>
           </div>
         </div>
-      <% end %>
+      <#% end %> -->
 
       <%= form_for [@post, PostUser.new] do |f| %>
         <%= f.text_field :email, required: true %>

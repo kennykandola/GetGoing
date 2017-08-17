@@ -18,6 +18,10 @@ module NotificationsHelper
       else
         link_to "#{notification.actor.first_name} replied to your comment", post_path(post)
       end
+    when 'invited_to_post'
+      link_to "#{notification.actor.first_name} invited you to join \"#{post.title}\"", post_path(post)
+    when 'accepted_invitation'
+      link_to "#{notification.actor.first_name} accepted your invitation to \"#{post.title}\"", post_path(post)
     when 'claims_open'
       link_to "Claim for #{post.title} has just opened", post_path(post)
     when 'claim_expired'

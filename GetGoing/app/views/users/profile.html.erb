@@ -56,16 +56,26 @@
     <div class="user-posts w-clearfix">
       <h1 class="heading-4">Your Posts</h1>
       <% current_user.owned_posts.each do |post| %>
-      <div class="post-title"><%= post.title %></div>
-      <div class="post-responses-count"><%= post.responses.count %></div>
-          <div class="w-clearfix">
-            <div class="show-post text-block-16"><%= link_to 'View Post', { controller: :posts, action: :show, id: post.id } %></div>
-            <% if policy(post).update? %>
-              <div class="edit-post text-block-17"><%= link_to 'Edit Post', edit_post_path(post) %> </div>
-            <% end %>
-          </div>
-
-    <% end %>
+        <div class="post-title"><%= post.title %></div>
+        <div class="post-responses-count"><%= post.responses.count %></div>
+        <div class="w-clearfix">
+          <div class="show-post text-block-16"><%= link_to 'View Post', { controller: :posts, action: :show, id: post.id } %></div>
+          <% if policy(post).update? %>
+            <div class="edit-post text-block-17"><%= link_to 'Edit Post', edit_post_path(post) %> </div>
+          <% end %>
+        </div>
+      <% end %>
+      <h1 class="heading-4">Your Posts you have been invited to</h1>
+      <% current_user.invited_posts.each do |post| %>
+        <div class="post-title"><%= post.title %></div>
+        <div class="post-responses-count"><%= post.responses.count %></div>
+        <div class="w-clearfix">
+          <div class="show-post text-block-16"><%= link_to 'View Post', { controller: :posts, action: :show, id: post.id } %></div>
+          <% if policy(post).update? %>
+            <div class="edit-post text-block-17"><%= link_to 'Edit Post', edit_post_path(post) %> </div>
+          <% end %>
+        </div>
+      <% end %>
     </div>
     <div class="user-posts w-clearfix">
       <h1 class="heading-4">Your Responses</h1>

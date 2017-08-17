@@ -4,13 +4,23 @@
   <%= devise_error_messages! %>
   <%= f.hidden_field :invitation_token %>
 
-  <% if f.object.class.require_password_on_accepting %>
-  <p><%= f.label :password %><br />
-  <%= f.password_field :password %></p>
+  <p><%= f.label :first_name %><br />
+  <%= f.text_field :first_name %></p>
 
-  <p><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></p>
+  <p><%= f.label :last_name %><br />
+  <%= f.text_field :last_name %></p>
+
+  <% if f.object.class.require_password_on_accepting %>
+    <p><%= f.label :password %><br />
+    <%= f.password_field :password %></p>
+
+    <p><%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation %></p>
   <% end %>
 
   <p><%= f.submit t("devise.invitations.edit.submit_button") %></p>
 <% end %>
+
+<%- resource_class.omniauth_providers.each do |provider| %>
+  <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider) %><br />
+<% end -%>
