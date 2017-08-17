@@ -2,7 +2,13 @@
   <div class="container">
     <center>
       <div class="form">
-        <h1>Sign up</h1>
+        <% if session[:invitation_token].present? %>
+            <h1>Sign up and accept invitation</h1>
+        <% else %>
+          <div class="actions">
+            <h1>Sign up</h1>
+          </div>
+        <% end %>
         <br>
         <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
           <%= devise_error_messages! %>
@@ -26,9 +32,13 @@
           <br>
           <%= f.label "I'd like to earn money providing travel advice to others"  %>
           <%= f.check_box :tippa %><br></br>
-          <div class="actions">
-            <%= f.submit "Create an account", class: "btn-submit" %>
-          </div>
+          <% if session[:invitation_token].present? %>
+              <%= f.submit "Accept invitation", class: "btn-submit" %>
+          <% else %>
+            <div class="actions">
+              <%= f.submit "Create an account", class: "btn-submit" %>
+            </div>
+          <% end %>
         <% end %>
 
         <%= render "devise/shared/links" %>
