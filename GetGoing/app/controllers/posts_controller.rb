@@ -89,7 +89,9 @@ class PostsController < ApplicationController
   end
 
   def new_invitation
-    @users = User.where.not(id: current_user.id)
+    @users = User.simple_user.where.not(id: current_user.id)
+                 .active.not_invited_to(@post).decorate
+    @post = @post.decorate
     respond_to :js
   end
 

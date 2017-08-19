@@ -21,18 +21,54 @@
           </div>
         </div>
       <#% end %> -->
+      <div class="invitation">
 
-      <%= form_for [@post, PostUser.new] do |f| %>
-        <%= f.text_field :email, required: true %>
-        <%= f.submit 'Invite' %>
-      <% end %>
-      <div id="shareBtn" class="btn btn-success clearfix">Send Dialog</div>
-      <div id="shareBtn2" class="btn btn-success clearfix">Share Dialog</div>
-      <a href='fb-messenger://share/?link= <%= request.original_url %>&app_id=<%= ENV["FACEBOOK_APP_ID"] %>'>Send In Messenger App on Mobile</a>
-
+        <ul class="nav nav-tabs">
+          <li class="active">
+            <a href="#1" data-toggle="tab">Invite existing user<span class="badge badge-info"></span>
+            </a>
+          </li>
+          <li>
+            <a href="#2" data-toggle="tab">Invite user via email<span class="badge badge-info"></span>
+            </a>
+          </li>
+          <li>
+            <a href="#3" id="shareBtn" data-toggle="tab">Invite user via Facebook<span class="badge badge-info"></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="tab-content ">
+        <div class="tab-pane fade in active" id="1">
+          <br>
+          <p>Invite existing user by starting to type the name or email and picking the right one (You can select multiple users).</p> <br>
+          <%= form_for [@post, PostUser.new], html: { data: {users: raw(render(:template => "users/autocomplete.json", :locals => { :users => @users })) } } do |f| %>
+            <%= f.text_field :email, required: true, id: "select-to" %>
+            <br>
+            <%= f.submit 'Invite', class: "btn btn-default" %>
+          <% end %>
+        </div>
+        <div class="tab-pane fade" id="2">
+          <%= form_for [@post, PostUser.new] do |f| %>
+            <br>
+            <p>Invite your friend to join TripTippa via email. </p> <br>
+            <%= f.text_field :email, required: true, class: 'form-control', placeholder: 'example@email.com' %>
+            <br>
+            <%= f.submit 'Invite', class: "btn btn-default" %>
+          <% end %>
+        </div>
+        <div class="tab-pane fade" id="3">
+          <br>
+          <p>Invite your friend to join TripTippa via Facebook. </p> <br>
+          <br>
+          <!-- <div id="shareBtn" class="btn btn-success clearfix">Send Dialog</div> -->
+          <p> Url to be sent: <%= @post.invitation_url %>  </p>
+          <b>(Temp, Only for dev stage)</b>
+        </div>
+      </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
     </div>
   </div>
 </div>

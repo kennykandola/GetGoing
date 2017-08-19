@@ -3,7 +3,9 @@
     <center>
       <div class="form">
         <% if session[:invitation_token].present? %>
+          <div class="actions">
             <h1>Sign up and accept invitation</h1>
+          </div>
         <% else %>
           <div class="actions">
             <h1>Sign up</h1>

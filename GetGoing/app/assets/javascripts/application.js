@@ -21,6 +21,7 @@
 //= require cable.js
 //= require typeahead.bundle.min
 //= require jquery.inputmask.bundle
+//= require selectize.min
 //= require_tree .
 
 // $( "button#jQueryColorChange" ).click(function() {

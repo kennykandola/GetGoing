@@ -8,13 +8,6 @@ $("#shareBtn").click(function(){
   });
 });
 
-$("#shareBtn2").click(function(){
-  FB.ui({
-    method: 'share',
-    href: 'https://developers.facebook.com/docs/',
-  }, function(response){});
-});
-
 <%# Server-side user autocomplete search disabled in order to eliminate network requests
 (For now it’s much faster and efficient to load all records into JavaScript and autocomplete there instead of making request to server with each input keypress)
 var users = new Bloodhound({
@@ -35,3 +28,60 @@ $('#users_search').typeahead(null, {
     }
   }
 });%>
+
+var REGEX_EMAIL = '([a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@' +
+                  '(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)';
+
+$('#select-to').selectize({
+    persist: false,
+    maxItems: null,
+    valueField: 'email',
+    labelField: 'name',
+    searchField: ['name', 'email'],
+    options: $('#select-to').parents("form").data("users"),
+    render: {
+        item: function(item, escape) {
+            return '<div class="autoselect-item">' +
+                (item.name ? '<span class="autoselect-name">' + escape(item.name) + '</span>' : '') +
+                (item.email ? '<span class="autoselect-email">' + " &lt;" + escape(item.email) + "&gt;"+ '</span>' : '') +
+            '</div>';
+        },
+        option: function(item, escape) {
+            var label = item.name || item.email;
+            var caption = item.name ? item.email : null;
+            return '<div>' +
+                '<span class="autoselect-label">' + escape(label) + '</span>' +
+                (caption ? '<span class="autoselect-caption">' + " " + escape(caption) + '</span>' : '') +
+            '</div>';
+        }
+    },
+    createFilter: function(input) {
+        var match, regex;
+
+        // email@address.com
+        regex = new RegExp('^' + REGEX_EMAIL + '$', 'i');
+        match = input.match(regex);
+        if (match) return !this.options.hasOwnProperty(match[0]);
+
+        // name <email@address.com>
+        regex = new RegExp('^([^<]*)\<' + REGEX_EMAIL + '\>$', 'i');
+        match = input.match(regex);
+        if (match) return !this.options.hasOwnProperty(match[2]);
+
+        return false;
+    },
+    create: function(input) {
+        if ((new RegExp('^' + REGEX_EMAIL + '$', 'i')).test(input)) {
+            return {email: input};
+        }
+        var match = input.match(new RegExp('^([^<]*)\<' + REGEX_EMAIL + '\>$', 'i'));
+        if (match) {
+            return {
+                email : match[2],
+                name  : $.trim(match[1])
+            };
+        }
+        alert('Invalid email address.');
+        return false;
+    }
+});

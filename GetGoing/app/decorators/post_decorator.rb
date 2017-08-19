@@ -9,4 +9,8 @@ class PostDecorator < ApplicationDecorator
     status ? 'Open' : 'Closed'
   end
 
+  def invitation_url
+    h.request.base_url + "/users/invitation/accept?invitation_token=" + invitation_token
+  end
+
 end

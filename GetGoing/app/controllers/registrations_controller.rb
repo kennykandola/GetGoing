@@ -5,6 +5,7 @@ class RegistrationsController < Devise::RegistrationsController
     if token.present? && resource.present?
       invited_post = Post.where(invitation_token: token).first
       PostUser.create(post: invited_post, user: resource, role: 'invited_user')
+      resource.notify_existing_about_invitation
       resource.invitation_accepted
     end
     session[:invitation_token] = nil

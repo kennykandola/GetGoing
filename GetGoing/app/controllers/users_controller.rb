@@ -67,7 +67,7 @@ class UsersController < ApplicationController
   end
 
 
-  def autocomplete
+  def autocomplete_users
   ## Server-side user autocomplete search disabled in order to eliminate network requests
   ## (For now it’s much faster and efficient to load all records into JavaScript and autocomplete there instead of making request to server with each input keypress)
     # render json: User.search(params[:query], {

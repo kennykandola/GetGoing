@@ -38,4 +38,8 @@ class PostPolicy < ApplicationPolicy
   def waitlisted?
     potential_responder? && @claim_service.waitlisted?
   end
+
+  def new_invitation?
+    @post.owner.id == @user.id
+  end
 end

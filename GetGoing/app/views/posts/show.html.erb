@@ -28,9 +28,10 @@
       <% end %>
       <h3>Traveling With:</h3>
       <%= @post.whos_traveling %>
-
-      <%= link_to new_invitation_post_path(@post), remote: true, method: :get, class: 'clear_link', title: 'Click here to invite your friend' do %>
-        <%= icon "user-plus" %> Invite
+      <% if policy(@post).new_invitation? %>
+        <%= link_to new_invitation_post_path(@post), remote: true, method: :get, class: 'clear_link', title: 'Click here to invite your friend' do %>
+          <%= icon "user-plus" %> Invite
+        <% end %>
       <% end %>
       <h3>Already Booked:</h3>
       <h3>Structured:</h3>

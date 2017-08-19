@@ -60,11 +60,18 @@ class User < ApplicationRecord
   after_create :send_welcome_email
   before_destroy :remove_owned_posts
   before_destroy :remove_invitations
-  after_invitation_accepted :invitation_accepted
+  after_invitation_accepted :invitation_accepted, :notify_existing_about_invitation
+
+  scope :pending_invitation, -> { where.not(invitation_token: nil) }
+  scope :active, -> { where(invitation_token: nil) }
+  scope :not_invited_to, ->(post) { where.not(id: post.invited_users.pluck(:id)) }
 
   def invitation_accepted
-    NotificationService.new(post: invited_posts.last, recipient: self, actor: invited_posts.last.owner).invited_to_post
     NotificationService.new(post: invited_posts.last, recipient: invited_posts.last.owner, actor: self).accepted_invitation
+  end
+
+  def notify_existing_about_invitation
+    NotificationService.new(post: invited_posts.last, recipient: self, actor: invited_posts.last.owner).invited_to_post
     Activity.create(actor: invited_posts.last.owner,
                     acted: self,
                     actionable: invited_posts.last,
