@@ -51,18 +51,21 @@ class UsersController < ApplicationController
   def assign_as_admin
     authorize @user
     @user.admin!
+    @users = @users.decorate
     respond_to :js
   end
 
   def assign_as_moderator
     authorize @user
     @user.moderator!
+    @users = @users.decorate
     respond_to :js
   end
 
   def assign_as_simple_user
     authorize @user
     @user.simple_user!
+    @users = @users.decorate
     respond_to :js
   end
 
