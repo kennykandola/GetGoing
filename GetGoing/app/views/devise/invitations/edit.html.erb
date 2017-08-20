@@ -1,26 +1,30 @@
-<h2><%= t 'devise.invitations.edit.header' %></h2>
+<div class="login">
+  <div class="container">
+    <center>
+        <div class="actions">
+          <h1>Sign up and accept invitation</h1>
+        </div>
 
-<%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => { :method => :put } do |f| %>
-  <%= devise_error_messages! %>
-  <%= f.hidden_field :invitation_token %>
+      <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => { :method => :put } do |f| %>
+        <%= devise_error_messages! %>
+        <%= f.hidden_field :invitation_token %>
 
-  <p><%= f.label :first_name %><br />
-  <%= f.text_field :first_name %></p>
+        <%= f.text_field :first_name, :placeholder => "First name", autofocus: true %></p> <br>
 
-  <p><%= f.label :last_name %><br />
-  <%= f.text_field :last_name %></p>
+        <%= f.text_field :last_name, :placeholder => "Last name" %></p><br>
 
-  <% if f.object.class.require_password_on_accepting %>
-    <p><%= f.label :password %><br />
-    <%= f.password_field :password %></p>
+        <% if f.object.class.require_password_on_accepting %>
+          <%= f.password_field :password, :placeholder => "Password" %></p><br>
 
-    <p><%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation %></p>
-  <% end %>
+          <%= f.password_field :password_confirmation, :placeholder => "Password confirmation" %></p><br>
+        <% end %>
 
-  <p><%= f.submit t("devise.invitations.edit.submit_button") %></p>
-<% end %>
+        <p><%= f.submit t("devise.invitations.edit.submit_button") %></p>
+      <% end %>
 
-<%- resource_class.omniauth_providers.each do |provider| %>
-  <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider) %><br />
-<% end -%>
+      <%- resource_class.omniauth_providers.each do |provider| %>
+        <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider) %><br />
+      <% end -%>
+    </center>
+  </div>
+</div>

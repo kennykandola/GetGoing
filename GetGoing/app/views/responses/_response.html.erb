@@ -12,7 +12,7 @@
       <div><%= response.user.email %></div>
     <% end %>
   </div>
-<div><%= response.body %></div>
+<div><%= sanitize(response.body.gsub("\n", "<br />")) %></div>
 <p> <%= response.created_at.to_s(:long) %></p>
 <% if @post.owner == current_user %>
   <span class="field-tip"><br>Make a Top Response?</br> <span class="tip-content"> Select "Yes" to mark this as a top response. When you've selected 3 top responses, click "finalize top responses" so that the responders can be rewarded</span>
