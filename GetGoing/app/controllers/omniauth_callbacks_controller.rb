@@ -22,8 +22,10 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
         @user.accept_invitation!
       elsif invited_post.present?
         @user = User.create(email: @identity.email || '')
-        PostUser.create(post: invited_post, user: @user, role: 'invited_user')
         sync_attributes
+        PostUser.create(post: invited_post, user: @user, role: 'invited_user')
+        @user.notify_existing_about_invitation
+        @user.invitation_accepted
       end
       @identity.update_attribute(:user_id, @user.id)
     end

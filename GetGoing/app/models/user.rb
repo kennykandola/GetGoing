@@ -254,6 +254,10 @@ class User < ApplicationRecord
     Post.where(id: post_users.invitations.pluck(:post_id))
   end
 
+  def invited_to?(post)
+    invited_posts.include?(post)
+  end
+
   def invited?
     invitation_token.present?
   end
