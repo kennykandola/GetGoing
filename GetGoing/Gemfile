@@ -30,6 +30,7 @@ gem 'will_paginate', '~> 3.1.0'
 gem 'riddle'
 
 gem 'redis', '~> 3.2'
+gem 'redis-rails'
 gem 'sidekiq' # background processing for Ruby
 gem "sidekiq-cron", "~> 0.4.0"
 
@@ -62,6 +63,9 @@ gem 'searchkick'
 
 # Mechanize is a Ruby library for automating interaction with websites
 gem 'mechanize'
+
+# wizards controllers
+gem 'wicked'
 
 # Google Places API
 gem 'google_places'

@@ -36,7 +36,8 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       sync_attributes
     end
 
-    session[:invitation_token] = nil
+    # session[:invitation_token] = nil
+    session.delete(:invitation_token)
 
 
     if @user.persisted?

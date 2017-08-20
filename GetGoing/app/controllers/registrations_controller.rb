@@ -8,7 +8,8 @@ class RegistrationsController < Devise::RegistrationsController
       resource.notify_existing_about_invitation
       resource.invitation_accepted
     end
-    session[:invitation_token] = nil
+    # session[:invitation_token] = nil
+    session.delete(:invitation_token)
   end
 
   def update_resources(resource, params)

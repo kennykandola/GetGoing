@@ -1,4 +1,4 @@
-
+<div id='modal-component' class="modal fade"></div>
 <div data-ix="new-interaction">
   <div class="navbar w-nav" data-animation="over-right" data-collapse="medium" data-duration="400">
     <div class="w-container">
@@ -36,7 +36,10 @@
       <div class="div-block-14">
         <div class="w-form">
           <form class="form-2" data-name="Email Form 2" id="email-form-2" name="email-form-2">
-            <div class="w-clearfix"><input class="text-field-4 w-input" id="field" maxlength="256" name="field" placeholder="Where are you traveling?" required="required" type="text"><a class="button-6 w-button" href="#">&gt;</a></div>
+            <div class="w-clearfix"><input class="text-field-4 w-input" id="field" maxlength="256" name="field" placeholder="Where are you traveling?" required="required" type="text">
+              <!-- <a class="button-6 w-button" href="#">&gt;</a> -->
+              <%= link_to '&gt;'.html_safe, post_steps_path, remote: true, class: "button-6 w-button" %>
+            </div>
           </form>
           <div class="w-form-done">
             <div>Thank you! Your submission has been received!</div>
