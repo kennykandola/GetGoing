@@ -1,3 +1,4 @@
+<%= javascript_include_tag "http://maps.googleapis.com/maps/api/js?v=3.28&libraries=places&key=#{ENV['GOOGLE_MAPS_API']}" %>
 <div id='modal-component' class="modal fade"></div>
 <div data-ix="new-interaction">
   <div class="navbar w-nav" data-animation="over-right" data-collapse="medium" data-duration="400">
@@ -35,12 +36,23 @@
       <div class="hero-subheading">Personalized insights and links to help make planning and booking your trip a breeze.</div>
       <div class="div-block-14">
         <div class="w-form">
-          <form class="form-2" data-name="Email Form 2" id="email-form-2" name="email-form-2">
-            <div class="w-clearfix"><input class="text-field-4 w-input" id="field" maxlength="256" name="field" placeholder="Where are you traveling?" required="required" type="text">
+          <!-- <form class="form-2" data-name="Email Form 2" id="email-form-2" name="email-form-2"> -->
+            <div class="w-clearfix place-form">
               <!-- <a class="button-6 w-button" href="#">&gt;</a> -->
-              <%= link_to '&gt;'.html_safe, post_steps_path, remote: true, class: "button-6 w-button" %>
+              <%= form_for @post, url: post_steps_path+'/main_place', method: :put, remote: true, class: 'form-2' do |f| %>
+                <!-- <input class="text-field-4 w-input" id="field" maxlength="256" name="field" placeholder="Where are you traveling?" required="required" type="text"> -->
+                <a class="city-button selected w-button" id='city-toggle' href="#">City</a>
+                <a class="country-button w-button" id='country-toggle' href="#">Country/Region</a>
+                <%= f.text_field :main_destinataion_city, class: "autocomplete-field autocomplete-city w-input", maxlength: "256", placeholder: "Where are you traveling?" %>
+                <%= f.text_field :main_destinataion_country, class: "autocomplete-field autocomplete-country w-input", maxlength: "256", placeholder: "Where are you traveling?"%>
+                <%= f.fields_for :places, Place.new do |place|%>
+                  <%= render 'posts/post_steps/primer_place_fields', f: place %>
+                <% end %>
+                <%= f.submit '&gt;'.html_safe, class: "button-6 w-button" %>
+              <% end %>
+              <!-- <%= link_to '&gt;'.html_safe, post_steps_path, remote: true, class: "button-6 w-button" %> -->
             </div>
-          </form>
+          <!-- </form> -->
           <div class="w-form-done">
             <div>Thank you! Your submission has been received!</div>
           </div>

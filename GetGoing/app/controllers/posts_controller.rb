@@ -23,6 +23,10 @@ class PostsController < ApplicationController
     @subscriber = Subscriber.new
   end
 
+  def index
+    @post = Post.new
+  end
+
   def show
     @structured_booking_links = BookingLinksService.new(post: @post)
                                                    .structured_booking_links

@@ -22,6 +22,7 @@
 //= require typeahead.bundle.min
 //= require jquery.inputmask.bundle
 //= require selectize.min
+//= require image-picker.min
 //= require_tree .
 
 // $( "button#jQueryColorChange" ).click(function() {

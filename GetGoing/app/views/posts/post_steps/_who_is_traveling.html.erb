@@ -1,0 +1,27 @@
+<div class="modal-dialog">
+  <div class="modal-content new-post-modal">
+    <div class="modal-header wizard-header">
+      <center>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Who is travelling</h3>
+      </center>
+    </div>
+    <%= form_for @post, url: wizard_path(:who_is_traveling), method: :put, remote: true do |f| %>
+      <div class="modal-body">
+        <select name="post[who_is_traveling]" class="image-picker show-labels show-html" id="who_is_traveling-select">
+          <option data-img-src=<%=image_url('image-placeholder.svg')%> value="1">Myself - Solo</option>
+          <option data-img-src=<%=image_url('image-placeholder.svg')%> value="2">Significant Other</option>
+          <option data-img-src=<%=image_url('image-placeholder.svg')%> value="3">Family</option>
+          <option data-img-src=<%=image_url('image-placeholder.svg')%> value="4">Friends</option>
+          <option data-img-src=<%=image_url('image-placeholder.svg')%> value="5">Other (Describe Below)</option>
+        </select>
+        <%= text_field_tag :who_is_traveling_other, nil, class: "form-control"%>
+      </div>
+      <div class="modal-footer">
+        <%= link_to 'Back', wizard_path(:destinations), remote: true, class: 'btn btn-default pull-left' %>
+        <%= link_to 'Continue', wizard_path(:travel_dates), remote: true, class: 'btn btn-default pull-right' %>
+      </div>
+    <% end %>
+
+  </div>
+</div>

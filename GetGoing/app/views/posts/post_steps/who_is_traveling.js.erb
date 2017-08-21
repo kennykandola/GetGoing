@@ -1,0 +1,19 @@
+$("#modal-component").html("<%= escape_javascript(render( partial: 'posts/post_steps/who_is_traveling')).html_safe %>");
+$("#modal-component").modal("show");
+
+
+$('#who_is_traveling_other').hide();
+
+$('#who_is_traveling-select').imagepicker(
+  {
+    show_label: true,
+    selected: function(select, pickerOption, event){
+      if (select.option[0].value === "5")
+        $('#who_is_traveling_other').show(500);
+      else {
+        $('#who_is_traveling_other').hide(500);
+      }
+
+    }
+  }
+);

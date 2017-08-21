@@ -7,12 +7,13 @@
   text-decoration: none;
 }
 
-.fa-map-marker, .fa-home {
+.fa-home,
+.fa-map-marker {
   color: #1695a3;
   text-decoration: none;
 }
 
-.fa-map-marker{
+.fa-map-marker {
   margin-right: 2px;
 }
 
@@ -20,7 +21,8 @@
   color: #ff8c67;
 }
 
-.fa-map-marker:active, .fa-home:active {
+.fa-home:active,
+.fa-map-marker:active {
   color: #1fc4d6;
 }
 
@@ -30,12 +32,48 @@
   width: 700px;
 }
 
-.place-name{
+.place-name {
   font-weight: bold;
   font-size: 14px;
 }
 
-.place-address{
+.place-address {
   color: #757575;
   font-size: 14px;
+}
+
+.place-form {
+  .autocomplete-field {
+    width: 60%;
+    float: left;
+  }
+
+  .city-button {
+    float: left;
+    width: 10%;
+    background-color: #1695a3;
+  }
+
+  .country-button {
+    float: left;
+    width: 20%;
+    background-color: #1695a3;
+  }
+
+  .selected {
+    background-color: #17adbe !important;
+  }
+
+  .autocomplete-field {
+    height: 42px;
+    font-size: 16px;
+  }
+
+  .autocomplete-city {}
+
+  .autocomplete-country {}
+}
+
+.pac-container {
+    z-index: 1051 !important;
 }

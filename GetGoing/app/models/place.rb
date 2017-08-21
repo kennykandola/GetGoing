@@ -10,6 +10,8 @@ class Place < ApplicationRecord
 
   reverse_geocoded_by :latitude, :longitude
 
+  enum place_type: [:city, :country, :region]
+
   def validate_place_attrs
     unless city.present? || state.present? || country.present?
       errors[:base] << "Can\'t be blank"

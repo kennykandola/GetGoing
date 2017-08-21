@@ -19,6 +19,8 @@ class Post < ApplicationRecord
   has_secure_token :invitation_token
 
   accepts_nested_attributes_for :places
+  attr_accessor :main_destinataion_city
+  attr_accessor :main_destinataion_country
 
   after_save :set_closing_job
 

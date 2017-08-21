@@ -18,15 +18,19 @@ cocoonCallbacks = ->
     task.fadeOut 'slow'
     return
 
-googlePlaceAutocomplete = ->
-  input = document.getElementById('place-input')
+@googlePlaceAutocomplete = (autocomplete_type, input_id, parent_id) ->
+  input_id ?= 'place-input'
+  autocomplete_type ?= '(cities)'
+  parent_id ?= ''
+  input = document.getElementById(input_id)
   placeSearch = undefined
   autocomplete = undefined
 
   initAutocomplete = ->
+
     # Create the autocomplete object, restricting the search to geographical
     # location types.
-    autocomplete = new (google.maps.places.Autocomplete)(input, types: [ '(cities)' ])
+    autocomplete = new (google.maps.places.Autocomplete)(input, types: [ autocomplete_type ])
     # Disable form submit on enter (prevent unexpected sumbit on place autocomplete)
     google.maps.event.addDomListener input, 'keydown', (event) ->
       if event.keyCode == 13
@@ -43,12 +47,12 @@ googlePlaceAutocomplete = ->
     country = place.address_components.find(isCountry)
     state = place.address_components.find(isState)
     city = place.address_components.find(isCity)
-    $('.nested-fields:last #place-google_id').val(place?.place_id);
-    $('.nested-fields:last #place-country').val(country?.long_name);
-    $('.nested-fields:last #place-state').val(state?.short_name);
-    $('.nested-fields:last #place-city').val(city?.long_name);
-    $('.nested-fields:last #place-latitude').val(place?.geometry.location.lat())
-    $('.nested-fields:last #place-longitude').val(place?.geometry.location.lng())
+    $("#{parent_id} .nested-fields:last #place-google_id").val(place?.place_id);
+    $("#{parent_id} .nested-fields:last #place-country").val(country?.long_name);
+    $("#{parent_id} .nested-fields:last #place-state").val(state?.short_name);
+    $("#{parent_id} .nested-fields:last #place-city").val(city?.long_name);
+    $("#{parent_id} .nested-fields:last #place-latitude").val(place?.geometry.location.lat())
+    $("#{parent_id} .nested-fields:last #place-longitude").val(place?.geometry.location.lng())
 
   isCity = (address_component) ->
     address_component.types[0] == 'locality' || \
@@ -62,6 +66,9 @@ googlePlaceAutocomplete = ->
 
   isCountry = (address_component) ->
     address_component.types[0] == 'country'
+
+  $(".add_fields").click ->
+    $('#place-input').val('')
 
   initAutocomplete()
 
@@ -94,10 +101,36 @@ facebookSDKInitialize = ->
 $(".posts.all_posts").ready ->
   $ ->
     if $('.pagination').length && $('#infinite-container').length
-      console.log 'hello'
       $(window).scroll ->
         url = $('.pagination .next_page').attr('href')
         if url && $(window).scrollTop() > $(document).height() - $(window).height() - 100
           $('.pagination').text("Loading more posts...")
           $.getScript(url)
       $(window).scroll()
+
+$(".posts.index").ready ->
+  $('#post_main_destinataion_country').hide()
+  googlePlaceAutocomplete('(cities)', 'post_main_destinataion_city')
+  googlePlaceAutocomplete('(regions)', 'post_main_destinataion_country')
+
+  $('#country-toggle').click ->
+    clearInputs()
+    $(this).addClass('selected').siblings().removeClass('selected')
+    $('#post_main_destinataion_city').hide()
+    $('#post_main_destinataion_country').css('display', 'block')
+
+  $('#city-toggle').click ->
+    clearInputs()
+    $(this).addClass('selected').siblings().removeClass('selected')
+    $('#post_main_destinataion_country').hide()
+    $('#post_main_destinataion_city').css('display', 'block')
+
+clearInputs = ->
+  $('#place-google_id').val('');
+  $('#place-country').val('');
+  $('#place-state').val('');
+  $('#place-city').val('');
+  $('#place-latitude').val('')
+  $('#place-longitude').val('')
+  $('#post_main_destinataion_country').val('')
+  $('#post_main_destinataion_city').val('')

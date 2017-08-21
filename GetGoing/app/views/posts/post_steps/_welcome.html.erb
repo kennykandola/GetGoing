@@ -7,11 +7,8 @@
       </center>
     </div>
     <div class="modal-body">
-      <%= form_for @post, url: wizard_path, method: :put, remote: true do |f| %>
-        <%= f.text_field :title  %>
-        <%= f.submit "Continue" %>
-      <% end %>
-      <%= link_to 'skip', next_wizard_path, remote: true %>
+      Great, we have <%=@place.advisors_number %> advisors that have either traveled to or lived in <%=@place.place_name %>.
+      <%= link_to 'Continue', wizard_path(:destinations), remote: true, class: 'btn btn-default' %>
     </div>
   </div>
 </div>
