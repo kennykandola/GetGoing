@@ -1,2 +1,15 @@
 $("#modal-component").html("<%= escape_javascript(render( partial: 'posts/post_steps/welcome', locals: { })).html_safe %>");
 $("#modal-component").modal("show");
+$("#modal-component" ).data( "clean", false );
+$('#modal-component').on('hide.bs.modal', function (e) {
+  if ($("#modal-component" ).data("clean") === false){
+    $('.modal-backdrop').css('z-index', 1010);
+    $('#modal-component').css('z-index', 1040);
+    $('#close-wizard').modal({
+      show: true
+    })
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    return false;
+  }
+});

@@ -1,4 +1,87 @@
-.wizard-header {
+.wizard {
   background-color: #1695a3!important;
   color: white;
+}
+
+.wizard-logo {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  width: 100px;
+  display: block;
+  margin: 0 auto;
+  opacity: 0.6;
+}
+
+.wizard-content {
+  color: white;
+  margin-left: 20px;
+  margin-right: 20px;
+
+  p {
+    font-size: 24px;
+    line-height: 30px;
+    text-align: center;
+    font-weight: 300;
+  }
+  padding-bottom: 100px;
+}
+
+.btn-wizard {
+  text-align: center;
+  color: #1695a3;
+  font-size: 17px;
+  font-weight: bold;
+  border-color: #e1e3e3;
+  width: 220px;
+  height: 48px;
+  vertical-align: middle;
+  padding: 10px 12px;
+  display: block;
+  margin: 0 auto 20px;
+}
+
+.btn-wizard-control {
+  color: #1695a3;
+  font-size: 15px;
+  font-weight: bold;
+  border-color: #e1e3e3;
+  vertical-align: middle;
+  display: block;
+}
+
+.btn-wizard-back {
+  font-weight: normal;
+}
+
+.btn-close {
+  color: red;
+}
+
+.close-wizard {
+  padding-top: 160px;
+  width: 400px;
+  margin: 0 auto;
+  color: #414546;
+
+  p {
+    margin-top: 30px;
+    font-size: 24px;
+    line-height: 30px;
+    text-align: center;
+  }
+}
+
+body {
+    padding-right:0px !important;
+    margin-right:0px !important;
+}
+
+body.modal-open {
+    overflow: auto;
+}
+
+.datepicker table tr td.active.active, .datepicker table tr td.active.highlighted.active, .datepicker table tr td.active.highlighted:active, .datepicker table tr td.active:active {
+    color: #fff;
+    background-color: #1695a3 !important;
+    border-color: #689fa4 !important;
 }

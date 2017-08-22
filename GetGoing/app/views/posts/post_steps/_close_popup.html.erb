@@ -1,0 +1,12 @@
+<div class="modal fade" id="close-wizard">
+  <div class="modal-dialog close-wizard">
+    <div class="modal-content ">
+      <div class="modal-body">
+        <p>Are you sure you want to leave? Your answers will be lost.</p>
+        <br>
+        <button type="button" class="btn btn-default btn-wizard" data-dismiss="modal">Continue request</button>
+        <%= link_to 'Cancel request', cancel_steps_post_steps_path, "data-dismiss" => "modal", remote: true, method: :post, class: "btn btn-default btn-wizard btn-close" %>
+      </div>
+    </div>
+  </div>
+</div>

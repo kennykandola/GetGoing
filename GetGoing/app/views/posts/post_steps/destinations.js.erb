@@ -1,4 +1,5 @@
 $("#modal-component").html("<%= escape_javascript(render( partial: 'posts/post_steps/destinations', locals: { })).html_safe %>");
 $("#modal-component").modal("show");
+$("#modal-component" ).data( "clean", false );
 
 googlePlaceAutocomplete('(cities)', 'place-input', '#modal-places');

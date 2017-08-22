@@ -2,18 +2,23 @@ $("#modal-component").html("<%= escape_javascript(render( partial: 'posts/post_s
 $("#modal-component").modal("show");
 
 
-$('#who_is_traveling_other').hide();
+$('#post_who_is_traveling_other').hide();
 
 $('#who_is_traveling-select').imagepicker(
   {
     show_label: true,
     selected: function(select, pickerOption, event){
-      if (select.option[0].value === "5")
-        $('#who_is_traveling_other').show(500);
+      if (select.option[0].value === "Other (Describe Below)")
+        $('#post_who_is_traveling_other').show(500);
       else {
-        $('#who_is_traveling_other').hide(500);
+        $('#post_who_is_traveling_other').hide(500);
       }
 
+    },
+    initialized: function(imagePicker){
+      if ($('#who_is_traveling-select').data("picker").selected_values()[0] === "<%=PostOptions.who_is_traveling(:other)%>") {
+        $('#post_who_is_traveling_other').show(500);
+      }
     }
   }
 );

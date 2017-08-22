@@ -66,7 +66,9 @@ Rails.application.routes.draw do
     member { patch :set_as_hometown }
   end
 
-  resources :post_steps, controller: 'posts/post_steps'
+  resources :post_steps, controller: 'posts/post_steps' do
+    collection { post :cancel_steps }
+  end
 
   get 'profile', to: 'users#profile'
 

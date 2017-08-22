@@ -1,0 +1,28 @@
+<div class="modal-dialog">
+  <div class="modal-content new-post-modal">
+    <div class="modal-header wizard">
+      <center>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Travel Dates</h3>
+      </center>
+    </div>
+    <%= form_for @post, url: wizard_path(:who_is_traveling), method: :put, remote: true do |f| %>
+    <div class="modal-body">
+      <p>
+        When Will You Be Traveling?
+      </p>
+      <br>
+      <div class="input-daterange input-group" id="datepicker">
+        <input type="text" class="input-sm form-control" name="start" />
+        <span class="input-group-addon">to</span>
+        <input type="text" class="input-sm form-control" name="end" />
+      </div>
+    </div>
+    <div class="modal-footer">
+      <%= link_to 'Back', wizard_path(:who_is_traveling), remote: true, class: 'btn btn-default btn-wizard-control btn-wizard-back pull-left' %>
+      <%= f.submit "Continue", class: 'btn btn-default btn-wizard-control pull-right' %>
+    </div>
+    <% end %>
+
+  </div>
+</div>

@@ -1,14 +1,22 @@
 <div class="modal-dialog">
   <div class="modal-content">
-    <div class="modal-header wizard-header">
+    <!-- <div class="modal-header wizard-header">
       <center>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h3>Welcome</h3>
       </center>
-    </div>
-    <div class="modal-body">
-      Great, we have <%=@place.advisors_number %> advisors that have either traveled to or lived in <%=@place.place_name %>.
-      <%= link_to 'Continue', wizard_path(:destinations), remote: true, class: 'btn btn-default' %>
+    </div> -->
+    <div class="modal-body wizard">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <div class="wizard-logo">
+        <%=image_tag "white_logo_transparent_background.png"%>
+      </div>
+      <div class="wizard-content">
+        <p>
+          Great, we have <%=@place.advisors_number %> advisors that have either traveled to or lived in <%=@place.place_name %>.
+        </p>
+      </div>
+      <%= link_to 'Next', wizard_path(:destinations), remote: true, class: 'btn btn-default btn-wizard' %>
     </div>
   </div>
 </div>

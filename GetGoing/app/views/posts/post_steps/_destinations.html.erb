@@ -1,6 +1,6 @@
-<div class="modal-dialog">
+<div class="modal-dialog ">
   <div class="modal-content">
-    <div class="modal-header wizard-header">
+    <div class="modal-header wizard">
       <center>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h3>Destinations</h3>
@@ -8,12 +8,15 @@
     </div>
     <div class="modal-body">
 
-      Any other cities you plan on visiting on your trip to (destination)?
+      <p>
+        Any other cities you plan on visiting on your trip to (destination)?
+      </p>
+      <br>
       <%= text_field_tag 'name', nil,
           placeholder: "Place name",
           class: "form-control",
           id: 'place-input'
-      %>
+      %><br>
       <%= form_for @post, url: wizard_path(:destinations), method: :put, remote: true do |f| %>
         <div id='modal-places'>
 
@@ -28,7 +31,10 @@
             </div>
           <% end %>
         </div>
-        <%= f.submit "Continue" %>
+        <br>
+        <%= link_to 'Back', wizard_path(:welcome), remote: true, class: 'btn btn-default btn-wizard-control btn-wizard-back pull-left' %>
+        <%= f.submit "Continue", class: 'btn btn-default btn-wizard-control pull-right' %>
+        <br>
       <% end %>
     </div>
   </div>
