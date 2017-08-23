@@ -85,3 +85,17 @@ $('#select-to').selectize({
         return false;
     }
 });
+
+$('#submit-invitation-tab1').click(function(){
+  clearInvitationStatuses();
+  $("#invitation-results1").append("<p class='invitatin-status'> </p>");
+});
+$('#submit-invitation-tab2').click(function(){
+  clearInvitationStatuses();
+  $("#invitation-results2").append("<p class='invitatin-status'> </p>");
+});
+
+var clearInvitationStatuses = function(){
+  $("#invitation-results1").html('')
+  $("#invitation-results2").html('')
+}

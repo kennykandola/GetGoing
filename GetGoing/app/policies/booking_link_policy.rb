@@ -9,12 +9,12 @@ class BookingLinkPolicy < ApplicationPolicy
   end
 
   def upvote?
-    @user && @user.owns_post?(@booking_link.post) &&
+    @user && (@user.owns_post?(@booking_link.post) || @booking_link.post.invited?(@user)) &&
       !@bl_voting_service.upvoted?
   end
 
   def downvote?
-    @user && (@user.owns_post?(@booking_link.post) || @user.moderator? || @user.admin?)
+    @user && (@user.owns_post?(@booking_link.post) || @booking_link.post.invited?(@user) || @user.moderator? || @user.admin?)
   end
 
   def destroy?

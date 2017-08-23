@@ -20,7 +20,7 @@ class ResponsePolicy < ApplicationPolicy
 
   def comment?
     @user &&
-      (@user.owns_post?(@response.post) || # creator of post
+      (@user.owns_post?(@response.post) || @response.post.invited?(@user) || # creator or invited to the post
       (@response.comments.present? && @user.owns_response?(@response))) # creator of response
   end
 

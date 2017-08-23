@@ -13,7 +13,14 @@ class NotificationService
   end
 
   def new_response
-    @recipient = @post.owner
+    deviver_new_response(@post.owner)
+    @post.invited_users.each do |invited_user|
+      deviver_new_response(invited_user)
+    end
+  end
+
+  def deviver_new_response(recipient)
+    @recipient = recipient
     notify('new_response')
   end
 
@@ -30,11 +37,16 @@ class NotificationService
   end
 
   def new_comment_on_response
-    if @actor == @notifiable.response.user # @notifiable in this case is the comment object
-      @recipient = @post.owner
-    elsif @actor == @post.owner
-      @recipient = @notifiable.response.user
+    responder = @notifiable.response.user
+    deliver_new_comment_on_response(@post.owner) unless @post.owner == @actor
+    deliver_new_comment_on_response(responder) unless responder == @actor
+    @post.invited_users.each do |invited_user|
+      deliver_new_comment_on_response(invited_user) unless invited_user == @actor
     end
+  end
+
+  def deliver_new_comment_on_response(recipient)
+    @recipient = recipient
     notify('new_comment_on_response')
     ResponsesMailer.new_comment_email(@notifiable.response, @recipient).deliver_later
   end
