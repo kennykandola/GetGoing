@@ -15,11 +15,17 @@ class NotificationDecorator < ApplicationDecorator
       action = 'upvoted your recommended link from'
       h.render partial: 'notifications/notifications/notification_uao', locals: { notification: self, action: action }
     when 'new_comment_on_response'
-      if notifiable.response.comments.order('created_at ASC').first.id == notifiable.id # check if that comment is first
+      if notification.notifiable.response.user == notification.recipient &&
+         notification.notifiable.response.comments.order('created_at ASC').first.id == notification.notifiable.id # check if that comment is first
         action = 'commented on your response to'
         h.render partial: 'notifications/notifications/notification_uao', locals: { notification: self, action: action }
       else
-        action = 'replied to your comment from'
+        action = ''
+        if notification.notifiable.response.post.invited_users.present?
+          action = 'added new reply to response discussion from'
+        else
+          action = 'replied to your comment'
+        end
         h.render partial: 'notifications/notifications/notification_uao', locals: { notification: self, action: action }
       end
     when 'invited_to_post'

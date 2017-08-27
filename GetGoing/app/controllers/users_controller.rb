@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :set_users, only: [:assign_as_admin, :assign_as_moderator, :assign_as_simple_user]
 
   def index
-    @users = User.all
+    @users = User.active
     authorize @users
     @users = @users.decorate
   end

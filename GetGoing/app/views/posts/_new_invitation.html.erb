@@ -42,19 +42,21 @@
         <div class="tab-pane fade in active" id="1">
           <br>
           <p>Invite existing user by starting to type the name or email and picking the right one (You can select multiple users).</p> <br>
-          <%= form_for [@post, PostUser.new], html: { data: {users: raw(render(:template => "users/autocomplete.json", :locals => { :users => @users })) } } do |f| %>
+          <%= form_for [@post, PostUser.new], remote: true, html: { data: {users: raw(render(:template => "users/autocomplete.json", :locals => { :users => @users })) } } do |f| %>
             <%= f.text_field :email, required: true, id: "select-to" %>
             <br>
-            <%= f.submit 'Invite', class: "btn btn-default" %>
+            <%= f.submit 'Invite', class: "btn btn-default", id:'submit-invitation-tab1' %>
+            <div id="invitation-results1"></div>
           <% end %>
         </div>
         <div class="tab-pane fade" id="2">
-          <%= form_for [@post, PostUser.new] do |f| %>
+          <%= form_for [@post, PostUser.new], remote: true do |f| %>
             <br>
             <p>Invite your friend to join TripTippa via email. </p> <br>
             <%= f.text_field :email, required: true, class: 'form-control', placeholder: 'example@email.com' %>
             <br>
-            <%= f.submit 'Invite', class: "btn btn-default" %>
+            <%= f.submit 'Invite', class: "btn btn-default", id:'submit-invitation-tab2' %>
+            <div id="invitation-results2"></div>
           <% end %>
         </div>
         <div class="tab-pane fade" id="3">

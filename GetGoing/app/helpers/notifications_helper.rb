@@ -13,10 +13,15 @@ module NotificationsHelper
     when 'new_post_with_matching_nearby_place'
       link_to "#{notification.actor.first_name} just posted \"#{post.title}\" with places nearby to locations you have been", post_path(post)
     when 'new_comment_on_response'
-      if notification.notifiable.response.comments.order('created_at ASC').first.id == notification.notifiable.id # check if that comment is first
+      if notification.notifiable.response.user == notification.recipient &&
+         notification.notifiable.response.comments.order('created_at ASC').first.id == notification.notifiable.id # check if that comment is first
         link_to "#{notification.actor.first_name} commented on your response to \"#{post.title}\"", post_path(post)
       else
-        link_to "#{notification.actor.first_name} replied to your comment", post_path(post)
+        if notification.notifiable.response.post.invited_users.present?
+          link_to "#{notification.actor.first_name} added new reply to response discussion from \"#{post.title}\"", post_path(post)
+        else
+          link_to "#{notification.actor.first_name} replied to your comment", post_path(post)
+        end
       end
     when 'invited_to_post'
       link_to "#{notification.actor.first_name} invited you to join \"#{post.title}\"", post_path(post)
