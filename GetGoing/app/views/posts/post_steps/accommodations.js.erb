@@ -1,0 +1,33 @@
+$("#modal-component").html("<%= escape_javascript(render( partial: 'posts/post_steps/accommodations', locals: { })).html_safe %>");
+$("#modal-component").modal("show");
+
+var slider = document.getElementById('accommodations-price-slider');
+
+noUiSlider.create(slider, {
+	start: [0, 500],
+	connect: true,
+  // tooltips: true,
+	range: {
+		'min': 0,
+		'max': 500
+	}
+});;
+
+var minCostInput = document.getElementById('minCost'),
+		maxCostInput = document.getElementById('maxCost');
+
+slider.noUiSlider.on('update', function( values, handle ) {
+  if ( handle ) {
+			maxCostInput.value = values[handle];
+		} else {
+			minCostInput.value = values[handle];
+		}
+});
+
+	minCostInput.addEventListener('change', function(){
+		slider.noUiSlider.set([null, this.value]);
+	});
+
+	maxCostInput.addEventListener('change', function(){
+		slider.noUiSlider.set([null, this.value]);
+	});

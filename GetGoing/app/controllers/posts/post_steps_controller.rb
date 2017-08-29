@@ -1,7 +1,8 @@
 class Posts::PostStepsController < ApplicationController
   include Wicked::Wizard
 
-  steps :main_place, :welcome, :destinations, :who_is_traveling, :travel_dates
+  steps :main_place, :welcome, :destinations, :who_is_traveling, :travel_dates,
+        :recommendations, :accommodations, :travel_style, :budget, :post_body
 
   def show
     case step
@@ -13,6 +14,12 @@ class Posts::PostStepsController < ApplicationController
       remote_step_render(:who_is_traveling) if prepare_to_who_is_traveling
     when :travel_dates
       remote_step_render(:travel_dates) if prepare_to_travel_dates
+    when :recommendations
+      remote_step_render(:recommendations) if prepare_to_recommendations
+    when :accommodations
+      remote_step_render(:accommodations) if prepare_to_accommodations
+    when :travel_style
+      remote_step_render(:travel_style) if prepare_to_travel_style
     end
   end
 
@@ -25,19 +32,21 @@ class Posts::PostStepsController < ApplicationController
     when :who_is_traveling
       remote_step_render(:travel_dates) if perfrom_who_is_traveling
     when :travel_dates
+      remote_step_render(:recommendations) if perfrom_travel_dates
       # session[:post] = session[:post].merge(post_params)
       # @post = Post.new(session[:post])
       # @post.owner = current_user if current_user.present?
       # @post.save
       # redirect_to post_path(@post)
+    when :recommendations
+      remote_step_render(:accommodations) if perfrom_recommendations
+    when :accommodations
+      remote_step_render(:travel_style) if perfrom_accommodations
     end
   end
 
   def cancel_steps
-    session.delete(:post)
-    session.delete(:places)
-    session.delete(:who_is_traveling)
-    session.delete(:main_place)
+    WizardStepsService.new(session: session).clear_new_post_wizard
     respond_to :js
   end
 
@@ -46,6 +55,8 @@ class Posts::PostStepsController < ApplicationController
   def post_params
     params.require(:post).permit(:title, :who_is_traveling, :main_destinataion_city,
                                  :main_destinataion_country, :who_is_traveling_other,
+                                 :travel_start, :travel_end, { booking_link_type_ids: []},
+                                 { amenities: [] },
                                  places_attributes: %i[city google_place_id
                                                        state country latitude
                                                        longitude _destroy])
@@ -71,6 +82,23 @@ class Posts::PostStepsController < ApplicationController
     end
     prepare_to_travel_dates
   end
+
+  def perfrom_travel_dates
+    session[:travel_start] = post_params[:travel_start] if post_params[:travel_start].present?
+    session[:travel_end] = post_params[:travel_end]   if post_params[:travel_end].present?
+    prepare_to_recommendations
+  end
+
+  def perfrom_recommendations
+    session[:booking_link_type_ids] = post_params[:booking_link_type_ids] if post_params[:booking_link_type_ids].present?
+    session[:booking_link_type_ids]
+    prepare_to_accommodations
+  end
+
+  def perfrom_accommodations
+    prepare_to_travel_style
+  end
+
 
   def prepare_to_welcome
     if params[:post].present? && post_params[:places_attributes]['0'][:google_place_id].present?
@@ -114,16 +142,41 @@ class Posts::PostStepsController < ApplicationController
 
   def prepare_to_who_is_traveling
     @post = Post.new
-    if PostOptions.traveling_other?(session[:who_is_traveling])
+    if session[:who_is_traveling].present? && PostOptions.traveling_other?(session[:who_is_traveling])
       @who_is_traveling_other = session[:who_is_traveling]
       @post.who_is_traveling = PostOptions.who_is_traveling(:other)
-    else
+    elsif session[:who_is_traveling].present?
       @post.who_is_traveling = session[:who_is_traveling]
       @who_is_traveling_other = ''
     end
+    true
   end
 
   def prepare_to_travel_dates
+    @post = Post.new
+    @post.travel_start = session[:travel_start] if session[:travel_start].present?
+    @post.travel_end = session[:travel_end] if session[:travel_end].present?
+    @post
+  end
+
+  def prepare_to_recommendations
+    @post = Post.new
+    @booking_link_type_ids = []
+    if session[:booking_link_type_ids].present?
+      session[:booking_link_type_ids].each do |link_type|
+        blt = BookingLinkType.where(id: link_type).first
+        @booking_link_type_ids << blt.id if blt.present?
+      end
+    end
+    @booking_link_types = BookingLinkType.all
+  end
+
+  def prepare_to_accommodations
+    @post = Post.new
+
+  end
+
+  def prepare_to_travel_style
     @post = Post.new
   end
 

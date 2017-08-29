@@ -24,6 +24,7 @@
 //= require selectize.min
 //= require image-picker.min
 //= require bootstrap-datepicker.min
+//= require nouislider.min
 //= require_tree .
 
 // $( "button#jQueryColorChange" ).click(function() {

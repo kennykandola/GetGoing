@@ -25,6 +25,7 @@ class PostsController < ApplicationController
 
   def index
     @post = Post.new
+    WizardStepsService.new(session: session).clear_new_post_wizard
   end
 
   def show

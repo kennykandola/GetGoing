@@ -1,0 +1,8 @@
+$("#modal-component").html("<%= escape_javascript(render( partial: 'posts/post_steps/recommendations', locals: { })).html_safe %>");
+$("#modal-component").modal("show");
+
+$('#recommendations-select').imagepicker(
+  {
+    show_label: true
+  }
+);

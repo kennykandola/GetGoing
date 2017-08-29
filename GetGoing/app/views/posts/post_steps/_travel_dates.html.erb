@@ -6,16 +6,16 @@
         <h3>Travel Dates</h3>
       </center>
     </div>
-    <%= form_for @post, url: wizard_path(:who_is_traveling), method: :put, remote: true do |f| %>
+    <%= form_for @post, url: wizard_path(:travel_dates), method: :put, remote: true do |f| %>
     <div class="modal-body">
       <p>
         When Will You Be Traveling?
       </p>
       <br>
       <div class="input-daterange input-group" id="datepicker">
-        <input type="text" class="input-sm form-control" name="start" />
+        <%= f.text_field :travel_start, class: "input-sm form-control" %>
         <span class="input-group-addon">to</span>
-        <input type="text" class="input-sm form-control" name="end" />
+        <%= f.text_field :travel_end, class: "input-sm form-control" %>
       </div>
     </div>
     <div class="modal-footer">

@@ -1,0 +1,41 @@
+<div class="modal-dialog">
+  <div class="modal-content new-post-modal recommendations-modal">
+    <div class="modal-header wizard">
+      <center>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Accommodations</h3>
+      </center>
+    </div>
+    <%= form_for @post, url: wizard_path(:travel_style), method: :put, remote: true do |f| %>
+    <div class="modal-body">
+      <p>
+        Describe your accommodations preference. (If hotel/vacation rental is selected).
+      </p>
+      <br>
+      <div class="price-slider">
+        <h3>Price Per Night</h3>
+        <div id="accommodations-price-slider"></div>
+        <%= number_field_tag 'minCost', {}, class: 'form-control number-input pull-left' %>
+        <%= number_field_tag 'maxCost', {}, class: 'form-control number-input pull-right' %>
+      </div>
+      <br>
+      <br>
+      <br>
+      <h3>Amenities</h3>
+      <ul class="checkbox-grid">
+        <% PostOptions.amenities_options.each_with_index  do |amenity, index| %>
+          <li class="md-checkbox">
+              <%= f.check_box :amenities, {id: "post_amenity-#{index}"}, amenity  %>
+              <%= f.label "amenity-#{index}", amenity %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="modal-footer">
+      <%= link_to 'Back', wizard_path(:recommendations), remote: true, class: 'btn btn-default btn-wizard-control btn-wizard-back pull-left' %>
+      <%= f.submit "Continue", class: 'btn btn-default btn-wizard-control pull-right' %>
+    </div>
+    <% end %>
+
+  </div>
+</div>

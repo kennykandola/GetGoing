@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170821081614) do
+ActiveRecord::Schema.define(version: 20170828181240) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -185,6 +185,15 @@ ActiveRecord::Schema.define(version: 20170821081614) do
     t.boolean "status", default: true, null: false
     t.boolean "claims_available", default: true
     t.string "invitation_token"
+    t.date "travel_start"
+    t.date "travel_end"
+    t.text "amenities"
+    t.text "location"
+    t.string "neighborhoods"
+    t.integer "traveler_rating"
+    t.text "accomodation_style"
+    t.integer "min_accomodation_price"
+    t.integer "max_accomodation_price"
     t.index ["invitation_token"], name: "index_posts_on_invitation_token", unique: true
   end
 

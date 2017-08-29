@@ -1,6 +1,7 @@
 .wizard {
   background-color: #1695a3!important;
   color: white;
+
 }
 
 .wizard-logo {
@@ -84,4 +85,30 @@ body.modal-open {
     color: #fff;
     background-color: #1695a3 !important;
     border-color: #689fa4 !important;
+}
+
+.number-input{
+  width: 100px;
+  display:inline-block;
+  margin-top: 10px;
+}
+
+.price-slider {
+  width: 350px;
+  margin: 0 auto;
+
+}
+
+.modal-body h3{
+  text-align: center;
+  color: #414546;
+  font-size: 14px;
+}
+
+
+
+.checkbox-grid li {
+    display: block;
+    float: left;
+    width: 200px;
 }
