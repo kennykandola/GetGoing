@@ -8,9 +8,11 @@
     </div>
     <%= form_for @post, url: wizard_path(:travel_dates), method: :put, remote: true do |f| %>
     <div class="modal-body">
-      <p>
-        When Will You Be Traveling?
-      </p>
+      <center>
+        <p>
+          When Will You Be Traveling?
+        </p>
+      </center>
       <br>
       <div class="input-daterange input-group" id="datepicker">
         <%= f.text_field :travel_start, class: "input-sm form-control" %>
@@ -19,7 +21,7 @@
       </div>
     </div>
     <div class="modal-footer">
-      <%= link_to 'Back', wizard_path(:who_is_traveling), remote: true, class: 'btn btn-default btn-wizard-control btn-wizard-back pull-left' %>
+      <%= link_to 'Back', wizard_path(:people_total), remote: true, class: 'btn btn-default btn-wizard-control btn-wizard-back pull-left' %>
       <%= f.submit "Continue", class: 'btn btn-default btn-wizard-control pull-right' %>
     </div>
     <% end %>

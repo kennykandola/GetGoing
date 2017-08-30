@@ -25,6 +25,9 @@
 //= require image-picker.min
 //= require bootstrap-datepicker.min
 //= require nouislider.min
+//= require jquery.raty-fa
+//= require wNumb
+//= require jquery.slick
 //= require_tree .
 
 // $( "button#jQueryColorChange" ).click(function() {

@@ -72,6 +72,7 @@ gem 'google_places'
 gem 'geocoder'
 
 gem 'font-awesome-sass'
+gem "jquery-slick-rails"
 
 group :development, :test do
   gem 'rspec', '3.5'

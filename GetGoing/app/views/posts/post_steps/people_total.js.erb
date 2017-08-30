@@ -1,0 +1,26 @@
+$("#modal-component").html("<%= escape_javascript(render( partial: 'posts/post_steps/people_total', locals: { })).html_safe %>");
+$("#modal-component").modal("show");
+
+
+$('#single-item').slick({
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  centerMode: true,
+  centerPadding: '10px',
+  infinite: false
+});
+
+$('#single-item').on('afterChange', function(event, slick, currentSlide, nextSlide){
+  $('#post_people_total').val($("[data-slick-index='" +currentSlide+ "']").data("total"));
+});
+
+var people_total_value = "<%= @post.people_total %>";
+
+if (typeof people_total_value === 'undefined' || people_total_value === null || people_total_value === "")
+{
+  $('#single-item').slick('slickGoTo', 2);
+}
+else {
+  var slideno = $("div[data-total='" + people_total_value +"']").data('slick-index');
+  $('#single-item').slick('slickGoTo', slideno);
+}

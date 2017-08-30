@@ -2,19 +2,35 @@ $("#modal-component").html("<%= escape_javascript(render( partial: 'posts/post_s
 $("#modal-component").modal("show");
 
 var slider = document.getElementById('accommodations-price-slider');
+var minCostInput = document.getElementById('post_min_accomodation_price'),
+		maxCostInput = document.getElementById('post_max_accomodation_price');
+
+var initialMin = minCostInput.value,
+    initialMax = maxCostInput.value
+
+if (typeof initialMin === 'undefined' || initialMin === null || initialMin === "") {
+    initialMin = 0;
+}
+
+if (typeof initialMax === 'undefined' || initialMax === null || initialMax === "") {
+    initialMax = 500;
+}
 
 noUiSlider.create(slider, {
-	start: [0, 500],
+	start: [initialMin, initialMax],
 	connect: true,
   // tooltips: true,
+  format: wNumb({
+		decimals: 0
+	}),
 	range: {
 		'min': 0,
 		'max': 500
 	}
 });;
 
-var minCostInput = document.getElementById('minCost'),
-		maxCostInput = document.getElementById('maxCost');
+
+
 
 slider.noUiSlider.on('update', function( values, handle ) {
   if ( handle ) {
@@ -24,10 +40,17 @@ slider.noUiSlider.on('update', function( values, handle ) {
 		}
 });
 
-	minCostInput.addEventListener('change', function(){
-		slider.noUiSlider.set([null, this.value]);
-	});
+minCostInput.addEventListener('change', function(){
+	slider.noUiSlider.set([this.value, null]);
+});
 
-	maxCostInput.addEventListener('change', function(){
-		slider.noUiSlider.set([null, this.value]);
-	});
+maxCostInput.addEventListener('change', function(){
+	slider.noUiSlider.set([null, this.value]);
+});
+
+$('.star').raty({
+  readOnly: true,
+  score: function() {
+    return $(this).attr('data-score');
+  }
+});

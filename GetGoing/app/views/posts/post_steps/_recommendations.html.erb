@@ -8,13 +8,14 @@
     </div>
     <%= form_for @post, url: wizard_path(:recommendations), method: :put, remote: true do |f| %>
     <div class="modal-body">
-      <p>
-        What recommendations would you like? Choose all that apply.
-      </p>
+      <center>
+        <p>
+          What recommendations would you like? Choose all that apply.
+        </p>
+      </center>
       <br>
-      <%= f.select :booking_link_type_ids, options_for_select(
-        @booking_link_types.collect {|link_type| [link_type.name, link_type.id, {'data-img-src' => image_url('image-placeholder.svg')}]}, @booking_link_type_ids
-      ), {}, {id: "recommendations-select", class: "image-picker show-labels show-html", "multiple" => "multiple" } %>
+      <%= f.select :booking_link_type_ids, options_for_select( @booking_link_types.collect {|link_type| [link_type.name, link_type.id, {'data-img-src' => image_url('image-placeholder.svg')}]}, @booking_link_type_ids ), {}, {id: "recommendations-select",
+      class: "image-picker show-labels show-html", "multiple" => "multiple" } %>
     </div>
     <div class="modal-footer">
       <%= link_to 'Back', wizard_path(:travel_dates), remote: true, class: 'btn btn-default btn-wizard-control btn-wizard-back pull-left' %>

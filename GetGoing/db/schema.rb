@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170828181240) do
+ActiveRecord::Schema.define(version: 20170830190607) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -187,13 +187,16 @@ ActiveRecord::Schema.define(version: 20170828181240) do
     t.string "invitation_token"
     t.date "travel_start"
     t.date "travel_end"
-    t.text "amenities"
-    t.text "location"
+    t.text "amenities", default: [], array: true
+    t.string "location_from"
+    t.float "location_distance"
     t.string "neighborhoods"
     t.integer "traveler_rating"
-    t.text "accomodation_style"
+    t.text "accomodation_style", default: [], array: true
     t.integer "min_accomodation_price"
     t.integer "max_accomodation_price"
+    t.string "travel_style"
+    t.integer "people_total", default: 1
     t.index ["invitation_token"], name: "index_posts_on_invitation_token", unique: true
   end
 

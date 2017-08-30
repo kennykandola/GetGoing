@@ -1,0 +1,23 @@
+$("#modal-component").html("<%= escape_javascript(render( partial: 'posts/post_steps/budget', locals: { })).html_safe %>");
+$("#modal-component").modal("show");
+
+
+$('#single-item').slick({
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  centerMode: true,
+  centerPadding: '10px',
+  infinite: false
+});
+
+$('#single-item').on('afterChange', function(event, slick, currentSlide, nextSlide){
+  $('#post_budget').val($("[data-slick-index='" +currentSlide+ "']").data("budget"));
+});
+
+var budget_value = "<%= @post.budget %>";
+if (typeof budget_value === 'undefined' || budget_value === null || budget_value === "")
+  $('#single-item').slick('slickGoTo', 2);
+else {
+  var slideno = $("div[data-budget='" + budget_value +"']").data('slick-index');
+  $('#single-item').slick('slickGoTo', slideno);
+}

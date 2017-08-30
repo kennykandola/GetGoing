@@ -6,28 +6,64 @@
         <h3>Accommodations</h3>
       </center>
     </div>
-    <%= form_for @post, url: wizard_path(:travel_style), method: :put, remote: true do |f| %>
-    <div class="modal-body">
-      <p>
-        Describe your accommodations preference. (If hotel/vacation rental is selected).
-      </p>
+    <%= form_for @post, url: wizard_path(:accommodations), method: :put, remote: true do |f| %>
+    <div class="modal-body wizard-container">
+      <center>
+        <p>
+          Describe your accommodations preference. (If hotel/vacation rental is selected).
+        </p>
+      </center>
       <br>
+      <label>Price Per Night ($):</label>
       <div class="price-slider">
-        <h3>Price Per Night</h3>
         <div id="accommodations-price-slider"></div>
-        <%= number_field_tag 'minCost', {}, class: 'form-control number-input pull-left' %>
-        <%= number_field_tag 'maxCost', {}, class: 'form-control number-input pull-right' %>
+        <%= f.number_field :min_accomodation_price, class: 'form-control number-input pull-left' %>
+        <%= f.number_field :max_accomodation_price, class: 'form-control number-input pull-right' %>
       </div>
       <br>
       <br>
       <br>
-      <h3>Amenities</h3>
+      <label>Amenities:</label>
       <ul class="checkbox-grid">
         <% PostOptions.amenities_options.each_with_index  do |amenity, index| %>
-          <li class="md-checkbox">
-              <%= f.check_box :amenities, {id: "post_amenity-#{index}"}, amenity  %>
-              <%= f.label "amenity-#{index}", amenity %>
-          </li>
+        <li class="md-checkbox">
+
+          <%= check_box_tag "post[amenities][]", amenity, @post.amenities.include?(amenity), {id: "post_amenity-#{index}"}  %>
+          <%= label_tag "post_amenity-#{index}", amenity %>
+        </li>
+        <% end %>
+      </ul>
+
+      <label class=''>Location:</label><br>
+      <div class="location-container">
+        <%= f.select :location_distance, grouped_options_for_select([[['Any Distance', nil]], PostOptions.location_distance_options], @post.location_distance, divider: "─────────────────".html_safe), {}, { class: "form-control location-control" } %>
+        &nbsp;from&nbsp;
+        <%= f.text_field :location_from, class: 'form-control location-control' %>
+
+      </div>
+
+      <br>
+      <label>Neighborhoods:</label>
+      <%= f.text_field :neighborhoods, class: 'form-control wizard-wide-input' %>
+      <br>
+      <label>Traveler rating:</label>
+      <ul class='radio-ratings'>
+        <% PostOptions.traveler_rating_options.reverse.each_with_index  do |rating, index| %>
+        <li class="md-radio">
+          <%= f.radio_button :traveler_rating, rating, {id: "post_traveler_rating-#{index}"}  %>
+          <%= f.label "traveler_rating-#{index}", "&nbsp".html_safe, class: 'star', 'data-score' => rating%>
+          <span>and up</span>
+        </li>
+        <% end %>
+      </ul>
+
+      <label>Style:</label>
+      <ul class="checkbox-grid">
+        <% PostOptions.accomodation_style_options.each_with_index  do |style, index| %>
+        <li class="md-checkbox">
+          <%= check_box_tag "post[accomodation_style][]", style, @post.accomodation_style.include?(style), {id: "post_accomodation_style-#{index}"}  %>
+          <%= label_tag "post_accomodation_style-#{index}", style %>
+        </li>
         <% end %>
       </ul>
     </div>

@@ -1,0 +1,30 @@
+<div class="modal-dialog">
+  <div class="modal-content new-post-modal recommendations-modal">
+    <div class="modal-header wizard">
+      <center>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Anything else?</h3>
+      </center>
+    </div>
+    <%= form_for @post, url: wizard_path(:post_body), method: :put, remote: true do |f| %>
+    <div class="modal-body">
+      <center>
+        <p>
+          Describe in detail what you are looking for in your vacation, so that responders to your post can help plan your ideal travel experience.
+        </p>
+      </center>
+      <br>
+      <%= f.text_field :title, placeholder: 'Your post title', class: 'form-control' %>
+      <br>
+      <%= f.text_area :body, class: 'form-control', rows: 8 %>
+
+    </div>
+
+    <div class="modal-footer">
+      <%= link_to 'Back', wizard_path(:budget), remote: true, class: 'btn btn-default btn-wizard-control btn-wizard-back pull-left' %>
+      <%= f.submit "Continue", class: 'btn btn-default btn-wizard-control pull-right' %>
+    </div>
+    <% end %>
+
+  </div>
+</div>

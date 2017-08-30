@@ -1,0 +1,22 @@
+$("#modal-component").html("<%= escape_javascript(render( partial: 'posts/post_steps/travel_style', locals: { })).html_safe %>");
+$("#modal-component").modal("show");
+
+
+$('#single-item').slick({
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  infinite: false
+});
+
+$('#single-item').on('afterChange', function(event, slick, currentSlide, nextSlide){
+  $('#post_travel_style').val($("[data-slick-index='" +currentSlide+ "']").data("style"));
+});
+
+var style_value = "<%= @post.travel_style %>";
+console.log(style_value);
+if (typeof style_value === 'undefined' || style_value === null || style_value === "")
+  $('#single-item').slick('slickGoTo', 2);
+else {
+  var slideno = $("div[data-style='" + "<%= @post.travel_style %>"+"']").data('slick-index');
+  $('#single-item').slick('slickGoTo', slideno);
+}
