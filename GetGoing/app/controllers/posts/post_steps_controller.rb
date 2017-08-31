@@ -69,7 +69,7 @@ class Posts::PostStepsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :who_is_traveling, :main_destinataion_city,
+    params.require(:post).permit(:title, :body, :who_is_traveling, :main_destinataion_city,
                                  :main_destinataion_country, :who_is_traveling_other,
                                  :travel_start, :travel_end, { booking_link_type_ids: []},
                                  { amenities: [] }, { accomodation_style: []},

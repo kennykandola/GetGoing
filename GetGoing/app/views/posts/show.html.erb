@@ -27,8 +27,9 @@
         <br>
       <% end %>
       <h3>Traveling With:</h3>
-      <%= @post.whos_traveling %>
+      <%= @post.who_is_traveling %>
       <% if policy(@post).new_invitation? %>
+        <br>
         <%= link_to new_invitation_post_path(@post), remote: true, method: :get, class: 'clear_link', title: 'Click here to invite your friend' do %>
           <%= icon "user-plus" %> Invite
         <% end %>

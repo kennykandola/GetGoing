@@ -5,6 +5,7 @@ $(".posts.new").ready ->
 $(".posts.edit").ready ->
   googlePlaceAutocomplete()
   cocoonCallbacks()
+  $('.input-daterange').datepicker({})
 
 cocoonCallbacks = ->
   $('#places').on('cocoon:before-insert', (e, task_to_be_added) ->

@@ -25,25 +25,34 @@ class PostGeneratingService
     if who_is_traveling_other.present? && who_is_traveling == 'Other (Describe Below)'
       "I'm traveling with #{who_is_traveling_other} "
     else
-      "I'm traveling with #{who_is_traveling.downcase}, " if who_is_traveling.present?
+      "I'm traveling with #{who_is_traveling.downcase} " if who_is_traveling.present?
     end
   end
 
   def traveling_to
-    "to #{main_place_name} " if main_place_name.present?
+    places = 'to '
+    places << "#{places_names} " if places_names.present?
   end
 
-  def main_place_name
-    main_place = @session[:post][:main_place]
-    main_place_name = ''
-    if main_place['city'].present?
-      main_place_name = main_place['city']
-    elsif main_place['region'].present?
-      main_place_name = main_place['region']
-    elsif main_place['country'].present?
-      main_place_name = main_place['country']
+  def place_name(place)
+    place_name = ''
+    if place['city'].present?
+      place_name = place['city'] +  ', '
+    elsif place['region'].present?
+      place_name = place['region'] +  ', '
+    elsif place['country'].present?
+      place_name = place['country'] +  ', '
     end
-    main_place_name
+    place_name
+  end
+
+  def places_names
+    places = @session[:post][:places]
+    places_names = ''
+    places.keys.each do |place_id|
+      places_names << place_name(places[place_id])
+    end
+    places_names
   end
 
   def traveling_on_dates
@@ -77,6 +86,6 @@ class PostGeneratingService
   end
 
   def generate_title
-    "Trip to #{main_place_name}"
+    "Trip to #{places_names[0..-3]}"
   end
 end

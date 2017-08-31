@@ -16,8 +16,8 @@
       <div class="design-brief-subheading">If you’re still undecided on a destination you can leave this part blank.</div>
     </div>
     <span class="field-tip">
-      <br>
       <%= f.text_area :destination, class: "whos_traveling"  %>
+      <br>
     </span>
     <div class='places-autocomplete' id='places-autocomplete' data-places-counter=0>
       <h3>Pick a places you would like to visit</h3>
@@ -63,7 +63,7 @@
   </div>
   <div class="design-brief-subheading">Are you traveling solo? With a friend? With your significant other?</div>
       <br>
-      <%= f.text_area :whos_traveling, class: "whos_traveling" %>
+      <%= f.text_area :who_is_traveling, class: "whos_traveling" %>
 
       </span>
 <br></br>
@@ -78,10 +78,15 @@
     <br></br>
     <h1 class="h1-design">Travel Dates</h1>
     <div class="design-brief-subheading">If you don’t have anything booked yet or not sure when you will be traveling, you can skip this part.
+    </div>
+    <br>
+    <div class="whos_traveling">
+      <div class="input-daterange input-group" id="datepicker">
+        <%= f.text_field :travel_start, class: "input-sm form-control" %>
+        <span class="input-group-addon">to</span>
+        <%= f.text_field :travel_end, class: "input-sm form-control" %>
       </div>
-      <br>
-      <%= f.text_area :travel_dates, class: "whos_traveling"  %>
-
+    </div>
     <br></br>
 
     <br></br>

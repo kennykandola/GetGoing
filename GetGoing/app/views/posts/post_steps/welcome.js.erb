@@ -13,3 +13,7 @@ $('#modal-component').on('hide.bs.modal', function (e) {
     return false;
   }
 });
+
+$('#close-wizard').on('hidden.bs.modal', function () {
+  $("body").addClass('modal-open');
+});

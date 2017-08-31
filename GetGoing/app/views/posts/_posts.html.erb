@@ -13,7 +13,13 @@
             </div>
           </div>
           <div class="w-col w-col-2">
-            <h4 class="posts-table-all-other-columns"><%= post.destination  %></h4>
+            <h4 class="posts-table-all-other-columns">
+              <% post.places.each do |place| %>
+                <%= icon "globe" %>
+                <span class='place-name'><%= place.full_name %></span>
+                <br>
+              <% end %>
+            </h4>
           </div>
           <div class="w-col w-col-1">
             <h4 class="posts-table-all-other-columns"><%= post.responses.count %></h4>

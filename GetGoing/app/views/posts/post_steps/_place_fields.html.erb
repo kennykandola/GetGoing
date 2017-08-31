@@ -1,8 +1,16 @@
-
 <div class='nested-fields'>
   <%= link_to_remove_association (icon "times"), f %>
   <%= icon "globe" %>
-  <%= f.text_field :city, id: 'place-city', readonly: true, class: 'place-item', placeholder: "Please enter place name above" %>
+  <% if f.object.google_place_id.present? && f.object.city.present? %>
+    <%= f.text_field :city, id: 'place-city', readonly: true, class: 'place-item', placeholder: "Please enter place name above"  %>
+  <% elsif f.object.google_place_id.present? && f.object.city.blank? %>
+    <span><%=f.object.city%></span>
+    <span><%=f.object.state%></span>
+    <span><%=f.object.country%></span>
+    <%= f.text_field :city, id: 'place-city', readonly: true, class: 'place-item', hidden: true %>
+  <% else %>
+    <%= f.text_field :city, id: 'place-city', readonly: true, class: 'place-item', placeholder: "Please enter place name above" %>
+  <% end %>
   <%= f.text_field :state, id: 'place-state', readonly: true, hidden: true %>
   <%= f.text_field :country, id: 'place-country', readonly: true, hidden: true %>
   <%= f.text_field :google_place_id, id: 'place-google_id', readonly: true, hidden: true %>
