@@ -1,5 +1,9 @@
-$("#modal-component").html("<%= escape_javascript(render( partial: 'posts/post_steps/destinations', locals: { })).html_safe %>");
-$("#modal-component").modal("show");
+$("#modal-step-content").hide().html("<%= escape_javascript(render( partial: 'posts/post_steps/destinations', locals: { })).html_safe %>").fadeIn("slow");
 $("#modal-component" ).data( "clean", false );
 
 googlePlaceAutocomplete('(cities)', 'place-input', '#modal-places');
+
+$('#modal-header').show();
+
+bar.animate(0.1);  // Number from 0.0 to 1.0
+$('.modal-header h3').hide().text('Destination').fadeIn("slow");

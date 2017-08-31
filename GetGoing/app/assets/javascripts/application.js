@@ -28,6 +28,7 @@
 //= require jquery.raty-fa
 //= require wNumb
 //= require jquery.slick
+//= require progressbar.min
 //= require_tree .
 
 // $( "button#jQueryColorChange" ).click(function() {

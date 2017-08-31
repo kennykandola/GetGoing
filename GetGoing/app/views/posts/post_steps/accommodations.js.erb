@@ -1,4 +1,4 @@
-$("#modal-component").html("<%= escape_javascript(render( partial: 'posts/post_steps/accommodations', locals: { })).html_safe %>");
+$("#modal-step-content").hide().html("<%= escape_javascript(render( partial: 'posts/post_steps/accommodations', locals: { })).html_safe %>").fadeIn("slow");
 $("#modal-component").modal("show");
 
 var slider = document.getElementById('accommodations-price-slider');
@@ -54,3 +54,10 @@ $('.star').raty({
     return $(this).attr('data-score');
   }
 });
+
+
+$(".modal-content").addClass('recommendations-modal');
+
+
+bar.animate(0.6);  // Number from 0.0 to 1.0
+$('.modal-header h3').hide().text('Accommodations').fadeIn("slow");

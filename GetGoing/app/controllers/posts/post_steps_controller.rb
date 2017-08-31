@@ -58,7 +58,13 @@ class Posts::PostStepsController < ApplicationController
       remote_step_render(:post_body) if perfrom_budget
     when :post_body
       perform_post_body
+      finish_wizard
     end
+  end
+
+  def finish_wizard
+    render :finish_wizard, format: :js,
+                      locals: { redirect_url: post_path(@post) }
   end
 
   def cancel_steps
@@ -75,7 +81,7 @@ class Posts::PostStepsController < ApplicationController
                                  { amenities: [] }, { accomodation_style: []},
                                  :traveler_rating, :location_distance, :location_from,
                                  :min_accomodation_price, :max_accomodation_price,
-                                 :neighborhoods, :accomodation_style,
+                                 :neighborhoods,
                                  :travel_style, :budget, :people_total,
                                  places_attributes: %i[city google_place_id
                                                        state country latitude
@@ -256,7 +262,7 @@ class Posts::PostStepsController < ApplicationController
   def perform_post_body
     session[:post][:body] = post_params[:body]
     session[:post][:title] = post_params[:title]
-    PostSavingService.new(user: current_user, session: session).save_post
+    @post = PostSavingService.new(user: current_user, session: session).save_post
   end
 
   def remote_step_render(next_step)

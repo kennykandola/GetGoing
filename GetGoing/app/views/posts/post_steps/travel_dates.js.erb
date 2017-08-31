@@ -1,4 +1,4 @@
-$("#modal-component").html("<%= escape_javascript(render( partial: 'posts/post_steps/travel_dates', locals: { })).html_safe %>");
+$("#modal-step-content").hide().html("<%= escape_javascript(render( partial: 'posts/post_steps/travel_dates', locals: { })).html_safe %>").fadeIn("slow");
 $("#modal-component").modal("show");
 
 $('.input-daterange').datepicker({
@@ -8,3 +8,6 @@ $('.input-daterange').datepicker().on('changeDate', function(ev) {
 event.preventDefault();
 event.stopPropagation();
 });
+
+bar.animate(0.4);  // Number from 0.0 to 1.0
+$('.modal-header h3').hide().text('Travel Dates').fadeIn("slow");

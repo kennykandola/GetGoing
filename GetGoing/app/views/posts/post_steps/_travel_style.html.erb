@@ -1,36 +1,25 @@
-<div class="modal-dialog">
-  <div class="modal-content new-post-modal recommendations-modal">
-    <div class="modal-header wizard">
-      <center>
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h3>Travel Style</h3>
-      </center>
-    </div>
-    <%= form_for @post, url: wizard_path(:travel_style), method: :put, remote: true do |f| %>
-    <div class="modal-body">
-      <center>
-        <p>
-          How do you like to travel? Move the sliders below.
-        </p>
-      </center>
-      <br>
-      <div class="slick-container">
-        <div id="single-item">
-          <% PostOptions.travel_style_options.each do |style| %>
-          <div data-style="<%=style[1] %>">
-            <h3><%=style[1]%></h3>
-          </div>
-          <% end %>
-        </div>
+<%= form_for @post, url: wizard_path(:travel_style), method: :put, remote: true do |f| %>
+<div class="modal-body">
+  <center>
+    <p>
+      How do you like to travel? Move the sliders below.
+    </p>
+  </center>
+  <br>
+  <div class="slick-container">
+    <div id="single-item">
+      <% PostOptions.travel_style_options.each do |style| %>
+      <div data-style="<%=style[1] %>">
+        <h3><%=style[1]%></h3>
       </div>
-      <%= f.text_field :travel_style, hidden: true %>
+      <% end %>
     </div>
-
-    <div class="modal-footer">
-      <%= link_to 'Back', wizard_path(:accommodations), remote: true, class: 'btn btn-default btn-wizard-control btn-wizard-back pull-left' %>
-      <%= f.submit "Continue", class: 'btn btn-default btn-wizard-control pull-right' %>
-    </div>
-    <% end %>
-
   </div>
+  <%= f.text_field :travel_style, hidden: true %>
 </div>
+
+<div class="modal-footer">
+  <%= link_to 'Back', wizard_path(:accommodations), remote: true, class: 'btn btn-default btn-wizard-control btn-wizard-back pull-left' %>
+  <%= f.submit "Continue", class: 'btn btn-default btn-wizard-control pull-right' %>
+</div>
+<% end %>

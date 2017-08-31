@@ -1,2 +1,5 @@
-$("#modal-component").html("<%= escape_javascript(render( partial: 'posts/post_steps/post_body', locals: { })).html_safe %>");
+$("#modal-step-content").hide().html("<%= escape_javascript(render( partial: 'posts/post_steps/post_body', locals: { })).html_safe %>").fadeIn("slow");
 $("#modal-component").modal("show");
+
+bar.animate(0.9);  // Number from 0.0 to 1.0
+$('.modal-header h3').hide().text('Anything else?').fadeIn("slow");

@@ -58,13 +58,17 @@ class PostGeneratingService
   def traveling_on_dates
     travel_start = @session[:post][:travel_start]
     travel_end = @session[:post][:travel_end]
-    "on dates: #{travel_start} - #{travel_end}. " if travel_start.present? && travel_end.present?
+    if travel_start.present? && travel_end.present?
+      "on dates: #{travel_start} - #{travel_end}. "
+    else
+      ''
+    end
   end
 
   def recommendations
     recommendations = "I'm looking for "
     booking_link_type_ids = @session[:post][:booking_link_type_ids]
-    if booking_link_type_ids.present?
+    if booking_link_type_ids.present? && booking_link_type_ids != [""]
       booking_link_type_ids.each do |link_id|
         booking_link_type = BookingLinkType.where(id: link_id).first
         recommendations << (booking_link_type.name.downcase + ', ') if booking_link_type.present?

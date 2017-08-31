@@ -8,12 +8,11 @@ class PostSavingService
   def initialize_post
     title = @post_params[:title]
     body = @post_params[:body]
-    binding.pry
     who_is_traveling = @post_params[:who_is_traveling]
     who_is_traveling_other = @post_params[:who_is_traveling_other]
     who_is_traveling = who_is_traveling_other if who_is_traveling_other.present? && who_is_traveling == 'Other (Describe Below)'
-    travel_start = Date.strptime(@post_params[:travel_start], "%m/%d/%Y")
-    travel_end = Date.strptime(@post_params[:travel_end], "%m/%d/%Y")
+    travel_start = Date.strptime(@post_params[:travel_start], "%m/%d/%Y") if @post_params[:travel_start].present?
+    travel_end = Date.strptime(@post_params[:travel_end], "%m/%d/%Y") if @post_params[:travel_end].present?
     amenities = @post_params[:amenities]
     accomodation_style = @post_params[:accomodation_style]
     traveler_rating = @post_params[:traveler_rating]
@@ -22,7 +21,6 @@ class PostSavingService
     min_accomodation_price = @post_params[:min_accomodation_price]
     max_accomodation_price = @post_params[:max_accomodation_price]
     neighborhoods = @post_params[:neighborhoods]
-    accomodation_style = @post_params[:accomodation_style]
     travel_style = @post_params[:travel_style]
     budget = @post_params[:budget]
     people_total = @post_params[:people_total]
@@ -33,7 +31,7 @@ class PostSavingService
                      location_from: location_from,
                      min_accomodation_price: min_accomodation_price,
                      max_accomodation_price: max_accomodation_price,
-                     neighborhoods: neighborhoods, accomodation_style: accomodation_style,
+                     neighborhoods: neighborhoods,
                      travel_style: travel_style, budget: budget, people_total: people_total)
     @post.travel_start
   end

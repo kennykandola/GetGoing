@@ -1,36 +1,25 @@
-<div class="modal-dialog">
-  <div class="modal-content new-post-modal recommendations-modal">
-    <div class="modal-header wizard">
-      <center>
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h3>Travel Style</h3>
-      </center>
-    </div>
-    <%= form_for @post, url: wizard_path(:budget), method: :put, remote: true do |f| %>
-    <div class="modal-body">
-      <center>
-        <p>
-          How would you describe your budget? Move the sliders below.
-        </p>
-      </center>
-      <br>
-      <div class="slick-container triple-slider">
-        <div id="single-item">
-          <% PostOptions.budget_options.each do |budget| %>
-          <div data-budget="<%=budget %>">
-            <h3><%=budget%></h3>
-          </div>
-          <% end %>
-        </div>
+<%= form_for @post, url: wizard_path(:budget), method: :put, remote: true do |f| %>
+<div class="modal-body">
+  <center>
+    <p>
+      How would you describe your budget? Move the sliders below.
+    </p>
+  </center>
+  <br>
+  <div class="slick-container triple-slider">
+    <div id="single-item">
+      <% PostOptions.budget_options.each do |budget| %>
+      <div data-budget="<%=budget %>">
+        <h3><%=budget%></h3>
       </div>
-      <%= f.text_field :budget, hidden: true %>
+      <% end %>
     </div>
-
-    <div class="modal-footer">
-      <%= link_to 'Back', wizard_path(:travel_style), remote: true, class: 'btn btn-default btn-wizard-control btn-wizard-back pull-left' %>
-      <%= f.submit "Continue", class: 'btn btn-default btn-wizard-control pull-right' %>
-    </div>
-    <% end %>
-
   </div>
+  <%= f.text_field :budget, hidden: true %>
 </div>
+
+<div class="modal-footer">
+  <%= link_to 'Back', wizard_path(:travel_style), remote: true, class: 'btn btn-default btn-wizard-control btn-wizard-back pull-left' %>
+  <%= f.submit "Continue", class: 'btn btn-default btn-wizard-control pull-right' %>
+</div>
+<% end %>

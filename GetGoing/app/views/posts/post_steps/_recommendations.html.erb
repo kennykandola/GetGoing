@@ -1,27 +1,16 @@
-<div class="modal-dialog">
-  <div class="modal-content new-post-modal recommendations-modal">
-    <div class="modal-header wizard">
-      <center>
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h3>Recommendations</h3>
-      </center>
-    </div>
-    <%= form_for @post, url: wizard_path(:recommendations), method: :put, remote: true do |f| %>
-    <div class="modal-body">
-      <center>
-        <p>
-          What recommendations would you like? Choose all that apply.
-        </p>
-      </center>
-      <br>
-      <%= f.select :booking_link_type_ids, options_for_select( @booking_link_types.collect {|link_type| [link_type.name, link_type.id, {'data-img-src' => image_url('image-placeholder.svg')}]}, @booking_link_type_ids ), {}, {id: "recommendations-select",
-      class: "image-picker show-labels show-html", "multiple" => "multiple" } %>
-    </div>
-    <div class="modal-footer">
-      <%= link_to 'Back', wizard_path(:travel_dates), remote: true, class: 'btn btn-default btn-wizard-control btn-wizard-back pull-left' %>
-      <%= f.submit "Continue", class: 'btn btn-default btn-wizard-control pull-right' %>
-    </div>
-    <% end %>
-
-  </div>
+<%= form_for @post, url: wizard_path(:recommendations), method: :put, remote: true do |f| %>
+<div class="modal-body">
+  <center>
+    <p>
+      What recommendations would you like? Choose all that apply.
+    </p>
+  </center>
+  <br>
+  <%= f.select :booking_link_type_ids, options_for_select( @booking_link_types.collect {|link_type| [link_type.name, link_type.id, {'data-img-src' => image_url('image-placeholder.svg')}]}, @booking_link_type_ids ), {}, {id: "recommendations-select",
+  class: "image-picker show-labels show-html", "multiple" => "multiple" } %>
 </div>
+<div class="modal-footer">
+  <%= link_to 'Back', wizard_path(:travel_dates), remote: true, class: 'btn btn-default btn-wizard-control btn-wizard-back pull-left' %>
+  <%= f.submit "Continue", class: 'btn btn-default btn-wizard-control pull-right' %>
+</div>
+<% end %>

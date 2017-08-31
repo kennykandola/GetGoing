@@ -1,4 +1,4 @@
-$("#modal-component").html("<%= escape_javascript(render( partial: 'posts/post_steps/budget', locals: { })).html_safe %>");
+$("#modal-step-content").hide().html("<%= escape_javascript(render( partial: 'posts/post_steps/budget', locals: { })).html_safe %>").fadeIn("slow");
 $("#modal-component").modal("show");
 
 
@@ -21,3 +21,6 @@ else {
   var slideno = $("div[data-budget='" + budget_value +"']").data('slick-index');
   $('#single-item').slick('slickGoTo', slideno);
 }
+
+bar.animate(0.8);  // Number from 0.0 to 1.0
+$('.modal-header h3').hide().text('Budget').fadeIn("slow");

@@ -1,6 +1,4 @@
-$("#modal-component").html("<%= escape_javascript(render( partial: 'posts/post_steps/who_is_traveling')).html_safe %>");
-$("#modal-component").modal("show");
-
+$("#modal-step-content").hide().html("<%= escape_javascript(render( partial: 'posts/post_steps/who_is_traveling')).html_safe %>").fadeIn("slow");
 
 $('#post_who_is_traveling_other').hide();
 
@@ -22,3 +20,7 @@ $('#who_is_traveling-select').imagepicker(
     }
   }
 );
+
+// bar.set(0.1)
+bar.animate(0.2);  // Number from 0.0 to 1.0
+$('.modal-header h3').hide().text('Who is travelling').fadeIn("slow");
