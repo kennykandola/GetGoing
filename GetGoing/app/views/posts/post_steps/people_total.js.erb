@@ -10,13 +10,14 @@ $('#single-item').slick({
 
 $('#single-item').on('afterChange', function(event, slick, currentSlide, nextSlide){
   $('#post_people_total').val($("[data-slick-index='" +currentSlide+ "']").data("total"));
+  skipToNext();
 });
 
 var people_total_value = "<%= @post.people_total %>";
 
 if (typeof people_total_value === 'undefined' || people_total_value === null || people_total_value === "")
 {
-  $('#single-item').slick('slickGoTo', 2);
+  // $('#single-item').slick('slickGoTo', 2);
 }
 else {
   var slideno = $("div[data-total='" + people_total_value +"']").data('slick-index');
@@ -25,3 +26,20 @@ else {
 
 bar.animate(0.3);  // Number from 0.0 to 1.0
 $('.modal-header h3').hide().text('People Total').fadeIn("slow");
+$('.modal-header p').fadeIn("slow");
+// $('.modal-header p').hide()
+
+if (typeof formPeopleTotalTouched === 'undefined' )
+{
+  var formPeopleTotalTouched = false
+}
+
+var skipToNext = function(){
+  $('#submit-button').text('Next');
+  $('#submit-button').val('Next');
+  formPeopleTotalTouched = true
+};
+
+if (formPeopleTotalTouched) {
+  skipToNext();
+}

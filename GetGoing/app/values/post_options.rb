@@ -76,6 +76,10 @@ class PostOptions
     @@location_distance_options
   end
 
+  def self.who_is_traveling_options
+    @@who_is_traveling_options
+  end
+  
   def self.who_is_traveling(who_is_traveling_key)
     @@who_is_traveling_options[who_is_traveling_key]
   end

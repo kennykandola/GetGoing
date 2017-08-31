@@ -1,5 +1,7 @@
 <div class='nested-fields'>
-  <%= link_to_remove_association (icon "times"), f %>
+  <% unless f.index == 0 %>
+    <%= link_to_remove_association (icon "times"), f %>
+  <% end %>
   <%= icon "globe" %>
   <% if f.object.google_place_id.present? && f.object.city.present? %>
     <%= f.text_field :city, id: 'place-city', readonly: true, class: 'place-item', placeholder: "Please enter place name above"  %>

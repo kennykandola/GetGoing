@@ -10,6 +10,11 @@
     <%= f.text_field :url_type, class: 'form-control' %>
   </div>
 
+  <div class="md-checkbox">
+    <%= f.check_box :is_accommodation %>
+    <%= f.label :is_accommodation  %>
+  </div>
+
 </div>
 <div class="modal-footer">
   <%= f.submit 'Save', class: "btn btn-info" %>

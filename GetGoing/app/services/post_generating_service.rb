@@ -20,12 +20,16 @@ class PostGeneratingService
   end
 
   def traveling_with
+    "I'm traveling with #{traveling_with_name} "
+  end
+
+  def traveling_with_name
     who_is_traveling = @session[:post][:who_is_traveling]
     who_is_traveling_other = @session[:post][:who_is_traveling_other]
     if who_is_traveling_other.present? && who_is_traveling == 'Other (Describe Below)'
-      "I'm traveling with #{who_is_traveling_other} "
+      who_is_traveling_other
     else
-      "I'm traveling with #{who_is_traveling.downcase} " if who_is_traveling.present?
+      who_is_traveling.downcase if who_is_traveling.present?
     end
   end
 
@@ -59,7 +63,7 @@ class PostGeneratingService
     travel_start = @session[:post][:travel_start]
     travel_end = @session[:post][:travel_end]
     if travel_start.present? && travel_end.present?
-      "on dates: #{travel_start} - #{travel_end}. "
+      "in: #{travel_start} - #{travel_end}. "
     else
       ''
     end
@@ -90,6 +94,6 @@ class PostGeneratingService
   end
 
   def generate_title
-    "Trip to #{places_names[0..-3]}"
+    "Traveling to #{places_names[0..-3]} with #{traveling_with_name} #{traveling_on_dates}"
   end
 end

@@ -2,7 +2,7 @@
 <div class="modal-body">
   <center>
     <p>
-      How many people total? (Only show if family/friends/other selected)
+      How many people total? Move slider below.
     </p>
   </center>
   <br>
@@ -20,6 +20,6 @@
 
 <div class="modal-footer">
   <%= link_to 'Back', wizard_path(:who_is_traveling), remote: true, class: 'btn btn-default btn-wizard-control btn-wizard-back pull-left' %>
-  <%= f.submit "Continue", class: 'btn btn-default btn-wizard-control pull-right' %>
+  <%= f.submit 'Skip', class: 'btn btn-default btn-wizard-control pull-right', id: "submit-button" %>
 </div>
 <% end %>

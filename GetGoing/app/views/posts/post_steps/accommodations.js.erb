@@ -29,8 +29,23 @@ noUiSlider.create(slider, {
 	}
 });;
 
+if (typeof formTouched === 'undefined' )
+{
+  var formTouched = false
+}
 
+var skipToNext = function(){
+  $('#submit-button').text('Next');
+  $('#submit-button').val('Next');
+  formTouched = true
+};
 
+if (formTouched) {
+  skipToNext();
+}
+
+// $('#submit-button').text('Skip')
+// $('#submit-button').val('Skip')
 
 slider.noUiSlider.on('update', function( values, handle ) {
   if ( handle ) {
@@ -38,6 +53,10 @@ slider.noUiSlider.on('update', function( values, handle ) {
 		} else {
 			minCostInput.value = values[handle];
 		}
+});
+
+slider.noUiSlider.on('slide', function(){
+	skipToNext();
 });
 
 minCostInput.addEventListener('change', function(){
@@ -58,6 +77,14 @@ $('.star').raty({
 
 $(".modal-content").addClass('recommendations-modal');
 
-
 bar.animate(0.6);  // Number from 0.0 to 1.0
 $('.modal-header h3').hide().text('Accommodations').fadeIn("slow");
+$('.modal-header p').fadeIn("slow");
+
+$(document).on('change', 'select', function() {
+  skipToNext();
+});
+
+$(document).on('change', 'input', function() {
+  skipToNext();
+});

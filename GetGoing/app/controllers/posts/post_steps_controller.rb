@@ -6,6 +6,7 @@ class Posts::PostStepsController < ApplicationController
         :post_body
 
   def show
+    wizard_steps_service = WizardStepsService.new
     case step
     when :welcome
       remote_step_render(:welcome) if initialize_welcome
@@ -14,13 +15,21 @@ class Posts::PostStepsController < ApplicationController
     when :who_is_traveling
       remote_step_render(:who_is_traveling) if initialize_who_is_traveling
     when :people_total
-      remote_step_render(:people_total) if initialize_people_total
+      if wizard_steps_service.ask_total_people?(session[:post][:who_is_traveling])
+        remote_step_render(:people_total) if initialize_people_total
+      else
+        remote_step_render(:who_is_traveling) if initialize_who_is_traveling
+      end
     when :travel_dates
       remote_step_render(:travel_dates) if initialize_travel_dates
     when :recommendations
       remote_step_render(:recommendations) if initialize_recommendations
     when :accommodations
-      remote_step_render(:accommodations) if initialize_accommodations
+      if wizard_steps_service.ask_accommodations?(session[:post][:booking_link_type_ids])
+        remote_step_render(:accommodations) if initialize_accommodations
+      else
+        remote_step_render(:recommendations) if initialize_recommendations
+      end
     when :travel_style
       remote_step_render(:travel_style) if initialize_travel_style
     when :budget
@@ -31,6 +40,7 @@ class Posts::PostStepsController < ApplicationController
   end
 
   def update
+    wizard_steps_service = WizardStepsService.new
     case step
     when :main_place
       session[:post] = {}
@@ -38,7 +48,11 @@ class Posts::PostStepsController < ApplicationController
     when :destinations
       remote_step_render(:who_is_traveling) if perfrom_destionations
     when :who_is_traveling
-      remote_step_render(:people_total) if perfrom_who_is_traveling
+      if wizard_steps_service.ask_total_people?(post_params[:who_is_traveling])
+        remote_step_render(:people_total) if perfrom_who_is_traveling
+      else
+        remote_step_render(:travel_dates) if perfrom_who_is_traveling && initialize_travel_dates
+      end
     when :people_total
       remote_step_render(:travel_dates) if perform_people_total
     when :travel_dates
@@ -49,7 +63,12 @@ class Posts::PostStepsController < ApplicationController
       # @post.save
       # redirect_to post_path(@post)
     when :recommendations
-      remote_step_render(:accommodations) if perfrom_recommendations
+      if wizard_steps_service.ask_accommodations?(post_params[:booking_link_type_ids])
+        remote_step_render(:accommodations) if perfrom_recommendations
+      else
+        remote_step_render(:travel_style) if perfrom_recommendations && perfrom_travel_style
+      end
+
     when :accommodations
       remote_step_render(:travel_style) if perfrom_accommodations
     when :travel_style

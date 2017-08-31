@@ -43,7 +43,7 @@ class BookingLinkTypesController < ApplicationController
   private
 
   def booking_link_type_params
-    params.require(:booking_link_type).permit(:name, :url_type)
+    params.require(:booking_link_type).permit(:name, :url_type, :is_accommodation)
   end
 
   def set_booking_link_type

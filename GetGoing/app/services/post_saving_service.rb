@@ -6,7 +6,12 @@ class PostSavingService
   end
 
   def initialize_post
-    title = @post_params[:title]
+    if @post_params[:title].present?
+      title = @post_params[:title]
+    else
+      post_generating_service = PostGeneratingService.new(user: @user, session: @session)
+      title = post_generating_service.generate_title
+    end
     body = @post_params[:body]
     who_is_traveling = @post_params[:who_is_traveling]
     who_is_traveling_other = @post_params[:who_is_traveling_other]
