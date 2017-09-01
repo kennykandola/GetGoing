@@ -39,15 +39,18 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     # session[:invitation_token] = nil
     session.delete(:invitation_token)
 
-
     if @user.persisted?
       @identity.update_attribute(:user_id, @user.id)
       @user = User.find @user.id
+      if session[:post].present?
+        @post = PostSavingService.new(user: @user, session: session).save_post
+        session.delete(:post)
+      end
       sign_in_and_redirect @user, event: :authentication
       set_flash_message(:notice, :success, kind: provider.capitalize) if is_navigational_format?
     else
       session["devise.#{provider}_data"] = request.env['omniauth.auth']
-      redirect_to new_user_registration_url
+      "#{user_path(@user)}#3"
     end
   end
 

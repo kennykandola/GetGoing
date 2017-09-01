@@ -16,7 +16,8 @@ class PostGeneratingService
   end
 
   def user_name
-    "My name is #{@user.first_name}, " if @user.present?
+    return "My name is #{@user.first_name}, " if @user.present?
+    ''
   end
 
   def traveling_with

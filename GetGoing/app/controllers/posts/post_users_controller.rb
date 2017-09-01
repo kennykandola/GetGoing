@@ -10,8 +10,9 @@ class Posts::PostUsersController < ApplicationController
       emails.each do |email|
         if email == current_user.email
           invitation_status = 'You already own thit Post, instead you can invite your friends to join.'
-        elsif invite_user(email)
-          invitation_status = 'Thank you! Your invitation has been successfully sent'
+        else
+          invite_user(email)
+          invitation_status = 'Thank you! Your invitation has been successfully sent' if User.where(email: email).present?
         end
       end
     end

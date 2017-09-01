@@ -1,0 +1,7 @@
+// alert('hello');
+
+<% if resource.persisted? %>
+  window.location = "<%= user_path(resource) + '#3' %>"
+<% else %>
+  $("#modal-step-content").hide().html("<%= escape_javascript(render( partial: 'devise/registrations/new', locals: { })).html_safe %>").fadeIn("slow");;
+<% end %>

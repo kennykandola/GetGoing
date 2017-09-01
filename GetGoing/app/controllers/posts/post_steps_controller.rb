@@ -35,7 +35,7 @@ class Posts::PostStepsController < ApplicationController
     when :budget
       remote_step_render(:budget) if initialize_budget
     when :post_body
-      remote_step_render(:post_body) if initialize_body
+      remote_step_render(:post_body) if initialize_post_body
     end
   end
 
@@ -77,13 +77,23 @@ class Posts::PostStepsController < ApplicationController
       remote_step_render(:post_body) if perfrom_budget
     when :post_body
       perform_post_body
-      finish_wizard
+      if current_user.present?
+        @post = PostSavingService.new(user: current_user, session: session).save_post
+        finish_wizard
+      else
+        render_registration
+      end
     end
   end
 
   def finish_wizard
     render :finish_wizard, format: :js,
                       locals: { redirect_url: post_path(@post) }
+  end
+
+  def render_registration
+    render 'devise/registrations/new', format: :js,
+                      locals: { }
   end
 
   def cancel_steps
@@ -281,7 +291,6 @@ class Posts::PostStepsController < ApplicationController
   def perform_post_body
     session[:post][:body] = post_params[:body]
     session[:post][:title] = post_params[:title]
-    @post = PostSavingService.new(user: current_user, session: session).save_post
   end
 
   def remote_step_render(next_step)

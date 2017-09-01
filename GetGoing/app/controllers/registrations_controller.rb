@@ -1,8 +1,10 @@
 class RegistrationsController < Devise::RegistrationsController
+  respond_to :html, :js
+
   def create
     super
     token = session[:invitation_token]
-    if token.present? && resource.present?
+    if token.present? && resource.persisted?
       invited_post = Post.where(invitation_token: token).first
       PostUser.create(post: invited_post, user: resource, role: 'invited_user')
       resource.notify_existing_about_invitation
@@ -10,6 +12,10 @@ class RegistrationsController < Devise::RegistrationsController
     end
     # session[:invitation_token] = nil
     session.delete(:invitation_token)
+    if session[:post].present? && resource.persisted?
+      @post = PostSavingService.new(user: resource, session: session).save_post
+      session.delete(:post)
+    end
   end
 
   def update_resources(resource, params)
@@ -26,5 +32,11 @@ class RegistrationsController < Devise::RegistrationsController
     else
       resource.update_with_password(params)
     end
+  end
+
+  protected
+
+  def after_sign_up_path_for(resource)
+    "#{user_path(resource)}#3"
   end
 end
