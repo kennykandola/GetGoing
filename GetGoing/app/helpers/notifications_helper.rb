@@ -31,6 +31,8 @@ module NotificationsHelper
       link_to "Claim for #{post.title} has just opened", post_path(post)
     when 'claim_expired'
       link_to "Your claim for #{post.title} has expired", post_path(post)
+    when 'tippa_add_places'
+      link_to "Add places you have traveled", places_path
     end
   end
 end

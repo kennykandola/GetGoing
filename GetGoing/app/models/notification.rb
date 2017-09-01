@@ -8,7 +8,8 @@ class Notification < ApplicationRecord
 
   enum action: %i[new_response recommended_link_upvoted new_post_with_matching_place
                   new_comment_on_response new_post_with_matching_nearby_place
-                  claims_open claim_expired invited_to_post accepted_invitation]
+                  claims_open claim_expired invited_to_post accepted_invitation
+                  tippa_add_places]
 
   after_commit -> { NotificationRelayJob.perform_later(recipient_id) }, on: [:create, :update]
 

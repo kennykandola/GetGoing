@@ -43,6 +43,8 @@ services:
     volumes:
       - .:/usr/src/trip_tippa
     env_file: .env
+    tty: true
+    stdin_open: true
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:5.5.1
     environment:

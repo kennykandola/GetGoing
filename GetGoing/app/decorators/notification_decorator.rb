@@ -52,6 +52,12 @@ class NotificationDecorator < ApplicationDecorator
       action = 'has expired'
       extra = 'Your claim for '
       h.render partial: 'notifications/notifications/notification_eoa', locals: { notification: self, action: action, extra: extra }
+
+    when 'tippa_add_places'
+      action = 'Add'
+      entity = 'places'
+      extra = 'you have traveled'
+      h.render partial: 'notifications/notifications/notification_aee', locals: { notification: self, action: action, extra: extra, entity: entity }
     end
   end
 

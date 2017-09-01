@@ -3,18 +3,25 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
     super
-    token = session[:invitation_token]
-    if token.present? && resource.persisted?
-      invited_post = Post.where(invitation_token: token).first
-      PostUser.create(post: invited_post, user: resource, role: 'invited_user')
-      resource.notify_existing_about_invitation
-      resource.invitation_accepted
-    end
-    # session[:invitation_token] = nil
-    session.delete(:invitation_token)
-    if session[:post].present? && resource.persisted?
-      @post = PostSavingService.new(user: resource, session: session).save_post
-      session.delete(:post)
+    if resource.persisted?
+      token = session[:invitation_token]
+      if token.present?
+        invited_post = Post.where(invitation_token: token).first
+        PostUser.create(post: invited_post, user: resource, role: 'invited_user')
+        resource.notify_existing_about_invitation
+        resource.invitation_accepted
+      end
+      session.delete(:invitation_token)
+
+      if session[:post].present?
+        @post = PostSavingService.new(user: resource, session: session).save_post
+        session.delete(:post)
+      end
+
+      if resource.tippa
+        NotificationService.new(recipient: current_user).tippa_add_places
+        UsersMailer.add_places(current_user).deliver_later
+      end
     end
   end
 

@@ -75,4 +75,9 @@ class NotificationService
     @notifiable = @post
     notify('accepted_invitation')
   end
+
+  def tippa_add_places
+    @actor = @recipient
+    notify('tippa_add_places')
+  end
 end
