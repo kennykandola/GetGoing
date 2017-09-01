@@ -12,6 +12,23 @@
           <%= @user.score_value %>
         </div>
       </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Quick Links</h3>
+        </div>
+        <div class="panel-body">
+          <center>
+            <%= link_to "New Post", root_path  %><br>
+            <%= link_to "My places", places_path %><br>
+            <%= link_to "Browse Posts", all_posts_path %><br>
+            <% unless current_user.tippa %>
+              <%= link_to "Become a Tippa", tippa_question_users_path, remote: true, title: "Click here if you are interested in earning money crafting travel experiences", 'data-question' => @ask_question %>
+            <% end %>
+            <div class="text-block-8">FAQ</div>
+            <div class="text-block-8">Destinations</div>
+          </center>
+        </div>
+      </div>
     </div>
     <div class="col-md-9">
       <h1 class='user-name'>
@@ -52,4 +69,5 @@
       </div>
     </div>
   </div>
+  <div id='modal-component' class="modal fade">
 </div>

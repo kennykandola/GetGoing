@@ -59,7 +59,10 @@ Rails.application.routes.draw do
     resources :booking_link_types
   end
 
-  resources :users, only: [:show, :edit]
+  resources :users, only: [:show, :edit] do
+    collection { get :tippa_question }
+    collection { put :tippa }
+  end
 
   resources :places, only: [:index, :destroy] do
     collection { post :add_place_to_user }
@@ -67,7 +70,7 @@ Rails.application.routes.draw do
     member { patch :set_as_hometown }
   end
 
-  resources :post_steps, controller: 'posts/post_steps' do
+  resources :post_steps, controller: 'posts/post_steps', only: [:update, :show, :index] do
     collection { post :cancel_steps }
   end
 
@@ -77,7 +80,7 @@ Rails.application.routes.draw do
 
   get '/top_email' => 'responses#top_email'
 
-  get '/tippa' => 'users#tippa'
+  # get '/tippa' => 'users#tippa'
 
   get '/all_posts' => 'posts#all_posts'
 

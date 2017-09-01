@@ -1,0 +1,2 @@
+$("#modal-step-content").hide().html("<%= escape_javascript(render( partial: 'users/tippa_confirmed', locals: { })).html_safe %>").fadeIn("slow");
+$("#modal-component").modal("show");

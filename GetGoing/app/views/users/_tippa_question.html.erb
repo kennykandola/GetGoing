@@ -1,0 +1,19 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div id="modal-step-content">
+      <div class="modal-body wizard">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <div class="wizard-logo">
+          <%=image_tag "white_logo_transparent_background.png"%>
+        </div>
+        <div class="wizard-content">
+          <p>
+            Do you want to earn money providing travel advice to others?
+          </p>
+        </div>
+        <%= link_to 'Yes', tippa_users_path(tippa: true), remote: true, method: :put, class: 'btn btn-default btn-wizard' %>
+        <%= link_to 'No', tippa_users_path(tippa: false), remote: true, method: :put, class: 'btn btn-default btn-wizard', 'data-dismiss' => 'modal' %>
+      </div>
+    </div>
+  </div>
+</div>

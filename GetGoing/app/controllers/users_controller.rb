@@ -27,10 +27,14 @@ class UsersController < ApplicationController
   end
 
   def tippa
-    @user = User.find(params[:user_id])
-    @user.tippa = true
-    @user.save
-    redirect_to '/profile', notice: 'You will start receiving email notifications for new posts.'
+    current_user.tippa = params[:tippa]
+    if current_user.save && current_user.tippa
+      render 'users/tippa_confirmed', format: :js
+    end
+  end
+
+  def tippa_question
+    render 'users/tippa_question', format: :js
   end
 
   def show
@@ -45,7 +49,10 @@ class UsersController < ApplicationController
     @places = @user.all_places
                    .order(created_at: :desc)
                    .paginate(page: params[:page], per_page: 10)
-
+    @ask_question = current_user.sign_in_count == 1 &&
+                    current_user.posts.blank? &&
+                    current_user.identities.present? &&
+                    current_user.tippa.nil?
   end
 
   def assign_as_admin
