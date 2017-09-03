@@ -20,7 +20,7 @@ class RegistrationsController < Devise::RegistrationsController
 
       if resource.tippa
         NotificationService.new(recipient: current_user).tippa_add_places
-        UsersMailer.add_places(current_user).deliver_later
+        WelcomeMailer.welcome_tippa(current_user).deliver_later
       end
     end
   end

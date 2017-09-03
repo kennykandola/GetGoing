@@ -38,21 +38,21 @@ class PostSavingService
                      max_accomodation_price: max_accomodation_price,
                      neighborhoods: neighborhoods,
                      travel_style: travel_style, budget: budget, people_total: people_total)
-    @post.travel_start
   end
 
 
   def save_post
     initialize_post
-    @post.save
-    PostUser.create(user: @user, post: @post, role: 'owner')
-    save_places
-    save_booking_link_types
-    @post
+    if @post.save!
+      PostUser.create(user: @user, post: @post, role: 'owner')
+      save_places
+      save_booking_link_types
+      PostsMailer.new_post(@user, @post).deliver_later
+      @post
+    end
   end
 
   def save_places
-
     main_place = @post_params[:main_place]
     places = @post_params[:places]
     post_saving_service = PostPlaceConnectionService.new(post: @post)

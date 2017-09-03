@@ -31,7 +31,7 @@ class UsersController < ApplicationController
     if current_user.save && current_user.tippa
       render 'users/tippa_confirmed', format: :js
       NotificationService.new(recipient: current_user).tippa_add_places
-      UsersMailer.add_places(current_user).deliver_later
+      WelcomeMailer.welcome_tippa(current_user).deliver_later
     end
   end
 

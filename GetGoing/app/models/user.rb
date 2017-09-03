@@ -65,6 +65,7 @@ class User < ApplicationRecord
   scope :pending_invitation, -> { where.not(invitation_token: nil) }
   scope :active, -> { where(invitation_token: nil) }
   scope :not_invited_to, ->(post) { where.not(id: post.invited_users.pluck(:id)) }
+  scope :tippas, -> { where(tippa: true) }
 
   def invitation_accepted
     NotificationService.new(post: invited_posts.last, recipient: invited_posts.last.owner, actor: self).accepted_invitation
@@ -91,7 +92,7 @@ class User < ApplicationRecord
   end
 
   def send_welcome_email
-    ExampleMailer.sample_email(self).deliver_later
+    WelcomeMailer.welcome_user(self).deliver_later
   end
 
   def password_required?

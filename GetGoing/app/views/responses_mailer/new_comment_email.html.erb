@@ -1,2 +1,27 @@
-<h1>You've got new comment-reply on response from "<%= @response.post.title %>"</h1>
-<h2>Visit <%= link_to @response.post.title, @response.post %> <h2>
+<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+    <h1>Hi &nbsp;<%= @recipient.first_name %>,<br>
+&nbsp;</h1>
+
+<% if @response.user == @recipient && @response.comments.order('created_at ASC').first.id == @comment.id %>
+  <p><%=@actor.first_name%> commented on your response to&nbsp;<%= link_to @response.post.title, @response.post, target: "_blank" %>.</p>
+<% else %>
+  <% if @response.post.invited_users.present? %>
+    <p><%=@actor.first_name%> added new reply to response discussion from &nbsp;<%= link_to @response.post.title, @response.post, target: "_blank" %>.</p>
+  <% else %>
+    <p><%=@actor.first_name%> replied to your comment on <%= link_to @response.post.title, @response.post, target: "_blank" %>.</p>
+  <% end %>
+<% end %>
+
+<hr>
+<p><%=@comment.body%><br>
+&nbsp;</p>
+
+<hr>
+<p><%= link_to 'Click here to log in and view', @response.post, target: "_blank" %><br>
+<br>
+Regards,<br>
+<br>
+TripTippa Team<br>
+&nbsp;</p>
+
+</td>

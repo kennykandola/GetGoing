@@ -1,9 +1,8 @@
-class PostsMailer < ActionMailer::Base
-  default from: "kennykandola89@gmail.com"
-
-  def send_diffusion new_mail, user
-    @message = new_mail
-    mail(to: user.email, subject: "New Post")
+class PostsMailer < ApplicationMailer
+  def new_post(user, post)
+    @user = user
+    @post = post
+    mail(to: user.email, subject: "Thanks for creating a new post on TripTippa!")
   end
 
   def inactivity_email(post, user)
@@ -12,13 +11,24 @@ class PostsMailer < ActionMailer::Base
                                    inactive for the last week")
   end
 
-  def suggest_post(post, user)
+  def matching_destination(post, user)
     @post = post
-    mail(to: user.email, subject: "Post suggestion: #{post.owner.first_name} just posted #{post.title} with places you have been")
+    @user = user
+    mail(to: user.email, subject: "Post suggestion: #{post.title} with places you have been")
   end
 
-  def suggest_post_nearby(post, user)
+  def upvoted_link(post, actor, recipient, booking_link)
     @post = post
-    mail(to: user.email, subject: "Post suggestion: #{post.owner.first_name} just posted #{post.title} with places nearby to locations you have been")
+    @actor = actor
+    @recipient = recipient
+    @booking_link = booking_link
+    mail(to: recipient.email, subject: "#{actor.first_name} up-voted your recommended link")
+  end
+
+  def daily_posts(user)
+    @new_posts = Post.new_posts
+    @open_posts = Post.status_open
+    @user = user
+    mail(to: user.email, subject: "Daily new/open posts")  if @new_posts.present? || @open_posts.present?
   end
 end

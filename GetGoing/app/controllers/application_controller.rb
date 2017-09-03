@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: %i[first_name last_name tippa])
   end
 
-  def after_sign_in_path_for(user)
-    "#{user_path(user)}#3"
+  def after_sign_in_path_for(resource)
+    stored_location_for(resource) || "#{user_path(resource)}#3"
   end
 end

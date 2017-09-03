@@ -12,7 +12,7 @@ class ResponsesController < ApplicationController
     if @claim_service.claim_accepted? && @response.save
       # @response.user.increment!(:score, by = 10)
       @post = Post.find(params[:post_id])
-      ResponsesMailer.submitted(@response).deliver_later
+      # ResponsesMailer.submitted(@response).deliver_later
       NotificationService.new(actor: current_user, notifiable: @response, post: @post).new_response
       @claim_service.response_created
       redirect_to @post, notice: 'Response was successfully created.'
@@ -43,13 +43,11 @@ class ResponsesController < ApplicationController
 
   def top_email
     @post = Post.find(params[:post_id])
-    @response = Response.find(params[:id])
-    @response.post.responses.where(top: true).score.increment!(:score, by = 20)
+    @post.responses.where(top: true).each do |response|
+      UserScoreService.new(user: response.user).update_score('finalize')
+    end
     ResponsesMailer.submitted_top(@post).deliver_later
-    # ResponsesMailer.submitted_top(@post).deliver_later # Gives errors, because ResponsesMailer is not implemented yet
     redirect_to @post, notice: 'Top Responses Have Been Finalized, Thank You!'
-
-
   end
 
   def edit

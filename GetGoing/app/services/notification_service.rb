@@ -13,13 +13,16 @@ class NotificationService
   end
 
   def new_response
-    deviver_new_response(@post.owner)
+    response = @notifiable
+    deliver_new_response(@post.owner)
+    ResponsesMailer.submitted(response, @post.owner).deliver_later
     @post.invited_users.each do |invited_user|
-      deviver_new_response(invited_user)
+      deliver_new_response(invited_user)
+      ResponsesMailer.submitted(response, invited_user).deliver_later
     end
   end
 
-  def deviver_new_response(recipient)
+  def deliver_new_response(recipient)
     @recipient = recipient
     notify('new_response')
   end
@@ -48,7 +51,7 @@ class NotificationService
   def deliver_new_comment_on_response(recipient)
     @recipient = recipient
     notify('new_comment_on_response')
-    ResponsesMailer.new_comment_email(@notifiable.response, @recipient).deliver_later
+    ResponsesMailer.new_comment_email(@notifiable.response, @actor, @recipient, @notifiable).deliver_later
   end
 
   def claims_open

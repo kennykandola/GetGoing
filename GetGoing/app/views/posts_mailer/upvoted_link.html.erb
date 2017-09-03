@@ -1,0 +1,20 @@
+<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+
+    <h1>Hi, <%= @recipient.first_name %><br>
+&nbsp;</h1>
+
+<p>Great news! <%= @actor.first_name %> up-voted your recommended link on <%= @post.title %>. Way to go!</p>
+
+<hr>
+<p><%= link_to @booking_link.title, @booking_link.url, target: '_blank' %><br>
+&nbsp;</p>
+
+<hr>
+<p><%= link_to 'Click here to view or reply', @post, target: '_blank' %><br>
+<br>
+Regards,<br>
+<br>
+TripTippa Team<br>
+&nbsp;</p>
+
+</td>

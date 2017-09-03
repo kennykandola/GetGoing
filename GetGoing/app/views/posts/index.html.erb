@@ -14,7 +14,7 @@
         <a class="nav-link w-nav-link" href="#">FAQ</a>
         <a class="nav-link w-nav-link">
           <% if user_signed_in? %>
-          <%= link_to "Your Profile", 'profile', class:"nav-link w-nav-link" %>
+          <%= link_to "Your Profile", user_path(current_user), class:"nav-link w-nav-link" %>
           <%= link_to "Log Out", destroy_user_session_path, :method => :delete, class:"nav-link w-nav-link" %>
           <div id='notifications-component' class="dropdown">
             <%= render partial: 'notifications/notifications_component' %>

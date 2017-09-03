@@ -1,20 +1,22 @@
-class ResponsesMailer < ActionMailer::Base
-  default from: "kennykandola89@gmail.com"
-
-  def submitted(response)
+class ResponsesMailer < ApplicationMailer
+  def submitted(response, user)
     @response = response
-
-    mail(to: @response.post.owner.email, subject: 'Sample Email')
+    @user = user
+    mail(to: user.email, subject: "New response on #{@response.post.title}")
   end
 
   def submitted_top(post)
     @post = post
-    mail(to: @post.owner.email, subject: 'Sample Email')
+    @user = post.owner
+    mail(to: @user.email, subject: 'Thanks for finalizing top responses')
   end
 
-  def new_comment_email(response, user)
+  def new_comment_email(response, actor, recipient, comment)
     @response = response
-    mail(to: user.email,
+    @actor = actor
+    @recipient = recipient
+    @comment = comment
+    mail(to: recipient.email,
          subject: "New comment on \"#{response.post.title}\"")
   end
 end

@@ -1,0 +1,23 @@
+
+<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+
+    <h1>Hi, <%= @user.first_name %><br>
+&nbsp;</h1>
+
+<p>Great news, there is a <%= link_to 'new post', @post, target: '_blank' %> that matches a destination you have been to. The post details are below.</p>
+
+<hr>
+<p><%= @post.body %><br>
+&nbsp;</p>
+
+<hr>
+<p>
+  <%= link_to 'Respond to this Post', @post, target: '_blank' %>
+  <br>
+<br>
+Regards,<br>
+<br>
+TripTippa Team<br>
+&nbsp;</p>
+
+</td>

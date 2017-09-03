@@ -1,8 +1,20 @@
-<h1> You got a new response on <%= @response.post.title %></h1>
+<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
 
-<h2> Log In to View </h2>
+    <h1>Hi, <%= @user.first_name %><br>
+&nbsp;</h1>
 
+<p>You got a new response on <%= link_to @response.post.title, @response.post, target: "_blank" %></p>
 
+<hr>
+<p><%=sanitize(@response.body.gsub("\n", "<br />"))%><br>
+&nbsp;</p>
 
+<hr>
+<p><%= link_to 'You can see all your responses and recommended links here', @response.post, target: "_blank" %><br>
+<br>
+Regards,<br>
+<br>
+TripTippa Team<br>
+&nbsp;</p>
 
-
+</td>

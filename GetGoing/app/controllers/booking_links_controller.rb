@@ -38,6 +38,7 @@ class BookingLinksController < ApplicationController
     NotificationService.new(actor: current_user,
                             notifiable: @booking_link,
                             recipient: @booking_link.response.user).recommended_link_upvoted
+    PostsMailer.upvoted_link(@post, current_user, @booking_link.response.user, @booking_link).deliver_later
     set_structured_booking_links
     respond_to :js
   end

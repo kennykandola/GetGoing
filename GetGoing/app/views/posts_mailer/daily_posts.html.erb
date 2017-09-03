@@ -1,0 +1,44 @@
+<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+  <h1>Hi, <%=@user.first_name %><br> </h1>
+<p>We thought you'd like to know there are currently
+<% if @new_posts.present? %>
+  <%= @new_posts.count %> new posts today
+<% end %>
+<% if @new_posts.present? && @open_posts.present? %>
+  and
+<% end %>
+<% if @open_posts.present? %>
+  <%= @open_posts.count %> open posts
+<% end %>
+. If you see one you like, give it a go!<br>
+<br>
+<% if @new_posts.present? %>
+  <strong>New Posts</strong></p>
+  <hr>
+  <% @new_posts.each do |post| %>
+    <p> <b><%= link_to post.title, post %>: </b></p>
+    <p> <%= post.body %><br></p>
+    <br>
+  <% end %>
+  <hr>
+<% end %>
+<% if @open_posts.present? %>
+  <p><strong>Open Posts</strong><br>
+  &nbsp;</p>
+  <hr>
+  <% @open_posts.each do |post| %>
+    <p> <b><%= link_to post.title, post %>: </b></p>
+    <p> <%= post.body %><br></p>
+    <br>
+  <% end %>
+<% end %>
+
+<hr>
+<p><%= link_to 'View all of these posts here', all_posts_url, target: '_blank'%><br>
+<br>
+Regards,<br>
+<br>
+TripTippa Team<br>
+&nbsp;</p>
+
+</td>

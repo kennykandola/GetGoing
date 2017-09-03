@@ -45,7 +45,7 @@
             <div id='notifications-component' class="dropdown">
               <%= render partial: 'notifications/notifications_component' %>
             </div>
-            <%= link_to "Your Profile", profile_path(id: current_user.id), class:"nav-link w-nav-link" %>
+            <%= link_to "Your Profile", user_path(current_user), class:"nav-link w-nav-link" %>
             <%= link_to "Log Out", destroy_user_session_path, :method => :delete, class:"nav-link w-nav-link" %>
           <% else %>
             <%= link_to "Log In", new_user_session_path, class:"w-nav-link" %>

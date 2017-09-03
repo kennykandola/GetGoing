@@ -1,0 +1,22 @@
+<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+
+    <h1>Hi, <%= @user.first_name %><br>
+&nbsp;</h1>
+
+<p>Thanks for creating a new post on TripTippa! We're now reaching out to travel advisors who can provide you with the best insights and links for your trip.</p>
+
+<hr>
+<p><%= @post.body %><br>
+&nbsp;</p>
+
+<hr>
+<p><%= link_to 'View or edit your post here', @post, target: '_blank' %><br></p>
+<br>
+In the meantime we will notify you when responses come in.<br>
+<br>
+Regards,<br>
+<br>
+TripTippa Team<br>
+&nbsp;</p>
+
+</td>

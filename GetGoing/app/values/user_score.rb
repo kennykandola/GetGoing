@@ -8,6 +8,8 @@ class UserScore
       10
     when 'remove'
       -10
+    when 'finalize'
+      20
     end
   end
 end

@@ -46,13 +46,9 @@ class PostsController < ApplicationController
         @post.owner = current_user # creates join record in join table
         places = post_and_places_params[:places_attributes]
         PostPlaceConnectionService.new(post: @post).connect_with_places(places)
-        User.all.each do |user|
-          if user.tippa == true
-            PostsMailer.send_diffusion(@message, user).deliver_later
-          end
-          format.html { redirect_to @post, notice: 'Post was successfully created.' }
-          format.json { render :show, status: :created, location: @post }
-        end
+        PostsMailer.new_post(current_user, @post).deliver_later
+        format.html { redirect_to @post, notice: 'Post was successfully created.' }
+        format.json { render :show, status: :created, location: @post }
       else
         format.html { render :new }
         format.json { render json: @post.errors, status: :unprocessable_entity }

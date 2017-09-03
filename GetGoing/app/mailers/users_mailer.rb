@@ -1,8 +1,6 @@
-class UsersMailer < ActionMailer::Base
-  default from: "kennykandola89@gmail.com"
-
-  def add_places(user)
+class UsersMailer < ApplicationMailer
+  def invite_advisor(user)
     @user = user
-    mail(to: user.email, subject: "Hi: #{user.first_name}! Add places you have traveled")
+    mail(to: user.email, subject: "You've been invited to sign up on TripTippa as an advisor!")
   end
 end

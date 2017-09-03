@@ -14,5 +14,9 @@ module GetGoing
     config.active_job.queue_adapter = :sidekiq
     config.assets.paths << Rails.root.join('vendor', 'assets', 'javascripts')
     config.assets.paths << Rails.root.join('vendor', 'assets', 'stylesheets')
+    config.to_prepare do
+      # Configure mailer layout
+      Devise::Mailer.layout 'mailer'
+    end
   end
 end

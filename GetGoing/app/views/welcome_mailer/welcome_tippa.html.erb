@@ -1,0 +1,34 @@
+<td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+
+    <% if @user.first_name.present? %>
+      <h1>Welcome, <%= @user.first_name %> !</h1>
+    <% else %>
+      <h1>Welcome!</h1>
+    <% end %>
+<br></br>
+
+<p>Thanks for signing up as an advisor on TripTippa! We're here to help you earn money while doing something enjoyable - crafting travel experiences for others.&nbsp;<br>
+<br>
+If you haven't already, <%= link_to "add the places you've lived in or traveled to here", places_url, "target" => "_blank"%>. This way you will get notified whenever a traveler is headed to a place you are familiar with.
+<% if @user.places.present? %>
+  We've currently extracted the below cities as places you've traveled to. <%= link_to "Click here to view or edit these", places_url, "target" => "_blank"%>:</p>
+  <hr>
+  <% @user.places.each do |place| %>
+    <%= place.city %> <br>
+  <% end %>
+  <hr>
+<% end %>
+<p>Make sure you <%= link_to "read this guide", tippa_guide_url, "target" => "_blank"%> before posting a response. It's a one minute read but is essential to learning how to respond on TripTippa.</p>
+
+<p>Checklist:<br>
+<%= link_to "Add Places You've Traveled To", places_url, "target" => "_blank"%><br>
+<%= link_to "Read Through The TripTippa&nbsp;Guide".html_safe, tippa_guide_url, "target" => "_blank"%><br>
+<%= link_to "Add Your Payment Details to Get Paid", user_url(@user), "target" => "_blank"%><br>
+<%= link_to "Browse Open Posts and Start Responding", all_posts_url, "target" => "_blank"%><br>
+<br>
+Regards,<br>
+<br>
+TripTippa Team<br>
+&nbsp;</p>
+
+</td>

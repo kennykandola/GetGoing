@@ -52,7 +52,8 @@ class Post < ApplicationRecord
     post_users.where(user: user).where(role: 'invited_user').present?
   end
 
-  scope :status_open, -> { where(status: true) }
+  scope :status_open, -> { where(status: true).order(created_at: :desc) }
+  scope :new_posts, -> { where('created_at >= ?', 1.day.ago).order(created_at: :desc)  }
 
   searchkick # index model with elasticsearch
 
